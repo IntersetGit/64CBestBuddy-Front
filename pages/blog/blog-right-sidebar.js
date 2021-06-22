@@ -1,9 +1,9 @@
 import React from 'react';
-import NavbarTwo from '../components/_App/NavbarTwo';
-import PageBanner from '../components/Common/PageBanner';
-import BlogSidebar from '../components/Blog/BlogSidebar';
+import NavbarTwo from '../../components/_App/NavbarTwo';
+import PageBanner from '../../components/Common/PageBanner';
+import BlogSidebar from '../../components/Blog/BlogSidebar';
 import Link from 'next/link';
-import Footer from '../components/_App/Footer';
+import Footer from '../../components/_App/Footer';
 
 const BlogRightSidebar = () => {
     return (
