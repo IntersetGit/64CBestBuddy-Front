@@ -4,7 +4,7 @@
     "description": "The Best BUDDY 19",
     "main": "index.js",
     "scripts": {
-        "dev": "next dev",
+        "dev": "node server/index.js",
         "start": "next start",
         "build": "next build",
         "export": "next export -o out",
@@ -24,5 +24,8 @@
         "react-modal-video": "^1.2.6",
         "react-owl-carousel3": "^2.2.5",
         "sass": "^1.32.12"
+    },
+    "devDependencies": {
+        "opn": "^6.0.0"
     }
 }
