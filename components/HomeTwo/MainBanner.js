@@ -14,7 +14,7 @@ const MainBanner = () => {
                             </ScrollAnimation>
 
                             <ScrollAnimation animateIn="fadeInUp" delay={100} animateOnce={true}>
-							    <h1>อุ่นใจ ปลอดภัย เมื่อมีเรา <br/> The Best Buddy</h1>
+							    <h1>Take The Worry Out of Life with Insurance Protection</h1>
                             </ScrollAnimation>
 
                             <ScrollAnimation animateIn="fadeInUp" delay={150} animateOnce={true}>

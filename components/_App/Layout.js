@@ -15,11 +15,11 @@ const Layout = ({ children }) => {
     return(
         <>
             <Head>
-                <title>The Best BUDDY 19</title>
+                <title>Flexa - React Insurance & Finance Company Template</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="The Best BUDDY 19" />
-                <meta name="og:title" property="og:title" content="The Best BUDDY 19"></meta>
-                <meta name="twitter:card" content="The Best BUDDY 19"></meta>
+                <meta name="description" content="Flexa - React Insurance & Finance Company Template" />
+                <meta name="og:title" property="og:title" content="Flexa - React Insurance & Finance Company Template"></meta>
+                <meta name="twitter:card" content="Flexa - React Insurance & Finance Company Template"></meta>
                 <link rel="canonical" href="https://flexa-react.envytheme.com/"></link>
             </Head>
 

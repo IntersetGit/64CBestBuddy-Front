@@ -79,7 +79,7 @@ const Navbar = () => {
                                                 </li>
 
                                                 <li className="nav-item">
-                                                    <Link href="/" activeClassName="active">
+                                                    <Link href="/index2" activeClassName="active">
                                                         <a onClick={toggleNavbar} className="nav-link">Home Two</a>
                                                     </Link>
                                                 </li>
@@ -267,8 +267,8 @@ const Navbar = () => {
 
                                             <ul className="dropdown-menu">
                                                 <li className="nav-item">
-                                                    <Link href="/blog/blog-grid" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">บทความ</a>
+                                                    <Link href="/blog-grid" activeClassName="active">
+                                                        <a onClick={toggleNavbar} className="nav-link">Blog Grid</a>
                                                     </Link>
                                                 </li>
 
@@ -285,8 +285,8 @@ const Navbar = () => {
                                                 </li>
 
                                                 <li className="nav-item">
-                                                    <Link href="/blog/blog-details" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">รายละเอียดบทความ</a>
+                                                    <Link href="/blog-details" activeClassName="active">
+                                                        <a onClick={toggleNavbar} className="nav-link">Blog Details</a>
                                                     </Link>
                                                 </li>
                                             </ul>
@@ -300,12 +300,12 @@ const Navbar = () => {
                                     </ul>
                                 
                                     <div className="others-option">
-										{/* <div className="option-item">
+										<div className="option-item">
 											<i className="search-btn bx bx-search" onClick={e => {
                                                 e.preventDefault(); 
                                                 toggleSearchModal()
                                             }}></i>
-										</div> */}
+										</div>
 
 										<div className="subscribe">
                                             <Link href="#">
@@ -379,11 +379,11 @@ const Navbar = () => {
 
                             <div className="modal-body">
                                 <div className="sidebar-modal-widget">
-                                    <h3 className="title">เกี่ยวกับเรา</h3>
-                                    <p style={{fontFamily:'Prompt, sans-serif'}}>บัดดี้กรุ๊ป ภายใต้การรวมตัวของบริษัท บัดดี้ ดี โบรคเกอร์ จำกัด และ บริษัท เดอะ เบสท์ บัดดี้ 19 จำกัด นายหน้าประกันชีวิตและวินาศภัยนิติบุคคล.</p>
+                                    <h3 className="title">About Us</h3>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, asperiores doloribus eum laboriosam praesentium delectus unde magni aut perspiciatis cumque deserunt dolore voluptate, autem pariatur.</p>
                                 </div>
 
-                                {/* <div className="sidebar-modal-widget">
+                                <div className="sidebar-modal-widget">
                                     <h3 className="title">Additional Links</h3>
 
                                     <ul>
@@ -403,7 +403,7 @@ const Navbar = () => {
                                             </Link>
                                         </li>
                                     </ul>
-                                </div> */}
+                                </div>
 
                                 <div className="sidebar-modal-widget">
                                     <h3 className="title">Contact Info</h3>

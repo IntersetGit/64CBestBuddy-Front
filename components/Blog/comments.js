@@ -4,7 +4,7 @@ import Link from 'next/link';
 const Comments = () => {
     return (
         <div className="comments-area">
-            <h3 className="comments-title">2 ความคิดเห็น:</h3>
+            <h3 className="comments-title">2 Comments:</h3>
 
             <ol className="comment-list">
                 <li className="comment">
@@ -12,27 +12,27 @@ const Comments = () => {
                         <footer className="comment-meta">
                             <div className="comment-author vcard">
                                 <img src="/images/blog-details/comment-img-1.jpg" className="avatar" alt="image" />
-                                <b className="fn">จอห์น โจนส์</b>
+                                <b className="fn">John Jones</b>
                                 <span className="says">says:</span>
                             </div>
 
                             <div className="comment-metadata">
-                                <span>กุมภาพันธ์ 23 2564 เวลา 10:59 น.</span>
+                                <span>April  24, 2020 at 10:59 am</span>
                             </div>
                         </footer>
 
                         <div className="comment-content">
-                            <p>เนื้อหาจำลองแบบเรียบๆ ที่ใช้กันในธุรกิจงานพิมพ์หรืองานเรียงพิมพ์ มันได้กลายมาเป็นเนื้อหาจำลองมาตรฐานของธุรกิจดังกล่าวมาตั้งแต่ศตวรรษที่ 16 เมื่อเครื่องพิมพ์โนเนมเครื่องหนึ่งนำรางตัวพิมพ์มาสลับสับตำแหน่งตัวอักษรเพื่อทำหนังสือตัวอย่าง</p>
+                            <p>Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type.</p>
                         </div>
 
                         <div className="reply">
                             <Link href="#">
-                                <a className="comment-reply-link">ตอบกลับ</a>
+                                <a className="comment-reply-link">Reply</a>
                             </Link>
                         </div>
                     </div>
 
-                    {/* <ol className="children">
+                    <ol className="children">
                         <li className="comment">
                             <div className="comment-body">
                                 <footer className="comment-meta">
@@ -58,7 +58,7 @@ const Comments = () => {
                                 </div>
                             </div>
                         </li>
-                    </ol> */}
+                    </ol>
                 </li>
 
                 <li className="comment">
@@ -66,22 +66,22 @@ const Comments = () => {
                         <footer className="comment-meta">
                             <div className="comment-author vcard">
                                 <img src="/images/blog-details/comment-img-3.jpg" className="avatar" alt="image" />
-                                <b className="fn">จอห์น โด</b>
+                                <b className="fn">John Doe</b>
                                 <span className="says">says:</span>
                             </div>
 
                             <div className="comment-metadata">
-                                <span>กุมภาพันธ์ 23 2564 เวลา 10:59 น.</span>
+                                <span>April  24, 2020 at 10:59 am</span>
                             </div>
                         </footer>
 
                         <div className="comment-content">
-                            <p>เนื้อหาจำลองแบบเรียบๆ ที่ใช้กันในธุรกิจงานพิมพ์หรืองานเรียงพิมพ์ มันได้กลายมาเป็นเนื้อหาจำลองมาตรฐานของธุรกิจดังกล่าวมาตั้งแต่ศตวรรษที่ 16 เมื่อเครื่องพิมพ์โนเนมเครื่องหนึ่งนำรางตัวพิมพ์มาสลับสับตำแหน่งตัวอักษรเพื่อทำหนังสือตัวอย่าง</p>
+                            <p>Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type.</p>
                         </div>
 
                         <div className="reply">
                             <Link href="#">
-                                <a className="comment-reply-link">ตอบกลับ</a>
+                                <a className="comment-reply-link">Reply</a>
                             </Link>
                         </div>
                     </div>
@@ -89,28 +89,32 @@ const Comments = () => {
             </ol>
 
             <div className="comment-respond">
-                <h3 className="comment-reply-title">ทิ้งคำตอบไว้</h3>
+                <h3 className="comment-reply-title">Leave a Reply</h3>
 
                 <form className="comment-form">
                     <p className="comment-notes">
-                        <span id="email-notes">ที่อยู่อีเมลของคุณจะไม่ถูกเผยแพร่</span>
+                        <span id="email-notes">Your email address will not be published.</span>
                         Required fields are marked 
                         <span className="required">*</span>
                     </p>
                     <p className="comment-form-author">
-                        <label>ชื่อ <span className="required">*</span></label>
+                        <label>Name <span className="required">*</span></label>
                         <input type="text" id="author" name="author" required="required" />
                     </p>
                     <p className="comment-form-email">
-                        <label>อีเมล <span className="required">*</span></label>
+                        <label>Email <span className="required">*</span></label>
                         <input type="email" id="email" name="email" required="required" />
                     </p>
+                    <p className="comment-form-url">
+                        <label>Website</label>
+                        <input type="url" id="url" name="url" />
+                    </p>
                     <p className="comment-form-comment">
-                        <label>ความคิดเห็น</label>
+                        <label>Comment</label>
                         <textarea name="comment" id="comment" cols="45" rows="5" required="required"></textarea>
                     </p>
                     <p className="form-submit">
-                        <input type="submit" name="submit" id="submit" className="submit" value="แสดงความคิดเห็น" />
+                        <input type="submit" name="submit" id="submit" className="submit" value="Post A Comment" />
                     </p>
                 </form>
             </div>

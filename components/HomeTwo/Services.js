@@ -3,100 +3,101 @@ import Link from 'next/link';
 
 const Services = () => {
     return (
-        <div className="services-area pt-100 pb-70">
+        <div className="service-area-two pt-100 pb-35">
             <div className="container">
                 <div className="section-title">
-                    <span>บริการของเรา</span>
-                    <h2>ประเภทของการประกัน</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
+                    <span>Our Services</span>
+                    <h2>Types of flexa Insurance</h2>
+                    <p>Oppor ipsum suspendice consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore mua. Quis ipsum suspendices gravida.</p>
                 </div>
 
                 <div className="row">
                     <div className="col-lg-4 col-sm-6">
-                        <div className="single-services">
-                            <i className="flaticon-car-insurance"></i>
-                            <h3>ประกัน รถยนต์</h3>
+                        <div className="single-service mb-65">
+                            <div className="service-content">
+                                <i className="icon-style flaticon-car-insurance"></i>
+                                <h3>Car Insurance</h3>
+                                <p>Startup ipsum dolor sit amet consuring elised faisism dolor sit amet.</p>
 
-                            <p>Lorem ipsum dolor do sit amet ut, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.</p>
-
-                            <Link href="/insurance-details">
-                                <a className="read-more">Read More</a>
-                            </Link>
+                                <Link href="/insurance-details">
+                                    <a><i className="bx bx-chevrons-right"></i></a>
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
                     <div className="col-lg-4 col-sm-6">
-                        <div className="single-services">
-                            <i className="flaticon-health-care"></i>
-                            <h3>ประกันสุขภาพ</h3>
+                        <div className="single-service mb-65">
+                            <div className="service-content">
+                                <i className="icon-style flaticon-insurance"></i>
+                                <h3>Leadership Work</h3>
+                                <p>Leader ipsum dolor sit amet consuring lised faisism dolor sit amet.</p>
 
-                            <p>Lorem ipsum dolor do sit amet ut, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.</p>
-
-                            <Link href="/insurance-details">
-                                <a className="read-more">Read More</a>
-                            </Link>
+                                <Link href="/insurance-details">
+                                    <a><i className="bx bx-chevrons-right"></i></a>
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
                     <div className="col-lg-4 col-sm-6">
-                        <div className="single-services">
-                            <i className="flaticon-life-insurance"></i>
-                            <h3>ประกันมะเร็ง</h3>
+                        <div className="single-service mb-65">
+                            <div className="service-content">
+                                <i className="icon-style flaticon-salesman"></i>
+                                <h3>Business Insurance</h3>
+                                <p>Leader ipsum dolor sit amet consuring lised faisism dolor sit amet.</p>
 
-                            <p>Lorem ipsum dolor do sit amet ut, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.</p>
-
-                            <Link href="/insurance-details">
-                                <a className="read-more">Read More</a>
-                            </Link>
+                                <Link href="/insurance-details">
+                                    <a><i className="bx bx-chevrons-right"></i></a>
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
                     <div className="col-lg-4 col-sm-6">
-                        <div className="single-services">
-                            <i className="flaticon-salesman"></i>
-                            <h3>ประกันอุบัติเหตุ</h3>
+                        <div className="single-service mb-65">
+                            <div className="service-content">
+                                <i className="icon-style flaticon-insurance-1"></i>
+                                <h3>Travel Insurance</h3>
+                                <p>Leader ipsum dolor sit amet consuring lised faisism dolor sit amet.</p>
 
-                            <p>Lorem ipsum dolor do sit amet ut, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.</p>
-
-                            <Link href="/insurance-details">
-                                <a className="read-more">Read More</a>
-                            </Link>
+                                <Link href="/insurance-details">
+                                    <a><i className="bx bx-chevrons-right"></i></a>
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
                     <div className="col-lg-4 col-sm-6">
-                        <div className="single-services">
-                            <i className="flaticon-travel-insurance"></i>
-                            <h3>ประกันโรคร้ายแรง</h3>
+                        <div className="single-service mb-65">
+                            <div className="service-content">
+                                <i className="icon-style flaticon-health-care"></i>
+                                <h3>Health Insurance</h3>
+                                <p>Leader ipsum dolor sit amet consuring lised faisism dolor sit amet.</p>
 
-                            <p>Lorem ipsum dolor do sit amet ut, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.</p>
-
-                            <Link href="/insurance-details">
-                                <a className="read-more">Read More</a>
-                            </Link>
+                                <Link href="/insurance-details">
+                                    <a><i className="bx bx-chevrons-right"></i></a>
+                                </Link>
+                            </div>
                         </div>
-
                     </div>
 
                     <div className="col-lg-4 col-sm-6">
-                        <div className="single-services">
-                            <i className="flaticon-social-care-1"></i>
-                            <h3>ประกันชีวิต</h3>
+                        <div className="single-service mb-65">
+                            <div className="service-content">
+                                <i className="icon-style flaticon-life-insurance-1"></i>
+                                <h3>Life Insurance</h3>
+                                <p>Leader ipsum dolor sit amet consuring lised faisism dolor sit amet.</p>
 
-                            <p>Lorem ipsum dolor do sit amet ut, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.</p>
-
-                            <Link href="/insurance-details">
-                                <a className="read-more">Read More</a>
-                            </Link>
+                                <Link href="/insurance-details">
+                                    <a><i className="bx bx-chevrons-right"></i></a>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div className="services-shape">
-                <img src="/images/services-shape-1.png" alt="Image" />
-            </div>
-        </div>
+		</div>
     )
 }
 

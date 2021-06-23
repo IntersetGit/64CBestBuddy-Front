@@ -8,7 +8,7 @@ const AboutUsContent = () => {
 				<div className="row align-items-center">
 					<div className="col-lg-6">
 						<div className="about-content">
-							<span>เกี่ยวกับเรา</span>
+							<span>About Us</span>
 							<h2>We have been Thriving in 37 Years The Area</h2>
 
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis</p>	

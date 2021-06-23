@@ -7,7 +7,7 @@ const OurFeatures = () => {
 			<div className="container">
 				<div className="section-title">
 					<span>Our Features</span>
-					<h2>อุ่นใจ ปลอดภัย เมื่อมีเรา The Best Buddy</h2>
+					<h2>Take The Worry Out of Life With Insurance Protection</h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
 				</div>
 

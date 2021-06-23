@@ -5,12 +5,12 @@ const BlogSidebar = () => {
     return (
         <div className="widget-area" id="secondary">
             <div className="widget widget_search">
-                <h3 className="widget-title">ค้นหา</h3>
+                <h3 className="widget-title">Search Now</h3>
                 <div className="post-wrap">
                     <form className="search-form">
                         <label>
                             <span className="screen-reader-text">Search for:</span>
-                            <input type="search" className="search-field" placeholder="ค้นหา..." />
+                            <input type="search" className="search-field" placeholder="Search..." />
                         </label>
                         <button type="submit">
                             <i className='bx bx-search'></i>
@@ -20,20 +20,20 @@ const BlogSidebar = () => {
             </div>
 
             <div className="widget widget-peru-posts-thumb">
-                <h3 className="widget-title">โพสต์เป็นที่นิยม</h3>
+                <h3 className="widget-title">Popular Posts</h3>
                 <div className="post-wrap">
                     <div className="item">
-                        <Link href="/blog/blog-detailsblog-details">
+                        <Link href="/blog-details">
                             <a className="thumb">
                                 <span className="fullimage cover bg1" role="img"></span>
                             </a>
                         </Link>
                         <div className="info">
-                            <span>กุมภาพันธ์ 23 2564</span>
+                            <span>April 20, 2020</span>
                             <h4 className="title usmall">
-                                <Link href="/blog/blog-details">
+                                <Link href="/blog-details">
                                     <a>
-                                        BUDDY | Grab ปลอดภัยทุกปลายทาง ด้วยประกันชั้น 1
+                                        Where And How To Watch Live Stream Today
                                     </a>
                                 </Link>
                             </h4>
@@ -43,18 +43,18 @@ const BlogSidebar = () => {
                     </div>
 
                     <div className="item">
-                        <Link href="/blog/blog-details">
+                        <Link href="/blog-details">
                             <a className="thumb">
                                 <span className="fullimage cover bg2" role="img"></span>
                             </a>
                         </Link>
                         <div className="info">
-                            <span>กุมภาพันธ์ 23 2564</span>
-
+                            <span>April 21, 2020</span>
+                            
                             <h4 className="title usmall">
-                                <Link href="/blog/blog-details">
+                                <Link href="/blog-details">
                                     <a>
-                                        ไขข้อสงสัย คำถามคาใจที่พบบ่อยกับประกันเดินทาง
+                                        The Five Devices You Need To Work Anytime
                                     </a>
                                 </Link>
                             </h4>
@@ -64,39 +64,39 @@ const BlogSidebar = () => {
                     </div>
 
                     <div className="item">
-                        <Link href="/blog/blog-details">
+                        <Link href="/blog-details">
                             <a className="thumb">
                                 <span className="fullimage cover bg3" role="img"></span>
                             </a>
                         </Link>
 
                         <div className="info">
-                            <span>กุมภาพันธ์ 23 2564</span>
+                            <span>April  22, 2020</span>
                             <h4 className="title usmall">
-                                <Link href="/blog/blog-details">
+                                <Link href="/blog-details">
                                     <a>
-                                    ประกันคอนโดเรื่องสำคัญที่ชาวคอนโดต้องรู้
-                                    </a>
+                                        Blackpool Polices Hunt For David Schwinger
+                                    </a> 
                                 </Link>
                             </h4>
                         </div>
 
                         <div className="clear"></div>
                     </div>
-
+                    
                     <div className="item">
-                        <Link href="/blog/blog-details">
+                        <Link href="/blog-details">
                             <a className="thumb">
                                 <span className="fullimage cover bg4" role="img"></span>
                             </a>
                         </Link>
 
                         <div className="info">
-                            <span>กุมภาพันธ์ 23 2564</span>
+                            <span>April 23, 2020</span>
                             <h4 className="title usmall">
-                                <Link href="/blog/blog-details">
+                                <Link href="/blog-details">
                                     <a>
-                                    เบี้ยต่ำกว่าแสน ให้ค่าตรวจสุขภาพ เหมาจ่ายแผนไหนให้สูงสุด ?
+                                        Do You Do The Fixing And The Execution Of Yourselves?
                                     </a>
                                 </Link>
                             </h4>
@@ -106,36 +106,46 @@ const BlogSidebar = () => {
                     </div>
                 </div>
             </div>
-
+  
             <div className="widget widget_categories">
-                <h3 className="widget-title">หมวดหมู่</h3>
+                <h3 className="widget-title">Categories</h3>
                 <div className="post-wrap">
                     <ul>
                         <li>
                             <Link href="#">
-                                <a>ทุกเรื่องรถยนต์ <span>(10)</span></a>
+                                <a>Mother border <span>(10)</span></a>
                             </Link>
                         </li>
                         <li>
                             <Link href="#">
-                                <a>เรื่องบ้านน่ารู้ <span>(20)</span></a>
+                                <a>Tweezers <span>(20)</span></a>
                             </Link>
                         </li>
                         <li>
                             <Link href="#">
-                                <a>สุขภาพ<span>(10)</span></a>
+                                <a>Cotton Swabs <span>(10)</span></a>
                             </Link>
                         </li>
                         <li>
                             <Link href="#">
-                                <a>การเดินทาง <span>(12)</span></a>
+                                <a>Grounding Strap <span>(12)</span></a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="#">
+                                <a>Prebuilt Tool Kits <span>(16)</span></a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="#">
+                                <a>Hex Driver <span>(17)</span></a>
                             </Link>
                         </li>
                     </ul>
                 </div>
             </div>
-
-            {/* <div className="widget widget_tag_cloud">
+  
+            <div className="widget widget_tag_cloud">
                 <h3 className="widget-title">Tags</h3>
                 <div className="post-wrap">
                     <div className="tagcloud">
@@ -164,7 +174,7 @@ const BlogSidebar = () => {
                         </Link>
                     </div>
                 </div>
-            </div>        */}
+            </div>       
         </div>
     )
 }

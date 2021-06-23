@@ -1,10 +1,10 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import Link from '../../utils/ActiveLink';
 
 const NavbarThree = () => {
-    const [menu, setMenu] = React.useState(true)
-    const [sidebarModal, setSidebar] = React.useState(false)
-    const [searchModal, setSearch] = React.useState(false)
+    const [menu, setMenu] = useState(true)
+    const [sidebarModal, setSidebar] = useState(false)
+    const [searchModal, setSearch] = useState(false)
     const toggleSidebarModal = () => {
         setSidebar(!sidebarModal)
     }
@@ -16,41 +16,30 @@ const NavbarThree = () => {
         setMenu(!menu)
     }
 
-    React.useEffect(() => {
-        let elementId = document.getElementById("navbar");
-        document.addEventListener("scroll", () => {
-            if (window.scrollY > 170) {
-                elementId.classList.add("is-sticky");
-            } else {
-                elementId.classList.remove("is-sticky");
-            }
-        });
-        window.scrollTo(0, 0);
-    })
- 
+
     const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
     const classTwo = menu ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
 
     return (
         <>
             <header className="header-area header-area-three fixed-top">
-                <div id="navbar" className="navbar-area navbar-three">
+                <div id="navbar" className="navbar-area navbar-three is-sticky">
                     <div className="main-nav">
                         <nav className="navbar navbar-expand-lg navbar-light">
                             <div className="container">
                                 <Link href="/">
                                     <a onClick={toggleNavbar} className="navbar-brand">
-                                        <img src="/images/logo.png" alt="logo" />
+                                        <img src="/images/logo.png" alt="logo" style={{width: "96%"}} />
                                     </a>
                                 </Link>
 
-                                <button 
-                                    onClick={toggleNavbar} 
+                                <button
+                                    onClick={toggleNavbar}
                                     className={classTwo}
-                                    type="button" 
-                                    data-toggle="collapse" 
-                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-                                    aria-expanded="false" 
+                                    type="button"
+                                    data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false"
                                     aria-label="Toggle navigation"
                                 >
                                     <span className="icon-bar top-bar"></span>
@@ -61,267 +50,32 @@ const NavbarThree = () => {
                                 <div className={classOne} id="navbarSupportedContent">
                                     <ul className="navbar-nav m-auto">
                                         <li className="nav-item">
-                                            <Link href="#" activeClassName="active">
-                                                <a onClick={e => e.preventDefault()} className="nav-link">
-                                                    Home <i className='bx bx-chevron-down'></i>
-                                                </a>
-                                            </Link>
-
-                                            <ul className="dropdown-menu">
-                                                <li className="nav-item">
-                                                    <Link href="/" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Home One</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Home Two</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/index3" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Home Three</a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/about" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">About</a>
+                                            <Link href="/" activeClassName="active">
+                                                <a className="nav-link">ซื้อแผนประกัน</a>
                                             </Link>
                                         </li>
-
                                         <li className="nav-item">
-                                            <Link href="#">
-                                                <a onClick={e => e.preventDefault()} className="nav-link">
-                                                    Pages <i className='bx bx-chevron-down'></i>
-                                                </a>
+                                            <Link href="https://bestbuddy.diabetescru.com/" activeClassName="active">
+                                                <a li className="nav-link">บทความ</a>
                                             </Link>
-
-                                            <ul className="dropdown-menu">
-                                                <li className="nav-item">
-                                                    <Link href="/team" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Team</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/pricing" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Pricing</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/testimonials" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Testimonials</a>
-                                                    </Link>
-                                                </li>
-                                                
-                                                <li className="nav-item">
-                                                    <Link href="#">
-                                                        <a onClick={e => e.preventDefault()} className="nav-link">
-                                                            User <i className='bx bx-chevron-down'></i>
-                                                        </a>
-                                                    </Link>
-
-                                                    <ul className="dropdown-menu">
-                                                        <li className="nav-item">
-                                                            <Link href="/sign-up" activeClassName="active">
-                                                                <a onClick={toggleNavbar} className="nav-link">Sign Up</a>
-                                                            </Link>
-                                                        </li> 
-
-                                                        <li className="nav-item">
-                                                            <Link href="/sign-in" activeClassName="active">
-                                                                <a onClick={toggleNavbar} className="nav-link">Sign In</a>
-                                                            </Link>
-                                                        </li> 
-
-                                                        <li className="nav-item">
-                                                            <Link href="/recover-password" activeClassName="active">
-                                                                <a onClick={toggleNavbar} className="nav-link">Recover Password</a>
-                                                            </Link>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/faq" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">FAQ</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/coming-soon" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Coming Soon</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/terms-conditions" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Terms & Conditions</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/privacy-policy" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Privacy Policy</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/404" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">404 Error Page</a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
                                         </li>
-
                                         <li className="nav-item">
-                                            <Link href="#">
-                                                <a onClick={e => e.preventDefault()} className="nav-link">
-                                                    Insurance <i className='bx bx-chevron-down'></i>
-                                                </a>
+                                            <Link href="https://bestbuddy.diabetescru.com/">
+                                                <a className="nav-link">โปรโมชั่น</a>
                                             </Link>
-
-                                            <ul className="dropdown-menu">
-                                                <li className="nav-item">
-                                                    <Link href="/travel-insurance" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Travel Insurance</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/business-insurance" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Business Insurance</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/health-insurance" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Health Insurance</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/car-insurance" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Car Insurance</a>
-                                                    </Link>
-                                                </li>
-    
-                                                <li className="nav-item">
-                                                    <Link href="/insurance-details" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Insurance Details</a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
                                         </li>
-
                                         <li className="nav-item">
-                                            <Link href="#" activeClassName="active">
-                                                <a onClick={e => e.preventDefault()} className="nav-link">
-                                                    Portfolio <i className='bx bx-chevron-down'></i>
-                                                </a>
+                                            <Link href="https://bestbuddy.diabetescru.com/">
+                                                <a className="nav-link">เกี่ยวกับเรา</a>
                                             </Link>
-                                            
-                                            <ul className="dropdown-menu">
-                                                <li className="nav-item">
-                                                    <Link href="/portfolio-columns-two" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Portfolio Columns Two</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/portfolio-columns-three" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Portfolio Columns Three</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/portfolio-columns-four" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Portfolio Columns Four</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/portfolio-details" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Portfolio Details</a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
                                         </li>
-
                                         <li className="nav-item">
-                                            <Link href="#">
-                                                <a onClick={e => e.preventDefault()} className="nav-link">
-                                                    Blog <i className='bx bx-chevron-down'></i>
-                                                </a>
-                                            </Link>
-
-                                            <ul className="dropdown-menu">
-                                                <li className="nav-item">
-                                                    <Link href="/blog/blog-grid" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">บทความ</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/blog-left-sidebar" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Blog Left Sidebar</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/blog-right-sidebar" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Blog Right Sidebar</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/blog/blog-details" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">รายละเอียดบทความ</a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/contact" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Contact</a>
+                                            <Link href="https://bestbuddy.diabetescru.com/">
+                                                <a className="nav-link">ติดต่อเรา</a>
                                             </Link>
                                         </li>
                                     </ul>
-                                
-                                    <div className="others-option">
-										{/* <div className="option-item">
-											<i className="search-btn bx bx-search" onClick={e => {
-                                                e.preventDefault(); 
-                                                toggleSearchModal()
-                                            }}></i>
-										</div> */}
 
-										<div className="subscribe">
-                                            <Link href="#">
-                                                <a className="default-btn">
-                                                    Get A Quote
-                                                </a>
-                                            </Link>
-										</div>
-
-										<div className="sidebar-menu">
-                                            <Link href="#">
-                                                <a onClick={e => {
-                                                    e.preventDefault(); 
-                                                    toggleSidebarModal()
-                                                }}>
-                                                    <i className="bx bx-grid-alt"></i>
-                                                </a>
-                                            </Link>
-										</div>
-									</div>
                                 </div>
                             </div>
                         </nav>
@@ -330,14 +84,14 @@ const NavbarThree = () => {
             </header>
 
             {/* Search Overlay */}
-            <div className={`search-overlay ${searchModal ? 'search-overlay-active' : null}`}>  
+            <div className={`search-overlay ${searchModal ? 'search-overlay-active' : null}`}>
                 <div className="d-table">
                     <div className="d-table-cell">
                         <div className="search-overlay-layer"></div>
                         <div className="search-overlay-layer"></div>
                         <div className="search-overlay-layer"></div>
-                        
-                        <div className="search-overlay-close" onClick={e => {e.preventDefault(); toggleSearchModal()}}>
+
+                        <div className="search-overlay-close" onClick={e => { e.preventDefault(); toggleSearchModal() }}>
                             <span className="search-overlay-close-line"></span>
                             <span className="search-overlay-close-line"></span>
                         </div>
@@ -353,9 +107,9 @@ const NavbarThree = () => {
                     </div>
                 </div>
             </div>
-        
+
             {/* Sidebar Modal */}
-            <div className={`sidebar-modal ${sidebarModal ? 'active' : null}`}>  
+            <div className={`sidebar-modal ${sidebarModal ? 'active' : null}`}>
                 <div className="modal">
                     <div className="modal-dialog">
                         <div className="modal-content">
@@ -366,7 +120,7 @@ const NavbarThree = () => {
                                     </Link>
                                 </h2>
 
-                                <button type="button" className="close" onClick={e => {e.preventDefault(); toggleSidebarModal()}}>
+                                <button type="button" className="close" onClick={e => { e.preventDefault(); toggleSidebarModal() }}>
                                     <span aria-hidden="true">
                                         <i className="bx bx-x"></i>
                                     </span>
@@ -375,11 +129,11 @@ const NavbarThree = () => {
 
                             <div className="modal-body">
                                 <div className="sidebar-modal-widget">
-                                    <h3 className="title">เกี่ยวกับเรา</h3>
-                                    <p style={{fontFamily:'Prompt, sans-serif'}}>บัดดี้กรุ๊ป ภายใต้การรวมตัวของบริษัท บัดดี้ ดี โบรคเกอร์ จำกัด และ บริษัท เดอะ เบสท์ บัดดี้ 19 จำกัด นายหน้าประกันชีวิตและวินาศภัยนิติบุคคล.</p>
+                                    <h3 className="title">About Us</h3>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, asperiores doloribus eum laboriosam praesentium delectus unde magni aut perspiciatis cumque deserunt dolore voluptate, autem pariatur.</p>
                                 </div>
 
-                                {/* <div className="sidebar-modal-widget">
+                                <div className="sidebar-modal-widget">
                                     <h3 className="title">Additional Links</h3>
 
                                     <ul>
@@ -399,7 +153,7 @@ const NavbarThree = () => {
                                             </Link>
                                         </li>
                                     </ul>
-                                </div> */}
+                                </div>
 
                                 <div className="sidebar-modal-widget">
                                     <h3 className="title">Contact Info</h3>
@@ -422,7 +176,7 @@ const NavbarThree = () => {
                                         </li>
                                     </ul>
                                 </div>
-                                
+
                                 <div className="sidebar-modal-widget">
                                     <h3 className="title">Connect With Us</h3>
 

@@ -7,7 +7,7 @@ const ServicesStyleOne = () => {
 			<div className="container">
 				<div className="section-title">
 					<span>Our Services</span>
-					<h2>Types of Best BUDDY 19 Insurance</h2>
+					<h2>Types of Flexa Insurance</h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
 				</div>
 

@@ -7,7 +7,7 @@ const ServicesStyleTwo = () => {
             <div className="container">
                 <div className="section-title">
                     <span>Our Service</span>
-                    <h2>Types of Best BUDDY 19 Insurance</h2>
+                    <h2>Types of Flexa Insurance</h2>
                     <p>Oppor ipsum suspendice consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore mua. Quis ipsum suspendices gravida.</p>
                 </div>
 
