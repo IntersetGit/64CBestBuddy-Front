@@ -25,11 +25,11 @@ const NavbarThree = () => {
             <header className="header-area header-area-three fixed-top">
                 <div id="navbar" className="navbar-area navbar-three is-sticky">
                     <div className="main-nav">
-                        <nav className="navbar navbar-expand-lg navbar-light">
+                        <nav className="navbar navbar-expand-lg navbar-light" style={{ padding: 0, margin: 0 }}>
                             <div className="container">
                                 <Link href="/">
                                     <a onClick={toggleNavbar} className="navbar-brand">
-                                        <img src="/images/logo.png" alt="logo" style={{width: "96%"}} />
+                                        <img src="/images/logo.png" alt="logo" style={{ width: "96%", padding: 0, margin: 0 }} />
                                     </a>
                                 </Link>
 

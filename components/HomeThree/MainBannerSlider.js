@@ -36,6 +36,7 @@ const MainBannerSlider = () => {
 				<div className="slider-item" style={{backgroundImage: "url(" + `../demo/img2-1500x430.png` + ")"}} />
 				<div className="slider-item" style={{backgroundImage: "url(" + `../demo/img3-1500x430.png` + ")"}} />
 				<div className="slider-item" style={{backgroundImage: "url(" + `../demo/img4-1500x430.png` + ")"}} />
+				<div className="slider-item" style={{backgroundImage: "url(" + `../demo/Job_16_03_WFH_1500x430px_01_0.jpg` + ")"}} />
 		
             </OwlCarousel> : ''
 }
