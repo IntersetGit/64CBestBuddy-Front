@@ -6,9 +6,7 @@ const BlogPost = () => {
         <div className="blog-area pb-70">
 			<div className="container">
 				<div className="section-title">
-					<span>Blog</span>
-					<h2>Latest News From Our Blog</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus</p>
+					<h2>แผนประกันออนไลน์</h2>
 				</div>
 
 				<div className="row">
