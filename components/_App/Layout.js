@@ -2,6 +2,7 @@ import React from 'react'
 import Head from "next/head"
 import GoTop from './GoTop'
 import Preloader from './Preloader'
+import Navbar from '../../components/_App/Navbar';
 
 const Layout = ({ children }) => {
 
@@ -22,7 +23,7 @@ const Layout = ({ children }) => {
                 <meta name="twitter:card" content="Flexa - React Insurance & Finance Company Template"></meta>
                 <link rel="canonical" href="https://flexa-react.envytheme.com/"></link>
             </Head>
-
+            <Navbar />
             {children}
 
             {loader ? <Preloader /> : null}
