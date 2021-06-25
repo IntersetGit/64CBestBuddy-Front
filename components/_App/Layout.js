@@ -16,12 +16,7 @@ const Layout = ({ children }) => {
     return(
         <>
             <Head>
-                <title>Flexa - React Insurance & Finance Company Template</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="Flexa - React Insurance & Finance Company Template" />
-                <meta name="og:title" property="og:title" content="Flexa - React Insurance & Finance Company Template"></meta>
-                <meta name="twitter:card" content="Flexa - React Insurance & Finance Company Template"></meta>
-                <link rel="canonical" href="https://flexa-react.envytheme.com/"></link>
             </Head>
             <Navbar />
             {children}
