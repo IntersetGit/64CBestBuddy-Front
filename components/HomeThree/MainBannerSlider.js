@@ -32,11 +32,11 @@ const MainBannerSlider = () => {
                 className="hero-slider-wrap owl-carousel owl-theme"
                 {...options}
             > 
-				<div className="slider-item" style={{backgroundImage: "url(" + `../demo/img1-1500x430.png` + ")"}} />
-				<div className="slider-item" style={{backgroundImage: "url(" + `../demo/img2-1500x430.png` + ")"}} />
-				<div className="slider-item" style={{backgroundImage: "url(" + `../demo/img3-1500x430.png` + ")"}} />
-				<div className="slider-item" style={{backgroundImage: "url(" + `../demo/img4-1500x430.png` + ")"}} />
-				<div className="slider-item" style={{backgroundImage: "url(" + `../demo/Job_16_03_WFH_1500x430px_01_0.jpg` + ")"}} />
+				<div className="slider-item" style={{backgroundImage: "url(" + `../images/img1-1500x430.png` + ")"}} />
+				<div className="slider-item" style={{backgroundImage: "url(" + `../images/img2-1500x430.png` + ")"}} />
+				<div className="slider-item" style={{backgroundImage: "url(" + `../images/img3-1500x430.png` + ")"}} />
+				<div className="slider-item" style={{backgroundImage: "url(" + `../images/img4-1500x430.png` + ")"}} />
+				<div className="slider-item" style={{backgroundImage: "url(" + `../images/cigna/Job_16_03_WFH_1500x430px_01_0.jpg` + ")"}} />
 		
             </OwlCarousel> : ''
 }

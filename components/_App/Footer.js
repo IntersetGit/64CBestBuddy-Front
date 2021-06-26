@@ -9,7 +9,7 @@ const Footer = () => {
             <footer className="footer-top-area pt-100 pb-70">
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-3 col-md-6">
+                        <div className="col-lg-4 col-md-6">
                             <div className="single-widget">
                                 <Link href="/">
                                     <a>
@@ -19,29 +19,11 @@ const Footer = () => {
 
                                 <p>บัดดี้กรุ๊ป ภายใต้การรวมตัวของบริษัท บัดดี้ ดี โบรคเกอร์ จำกัด และ บริษัท เดอะ เบสท์ บัดดี้ 19 จำกัด นายหน้าประกันชีวิตและวินาศภัยนิติบุคคล.</p>
 
-                                <div className="social-area">
-                                    <ul>
-                                        <li>
-                                            <a href="#" target="_blank"><i className="bx bxl-facebook"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" target="_blank"><i className="bx bxl-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" target="_blank"><i className="bx bxl-linkedin"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" target="_blank"><i className="bx bxl-youtube"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" target="_blank"><i className="bx bxl-instagram"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
+                               
                             </div>
                         </div>
 
-                        <div className="col-lg-3 col-md-6">
+                        <div className="col-lg-4 col-md-6">
                             <div className="single-widget contact">
                                 <h3>ติดต่อเรา</h3>
 
@@ -71,59 +53,37 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        <div className="col-lg-3 col-md-6">
+                        <div className="col-lg-4 col-md-6">
                             <div className="single-widget">
                                 <h3>บริการด้านประกันภัย</h3>
 
                                 <ul>
                                     <li>
-                                        <Link href="/insurance-details">
-                                            <a>ประกัน รถยนต์</a>
+                                        <Link href="/" activeClassName="active">
+                                            <a className="nav-link">ซื้อแผนประกัน</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/car-insurance">
-                                            <a>ประกันสุขภาพ</a>
+                                        <Link href="https://bestbuddy.diabetescru.com/" activeClassName="active">
+                                            <a li className="nav-link">บทความ</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/home-insurance">
-                                            <a>ประกันชีวิต</a>
+                                        <Link href="https://bestbuddy.diabetescru.com/">
+                                            <a className="nav-link">โปรโมชั่น</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/insurance-details">
-                                            <a>ประกันอุบัติเหตุ</a>
+                                        <Link href="https://bestbuddy.diabetescru.com/">
+                                            <a className="nav-link">เกี่ยวกับเรา</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/health-insurance">
-                                            <a>ประกันโรคร้ายแรง</a>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/business-insurance">
-                                            <a>ประกันมะเร็ง</a>
+                                        <Link href="https://bestbuddy.diabetescru.com/">
+                                            <a className="nav-link">ติดต่อเรา</a>
                                         </Link>
                                     </li>
                                 </ul>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-3 col-md-6">
-                            <div className="single-widget">
-                                <h3>Newsletter</h3>
-
-                                <p className="newsletter-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
-
-                                <div className="subscribe-wrap">
-                                    <form className="newsletter-form">
-                                        <input type="email" className="form-control" placeholder="Enter Your Email" name="email" required />
-                                        <button className="default-btn" type="submit">
-                                            Subscribe
-                                        </button>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -133,7 +93,7 @@ const Footer = () => {
             <div className="footer-bottom-area footer-bottom-electronics-area">
                 <div className="container">
                     <div className="copy-right">
-                        <p>Copyright &copy;{currentYear} The Best BUDDY 19 By <a href="https://envytheme.com/" target="blank">EnvyTheme</a></p>
+                        <p>Copyright &copy;{currentYear} Buddy D Broker Co., Ltd</p>
                     </div>
                 </div>
             </div>

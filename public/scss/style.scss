@@ -2115,7 +2115,7 @@ Main Banner Area Two
 ======================================================*/
 .main-banner-area-two {
 	position: relative;
-	background-image: url(/images/banner/banner-img-2.jpg);
+	// background-image: url(/images/banner/banner-img-2.jpg);
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -2155,7 +2155,7 @@ Main Banner Area Two
 		}
 	}
 	.banner-img {
-		background-image: url(/images/banner/banner-img-right.jpg);
+		// background-image: url(/images/banner/banner-img-right.jpg);
 		background-position: right;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -2263,7 +2263,7 @@ Service Area Two Style
 Chooses Us Area Two Style
 ======================================================*/
 .chooses-us-area-two {
-	background-image: url(../images/choose-bg.jpg);
+	// background-image: url(../images/choose-bg.jpg);
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -2313,7 +2313,7 @@ Chooses Us Area Two Style
 Counter Area Two Style
 ======================================================*/
 .counter-area-two {
-	background-image: url(/images/counter-bg.jpg);
+	// background-image: url(/images/counter-bg.jpg);
 	background-position: center center;
 	background-size: cover;
 	height: 100%;
@@ -2527,18 +2527,7 @@ Hero Slider Area Style
 			opacity: 0.8;
 			z-index: -1;
 		}
-		&.slider-item-bg-1 {
-			background-image: url(../images/hero-slider/hero-slider1.jpg);
-		}
-		&.slider-item-bg-2 {
-			background-image: url(../images/hero-slider/hero-slider2.jpg);
-		}
-		&.slider-item-bg-3 {
-			background-image: url(../images/hero-slider/hero-slider3.jpg);
-		}
-		&.slider-item-bg-4 {
-			background-image: url(../images/hero-slider/hero-slider4.jpg);
-		}
+	
 		.slider-text {
 			text-align: center;
 			position: relative;
@@ -2710,7 +2699,7 @@ Services Area Three
 Get Quat Area Style
 ======================================================*/
 .get-quat-area-three {
-	background-image: url(/images/quote-bg.jpg);
+	// background-image: url(/images/quote-bg.jpg);
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -4041,18 +4030,18 @@ Blog Details Area Style
 						position: relative;
 						background-color: $heading-color;
 					}
-					.fullimage.bg1 {
-						background-image: url(/images/blog-details/popular-posts-1.png);
-					}
-					.fullimage.bg2 {
-						background-image: url(/images/blog-details/popular-posts-2.png);
-					}
-					.fullimage.bg3 {
-						background-image: url(/images/blog-details/popular-posts-3.png);
-					}
-					.fullimage.bg4 {
-						background-image: url(/images/blog-details/popular-posts-4.png);
-					}
+					// .fullimage.bg1 {
+					// 	background-image: url(/images/blog-details/popular-posts-1.png);
+					// }
+					// .fullimage.bg2 {
+					// 	background-image: url(/images/blog-details/popular-posts-2.png);
+					// }
+					// .fullimage.bg3 {
+					// 	background-image: url(/images/blog-details/popular-posts-3.png);
+					// }
+					// .fullimage.bg4 {
+					// 	background-image: url(/images/blog-details/popular-posts-4.png);
+					// }
 				}
 				.info {
 					overflow: hidden;
@@ -4577,30 +4566,30 @@ Portfolio Area Style
 		background-position: center center;
 		background-size: cover;
 		background-repeat: no-repeat;
-		&.bg-1 {
-			background-image: url(/images/portfolio/portfolio1.jpg);
-		}
-		&.bg-2 {
-			background-image: url(/images/portfolio/portfolio2.jpg);
-		}
-		&.bg-3 {
-			background-image: url(/images/portfolio/portfolio3.jpg);
-		}
-		&.bg-4 {
-			background-image: url(/images/portfolio/portfolio4.jpg);
-		}
-		&.bg-5 {
-			background-image: url(/images/portfolio/portfolio5.jpg);
-		}
-		&.bg-6 {
-			background-image: url(/images/portfolio/portfolio6.jpg);
-		}
-		&.bg-7 {
-			background-image: url(/images/portfolio/portfolio7.jpg);
-		}
-		&.bg-8 {
-			background-image: url(/images/portfolio/portfolio8.jpg);
-		}
+		// &.bg-1 {
+		// 	background-image: url(/images/portfolio/portfolio1.jpg);
+		// }
+		// &.bg-2 {
+		// 	background-image: url(/images/portfolio/portfolio2.jpg);
+		// }
+		// &.bg-3 {
+		// 	background-image: url(/images/portfolio/portfolio3.jpg);
+		// }
+		// &.bg-4 {
+		// 	background-image: url(/images/portfolio/portfolio4.jpg);
+		// }
+		// &.bg-5 {
+		// 	background-image: url(/images/portfolio/portfolio5.jpg);
+		// }
+		// &.bg-6 {
+		// 	background-image: url(/images/portfolio/portfolio6.jpg);
+		// }
+		// &.bg-7 {
+		// 	background-image: url(/images/portfolio/portfolio7.jpg);
+		// }
+		// &.bg-8 {
+		// 	background-image: url(/images/portfolio/portfolio8.jpg);
+		// }
 		img {
 			transition: all 9s;
 		}
