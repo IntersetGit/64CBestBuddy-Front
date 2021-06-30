@@ -3,7 +3,7 @@ import Head from "next/head"
 import GoTop from './GoTop'
 import Preloader from './Preloader'
 import Navbar from '../../components/_App/Navbar';
-
+import { ConfigProvider } from 'antd';
 const Layout = ({ children }) => {
 
     // Preloader
@@ -13,8 +13,8 @@ const Layout = ({ children }) => {
         setTimeout(() => setLoader(false), 1000);
     }, [])
 
-    return(
-        <>
+    return (
+        <ConfigProvider locale={"th"}>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
             </Head>
@@ -22,9 +22,9 @@ const Layout = ({ children }) => {
             {children}
 
             {loader ? <Preloader /> : null}
-        
+
             <GoTop scrollStepInPx="100" delayInMs="10.50" />
-        </>
+        </ConfigProvider>
     );
 }
 
