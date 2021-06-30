@@ -32,6 +32,29 @@ const InsuranceManage = (props) => {
         setMasPlan(_masPlan)
     }
 
+    const generateTableProtection = (item) => {
+        console.log('item :>> ', item);
+        const _masProtection = item.map((e, i) => {
+            const id = uuidv4()
+            const _model = {
+                id,
+                details: e,
+                sort: i + 1,
+                match: []
+            }
+            masPlan.forEach(x => {
+                _model.match.push({
+                    id: uuidv4(),
+                    mas_plan_id: x.id,
+                    mas_protection_id: id,
+                    value: 0
+                })
+            })
+            return _model
+        })
+        setMasProtection(_masProtection)
+    }
+
     return (
         <>
             <div className="blog-details-area pt-70 pb-70">
@@ -95,20 +118,23 @@ const InsuranceManage = (props) => {
                             >
                                 <Switch checkedChildren="เท่ากัน" unCheckedChildren="ไม่เท่ากัน" defaultChecked />
                             </Form.Item>
-                            {/* 
-                            <Form.Item
-                                label="จำนวนแผ่นประกัน"
-                                name="sum_plan"
-                            >
-                                <InputNumber onBlur={(e) => console.log(e.target.value)} style={{ width: 200 }} />
-                            </Form.Item> */}
 
                             <Form.Item
-                                label="จำนวนแผ่นประกัน"
-                                name="sum_plan"
+                                label="แผ่นประกัน"
+                                name="plan"
                             >
-                                <Select mode="tags" style={{ width: '100%' }} onChange={generateTablePlan} />
+                                <Select mode="tags" style={{ width: '100%' }} onChange={generateTablePlan} disabled={masProtection.length > 0} />
                             </Form.Item>
+
+                            {masPlan.length > 0 ? (
+                                <Form.Item
+                                    label="ความคุ้มครอง"
+                                    name="protection"
+                                >
+                                    <Select mode="tags" style={{ width: '100%' }} onChange={generateTableProtection} />
+                                </Form.Item>
+                            ) : null}
+
 
                         </Form>
 
@@ -116,13 +142,17 @@ const InsuranceManage = (props) => {
                         <table className="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    {masPlan.map((e, i) => <th key={e.id} scope="col">{e.name}</th>)}
+                                    <th>#</th>
+                                    {masPlan.map((e) => <th key={e.id}>{e.name}</th>)}
                                 </tr>
                             </thead>
                             <tbody>
-
-
+                                {masProtection.map(e => (
+                                    <tr kry={e.id}>
+                                        <th>{e.details}</th>
+                                        {e.match.map(x => <td>{x.value}</td>)}
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
 
