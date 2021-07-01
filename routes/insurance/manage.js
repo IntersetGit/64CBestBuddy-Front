@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Form, Input, Select, message, Button, InputNumber, Switch } from 'antd';
+import { Form, Input, Select, message, Button, InputNumber, Switch, Modal } from 'antd';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -32,27 +32,62 @@ const InsuranceManage = (props) => {
         setMasPlan(_masPlan)
     }
 
-    const generateTableProtection = (item) => {
-        console.log('item :>> ', item);
-        const _masProtection = item.map((e, i) => {
+
+    /* Protection ความคุ้มครอง */
+    const [isModalVisibleProtection, setIsModalVisibleProtection] = useState(false)
+    const [formProtection] = Form.useForm();
+
+    const onClickAddProtection = () => {
+        setIsModalVisibleProtection(true)
+        formProtection.resetFields()
+    }
+
+    /* Modal Protection ความคุ้มครอง */
+
+    const handleOkProtection = () => {
+        formProtection.submit()
+    }
+
+    const handleCancelProtection = () => {
+        setIsModalVisibleProtection(false)
+        formProtection.resetFields()
+    }
+
+    const onFinishProtection = (value) => {
+        try {
             const id = uuidv4()
             const _model = {
                 id,
-                details: e,
-                sort: i + 1,
+                details: value.details,
+                sort: masProtection.length + 1,
                 match: []
             }
-            masPlan.forEach(x => {
+            masPlan.forEach((x, index) => {
                 _model.match.push({
                     id: uuidv4(),
                     mas_plan_id: x.id,
                     mas_protection_id: id,
-                    value: 0
+                    value: value[`value-${index}`]
                 })
             })
-            return _model
-        })
-        setMasProtection(_masProtection)
+
+            setMasProtection([...masProtection, _model])
+            setIsModalVisibleProtection(false)
+            formProtection.resetFields()
+        } catch (error) {
+            message.error('มีบางอย่างผิดพลาด!');
+        }
+    }
+
+    const onFinishFailedProtection = (error) => {
+        message.error('กรอกข้อมูลไม่ครบ!');
+    }
+
+    /* งวด */
+    const [installmentList, setInstallmentList] = useState([])
+    
+    const generateInstallment = () => {
+
     }
 
     return (
@@ -131,10 +166,20 @@ const InsuranceManage = (props) => {
                                     label="ความคุ้มครอง"
                                     name="protection"
                                 >
-                                    <Select mode="tags" style={{ width: '100%' }} onChange={generateTableProtection} />
+                                    <button type="button" className="btn btn-sm btn-light" onClick={onClickAddProtection}>เพิ่ม</button>
                                 </Form.Item>
                             ) : null}
 
+                            <Form.Item
+                                label="งวด ระยะเวลา"
+                                name="installment"
+                            >
+
+                                <Select mode="tags" style={{ width: '100%' }} onChange={generateInstallment} disabled={false} >
+
+                                </Select>
+
+                            </Form.Item>
 
                         </Form>
 
@@ -161,6 +206,45 @@ const InsuranceManage = (props) => {
                     </div>
                 </div>
             </div>
+
+            <Modal
+                centered
+                maskClosable={false}
+                title="ความคุ้มครอง"
+                visible={isModalVisibleProtection}
+                onOk={handleOkProtection}
+                onCancel={handleCancelProtection}>
+                <>
+                    <Form
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 16 }}
+                        form={formProtection}
+                        name="formProtection"
+                        onFinish={onFinishProtection}
+                        onFinishFailed={onFinishFailedProtection}
+                    >
+                        <Form.Item
+                            label="รายละเอียด"
+                            name="details"
+                        >
+                            <Input.TextArea Rows={6} />
+                        </Form.Item>
+
+                        {masPlan.map((e, index) =>
+
+                            <Form.Item
+                                key={index}
+                                label={e.name}
+                                name={`value-${index}`}
+                            >
+                                <Input />
+                            </Form.Item>
+
+                        )}
+
+                    </Form>
+                </>
+            </Modal>
 
             <style dangerouslySetInnerHTML={{
                 __html: `

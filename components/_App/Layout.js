@@ -4,6 +4,8 @@ import GoTop from './GoTop'
 import Preloader from './Preloader'
 import Navbar from '../../components/_App/Navbar';
 import { ConfigProvider } from 'antd';
+import thTH from 'antd/lib/locale/th_TH';
+
 const Layout = ({ children }) => {
 
     // Preloader
@@ -14,7 +16,7 @@ const Layout = ({ children }) => {
     }, [])
 
     return (
-        <ConfigProvider locale={"th"}>
+        <ConfigProvider locale={thTH}>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
             </Head>
