@@ -15,6 +15,7 @@
     "dependencies": {
         "@ant-design/icons": "^4.6.2",
         "antd": "^4.16.5",
+        "axios": "^0.21.1",
         "next": "^11.0.1",
         "react": "^17.0.2",
         "react-accessible-accordion": "^3.3.4",
@@ -22,7 +23,8 @@
         "react-dom": "^17.0.2",
         "react-modal-video": "^1.2.6",
         "react-owl-carousel3": "^2.2.5",
-        "uuid": "^8.3.2"
+        "uuid": "^8.3.2",
+        "xlsx": "^0.17.0"
     },
     "devDependencies": {
         "opn": "^6.0.0",

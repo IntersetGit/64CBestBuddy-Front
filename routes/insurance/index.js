@@ -52,29 +52,29 @@ const InsuranceHome = (props) => {
                                         <div className="post-wrap">
                                             <ul>
                                                 <li>
-                                                    <Link href="#">
-                                                        <a>ทั้งหมด <span>(17)</span></a>
-                                                    </Link>
+
+                                                    <a>ทั้งหมด <span>(17)</span></a>
+
                                                 </li>
                                                 <li>
-                                                    <Link href="#">
-                                                        <a>ประกันอุบัติเหตุ <span>(6)</span></a>
-                                                    </Link>
+
+                                                    <a>ประกันอุบัติเหตุ <span>(6)</span></a>
+
                                                 </li>
                                                 <li>
-                                                    <Link href="#">
-                                                        <a>ประกันโรครายแรง <span>(4)</span></a>
-                                                    </Link>
+
+                                                    <a>ประกันโรครายแรง <span>(4)</span></a>
+
                                                 </li>
                                                 <li>
-                                                    <Link href="#">
-                                                        <a>ประกันชดเชยรายได้ <span>(4)</span></a>
-                                                    </Link>
+
+                                                    <a>ประกันชดเชยรายได้ <span>(4)</span></a>
+
                                                 </li>
                                                 <li>
-                                                    <Link href="#">
-                                                        <a>ประกันสุขภาพมิติใหม่ <span>(3)</span></a>
-                                                    </Link>
+
+                                                    <a>ประกันสุขภาพมิติใหม่ <span>(3)</span></a>
+
                                                 </li>
                                             </ul>
                                         </div>
