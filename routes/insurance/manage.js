@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Form, Input, Select, message, Button, InputNumber, Switch, Modal } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
-import { GetMasterInsuranceService } from '../../service';
+import { AddInsuranceService, GetMasterInsuranceService } from '../../service';
 import XLSX from 'xlsx'
+import dynamic from "next/dynamic";
+
+const SunEditor = dynamic(() => import("suneditor-react"), {
+    ssr: false,
+});
 
 const { Option } = Select;
 
@@ -45,8 +50,72 @@ const InsuranceManage = (props) => {
         }
     }
 
-    const onFinish = (value) => {
+    const onFinish = async (value) => {
+        try {
 
+            const _id = uuidv4();
+            const match_protection_plan = []
+
+            /* ตารางแผนประกัน */
+            const insurance_mas_plan = masPlan.map(e => {
+                return {
+                    id: e.id,
+                    insurance_id: _id,
+                    name: e.name,
+                    sort: e.sort,
+                }
+            })
+
+            /* ตารางความคุ้มครอง */
+            const insurance_mas_protection = masProtection.map(e => {
+                /* match ข้อมูล */
+                e.match.forEach(x => {
+                    match_protection_plan.push(x)
+                });
+                return {
+                    id: e.id,
+                    insurance_id: _id,
+                    details: e.details,
+                    sort: e.sort
+                }
+            })
+
+            /* ตารางราคาประกัน */
+            insurancePrice.forEach(e => {
+                e.id = uuidv4();
+                e.insurance_id = _id;
+            });
+
+
+
+            if (insurance_mas_plan.length <= 0 || insurance_mas_protection.length <= 0 || match_protection_plan.length <= 0 || insurancePrice.length <= 0) {
+                message.error('กรอกข้อมูลไม่ครบ!');
+            } else {
+                const _model = {
+                    id: _id,
+                    product_code: value.product_code, //รหัสโค้ดประกัน
+                    name: value.name, //ชื่อประกัน
+                    details: value.details, //รายละเอียด ui
+                    status: value.percentage ? true : false, //true = ลด false = ไม่ลด
+                    percentage: value.percentage, //เปอร์เซ็นที่ลดราคา
+                    is_one_price: value.is_one_price, //เช็คการส่ง true = ชาย หญิง ราคาเท่ากัน false = ชาย หญิง ราคาต่างกัน
+                    mas_insurance_type_id: value.mas_insurance_type_id, //รหัสประเภทประกัน
+                    insurance_mas_plan,
+                    insurance_mas_protection,
+                    match_protection_plan,
+                    insurance_price: insurancePrice,
+                }
+
+                console.log('_model :>> ', _model);
+
+                const _res = await AddInsuranceService(_model)
+                console.log('_res.data :>> ', _res.data);
+            }
+
+
+        } catch (error) {
+            message.error('บันทึกข้อมูลไม่สำเร็จ!');
+        }
     }
 
     const onFinishFailed = (error) => {
@@ -261,11 +330,11 @@ const InsuranceManage = (props) => {
                         id: null,
                         insurance_id: null,
                         mas_age_range_id: ageRangeList[index_age].id, //ช่วงอายุ 
-                        mas_age_range_name: e.age_rang, 
+                        mas_age_range_name: e.age_rang,
                         mas_installment_id: installmentList[index_installment].id, //งวด ระยะเวลา
-                        mas_installment_name: e.installment, 
+                        mas_installment_name: e.installment,
                         mas_plan_id: masPlan[index_masPlan].id, //แผ่นประกัน 
-                        mas_plan_name: e.plan, 
+                        mas_plan_name: e.plan,
                         gender: e.gender === "-" ? "0" : e.gender === "ชาย" ? "1" : e.gender === "หญิง" ? "2" : null, //เพศ
                         gender_name: e.gender,
                         price_normal: e.price_normal, //ราคาปกติ
@@ -273,7 +342,7 @@ const InsuranceManage = (props) => {
                     }
                 }
             })
-            console.log('_data :>> ', _data);
+            // console.log('_data :>> ', _data);
             setInsurancePrice(_data)
         } else {
             message.error('มีบางอย่างผิดพลาด!');
@@ -410,29 +479,32 @@ const InsuranceManage = (props) => {
                                 </Form.Item>
                             ) : null}
 
-
+                            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                                <Button type="primary" htmlType="submit">
+                                    บันทึก
+                                </Button>
+                            </Form.Item>
 
                         </Form>
 
-
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    {masPlan.map((e) => <th key={e.id}>{e.name}</th>)}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {masProtection.map(e => (
-                                    <tr kry={e.id}>
-                                        <th>{e.details}</th>
-                                        {e.match.map(x => <td>{x.value}</td>)}
+                        {masPlan.length > 0 && masProtection.length > 0 ? (
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th width={"50%"}>ผลประโยชน์ความคุ้มครอง</th>
+                                        {masPlan.map((e) => <th key={e.id}>{e.name}</th>)}
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-
-
+                                </thead>
+                                <tbody>
+                                    {masProtection.map(e => (
+                                        <tr kry={e.id}>
+                                            <td dangerouslySetInnerHTML={{ __html: e.details }} />
+                                            {e.match.map(x => <td>{x.value}</td>)}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : null}
 
                     </div>
                 </div>
@@ -445,11 +517,13 @@ const InsuranceManage = (props) => {
                 title="ความคุ้มครอง"
                 visible={isModalVisibleProtection}
                 onOk={handleOkProtection}
-                onCancel={handleCancelProtection}>
+                onCancel={handleCancelProtection}
+                width={1000}
+            >
                 <>
                     <Form
-                        labelCol={{ span: 8 }}
-                        wrapperCol={{ span: 16 }}
+                        labelCol={{ span: 3 }}
+                        wrapperCol={{ span: 21 }}
                         form={formProtection}
                         name="formProtection"
                         onFinish={onFinishProtection}
@@ -459,7 +533,7 @@ const InsuranceManage = (props) => {
                             label="รายละเอียด"
                             name="details"
                         >
-                            <Input.TextArea Rows={6} />
+                            <SunEditor setOptions={{ height: 500 }} />
                         </Form.Item>
 
                         {masPlan.map((e, index) =>
@@ -469,7 +543,7 @@ const InsuranceManage = (props) => {
                                 label={e.name}
                                 name={`value-${index}`}
                             >
-                                <Input />
+                                <Input style={{ width: "30%" }} />
                             </Form.Item>
 
                         )}
