@@ -1,32 +1,100 @@
 import { useEffect, useState } from 'react';
-import { Select } from 'antd';
+import { message, Select } from 'antd';
 import Link from 'next/link';
+import { GetAllInsuranceService, GetMasterInsuranceService } from '../../service';
 
 const { Option } = Select;
 
 const InsuranceHome = (props) => {
 
-    const [liat, setliat] = useState([]);
-    useEffect(() => {
-        const data = []
-        for (let x = 0; x < 4; x++) {
-            if (x % 2 == 0) {
-                data.push({
-                    id: x,
-                    name: "ประกันสุขภาพมิติใหม่ ซูเปอร์แพลนสมาร์ทโกลด์",
-                    img: "/images/cigna/192436271_2871784416415361_7734800754901153282_n.jpg"
-                })
-            } else {
-                data.push({
-                    id: x,
-                    name: "ประกันสุขภาพ Super Save",
-                    img: "/images/cigna/Product image_SmartOffice_S.jpg"
-                })
-            }
+    const initModelSearch = {
+        insurance_type_id: null,
+        order_by: "suggest"
+    }
+    const [modelSearch, setModelSearch] = useState(initModelSearch)
 
-        }
-        setliat(data)
+    const [liat, setliat] = useState([]);
+    const [masterdata, setMasterdata] = useState({
+        Type: {
+            all_count: { count: 0 },
+            data: []
+        },
+        AgeRang: [],
+        Installment: [],
+    })
+    useEffect(() => {
+        // const data = []
+        // for (let x = 0; x < 4; x++) {
+        //     if (x % 2 == 0) {
+        //         data.push({
+        //             id: x,
+        //             name: "ประกันสุขภาพมิติใหม่ ซูเปอร์แพลนสมาร์ทโกลด์",
+        //             img: "/images/cigna/192436271_2871784416415361_7734800754901153282_n.jpg"
+        //         })
+        //     } else {
+        //         data.push({
+        //             id: x,
+        //             name: "ประกันสุขภาพ Super Save",
+        //             img: "/images/cigna/Product image_SmartOffice_S.jpg"
+        //         })
+        //     }
+
+        // }
+        // setliat(data)
+        onInit()
     }, []);
+
+
+    /* Init */
+    const onInit = async () => {
+        try {
+            const _res = await GetMasterInsuranceService()
+            setMasterdata({
+                ...masterdata,
+                Type: _res.data.items.Type,
+                AgeRang: _res.data.items.AgeRang,
+                Installment: _res.data.items.Installment,
+            })
+
+            await searchInsurance(modelSearch)
+
+        } catch (error) {
+            message.error('เรียกข้อมูลผิดพลาด!');
+        }
+    }
+
+    /* ประเภทประกัน */
+    const filterTypeInsurance = async (item) => {
+        console.log('filterType :>> ', item);
+    }
+
+    /* เรียงประกันตาม */
+    const sortInsurance = async (item) => {
+        console.log('sort :>> ', item);
+    }
+
+    /* ค้นหาประกัน */
+    const searchInsurance = async (item) => {
+        try {
+            console.log('search :>> ', item);
+            const { data } = await GetAllInsuranceService(item);
+            console.log('data :>> ', data.items);
+            const _data = data.items.map(e => {
+                e.img_cover = e.img_cover ? (JSON.parse(e.img_cover)).path : null;
+                return {
+                    id: e.id,
+                    name: e.name,
+                    img: e.img_cover ? process.env.NEXT_PUBLIC_SERVICE + e.img_cover : "/images/no-img.png"
+                }
+            });
+            setliat(_data)
+
+        } catch (error) {
+            message.error('เรียกข้อมูลผิดพลาด!');
+        }
+    }
+
+
 
     return (
         <>
@@ -43,7 +111,7 @@ const InsuranceHome = (props) => {
                                 <div className="widget-area" id="secondary">
 
                                     <div className="widget widget_categories">
-                                        <h3 className="widget-title">เรียงประกันตาม: <Select defaultValue="suggest" style={{ width: 120 }} >
+                                        <h3 className="widget-title">เรียงประกันตาม: <Select defaultValue="suggest" style={{ width: 120 }} onChange={sortInsurance}>
                                             <Option value="suggest">ประกันแนะนำ</Option>
                                             <Option value="asc">ราคาต่ำสุด</Option>
                                             <Option value="desc">ราคาสูงสุด</Option>
@@ -51,31 +119,10 @@ const InsuranceHome = (props) => {
                                         </h3>
                                         <div className="post-wrap">
                                             <ul>
-                                                <li>
-
-                                                    <a>ทั้งหมด <span>(17)</span></a>
-
-                                                </li>
-                                                <li>
-
-                                                    <a>ประกันอุบัติเหตุ <span>(6)</span></a>
-
-                                                </li>
-                                                <li>
-
-                                                    <a>ประกันโรครายแรง <span>(4)</span></a>
-
-                                                </li>
-                                                <li>
-
-                                                    <a>ประกันชดเชยรายได้ <span>(4)</span></a>
-
-                                                </li>
-                                                <li>
-
-                                                    <a>ประกันสุขภาพมิติใหม่ <span>(3)</span></a>
-
-                                                </li>
+                                                <li><a>ทั้งหมด <span>({masterdata.Type.all_count.count})</span></a></li>
+                                                {masterdata.Type.data.map(e =>
+                                                    <li key={e.id} onClick={() => filterTypeInsurance(e)}><a>{e.name} <span>({e.count})</span></a></li>
+                                                )}
                                             </ul>
                                         </div>
                                     </div>
@@ -84,9 +131,9 @@ const InsuranceHome = (props) => {
                             </div>
                         </div>
 
-                        {liat.map(e => (
+                        {liat.map((e, i) => (
                             <>
-                                <div className="col-lg-4 col-md-12">
+                                <div className="col-lg-4 col-md-12" key={i}>
                                     <div className="single-blog" >
                                         <Link href="/blog-details" >
                                             <a><img src={e.img} alt="Image" width={300} height={300} /></a>

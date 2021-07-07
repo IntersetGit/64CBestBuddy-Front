@@ -17,7 +17,19 @@ export const AddInsuranceService = async (data) => {
     })
 };
 
+export const GetAllInsuranceService = async (data) => {
+    return await Axios({
+        method: "post",
+        url: `${process.env.NEXT_PUBLIC_SERVICE}/insurance/getAllInsurance`,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
+        data
+    })
+};
+
+
 
 export default {
-    GetMasterInsuranceService
+    AddInsuranceService,
+    GetMasterInsuranceService,
+    GetAllInsuranceService,
 }

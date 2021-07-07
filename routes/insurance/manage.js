@@ -217,7 +217,7 @@ const InsuranceManage = (props) => {
         try {
             const ageRange_arr = ageRangeList //ช่วงอายุ 
             const installmentList_arr = installmentList //งวด ระยะเวลา
-            const masPlan_arr = masPlan //แผ่นประกัน 
+            const masPlan_arr = masPlan //แผนประกัน 
             const gender_arr = (checkModel.is_one_price) ? ["-"] : ["ชาย", "หญิง"] //เพศ 
 
             // console.log('1. ageRange_arr :>> ', ageRange_arr);
@@ -322,7 +322,7 @@ const InsuranceManage = (props) => {
                 const index_age = ageRangeList.findIndex(i => i.age_range === e.age_rang);
                 /* งวด ระยะเวลา */
                 const index_installment = installmentList.findIndex(i => i.name === e.installment);
-                /* แผ่นประกัน */
+                /* แผนประกัน */
                 const index_masPlan = masPlan.findIndex(i => i.name === e.plan);
 
                 if (index_age != -1 && index_installment != -1 && index_masPlan != -1) {
@@ -333,7 +333,7 @@ const InsuranceManage = (props) => {
                         mas_age_range_name: e.age_rang,
                         mas_installment_id: installmentList[index_installment].id, //งวด ระยะเวลา
                         mas_installment_name: e.installment,
-                        mas_plan_id: masPlan[index_masPlan].id, //แผ่นประกัน 
+                        mas_plan_id: masPlan[index_masPlan].id, //แผนประกัน 
                         mas_plan_name: e.plan,
                         gender: e.gender === "-" ? "0" : e.gender === "ชาย" ? "1" : e.gender === "หญิง" ? "2" : null, //เพศ
                         gender_name: e.gender,
@@ -421,7 +421,7 @@ const InsuranceManage = (props) => {
                             </Form.Item>
 
                             <Form.Item
-                                label="แผ่นประกัน"
+                                label="แผนประกัน"
                                 name="plan"
                             >
                                 <Select mode="tags" style={{ width: '100%' }} onChange={generateTablePlan} disabled={masProtection.length > 0 || finishConfig} />
