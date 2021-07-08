@@ -8,7 +8,7 @@ const { Option } = Select;
 const InsuranceHome = (props) => {
 
     const initModelSearch = {
-        insurance_type_id: null,
+        mas_insurance_type_id: null,
         order_by: "suggest"
     }
     const [modelSearch, setModelSearch] = useState(initModelSearch)
@@ -23,24 +23,6 @@ const InsuranceHome = (props) => {
         Installment: [],
     })
     useEffect(() => {
-        // const data = []
-        // for (let x = 0; x < 4; x++) {
-        //     if (x % 2 == 0) {
-        //         data.push({
-        //             id: x,
-        //             name: "ประกันสุขภาพมิติใหม่ ซูเปอร์แพลนสมาร์ทโกลด์",
-        //             img: "/images/cigna/192436271_2871784416415361_7734800754901153282_n.jpg"
-        //         })
-        //     } else {
-        //         data.push({
-        //             id: x,
-        //             name: "ประกันสุขภาพ Super Save",
-        //             img: "/images/cigna/Product image_SmartOffice_S.jpg"
-        //         })
-        //     }
-
-        // }
-        // setliat(data)
         onInit()
     }, []);
 
@@ -65,12 +47,21 @@ const InsuranceHome = (props) => {
 
     /* ประเภทประกัน */
     const filterTypeInsurance = async (item) => {
-        console.log('filterType :>> ', item);
+        const mas_insurance_type_id = item ? item.id : null
+        setModelSearch({ ...modelSearch, mas_insurance_type_id })
+        await searchInsurance({
+            mas_insurance_type_id,
+            order_by: modelSearch.order_by
+        })
     }
 
     /* เรียงประกันตาม */
     const sortInsurance = async (item) => {
-        console.log('sort :>> ', item);
+        setModelSearch({ ...modelSearch, order_by: item })
+        await searchInsurance({
+            mas_insurance_type_id: modelSearch.mas_insurance_type_id,
+            order_by: item
+        })
     }
 
     /* ค้นหาประกัน */
@@ -84,6 +75,9 @@ const InsuranceHome = (props) => {
                 return {
                     id: e.id,
                     name: e.name,
+                    details: e.details,
+                    installment_name: e.installment_name,
+                    price: e.price,
                     img: e.img_cover ? process.env.NEXT_PUBLIC_SERVICE + e.img_cover : "/images/no-img.png"
                 }
             });
@@ -119,7 +113,7 @@ const InsuranceHome = (props) => {
                                         </h3>
                                         <div className="post-wrap">
                                             <ul>
-                                                <li><a>ทั้งหมด <span>({masterdata.Type.all_count.count})</span></a></li>
+                                                <li onClick={() => filterTypeInsurance(null)}><a>ทั้งหมด <span>({masterdata.Type.all_count.count})</span></a></li>
                                                 {masterdata.Type.data.map(e =>
                                                     <li key={e.id} onClick={() => filterTypeInsurance(e)}><a>{e.name} <span>({e.count})</span></a></li>
                                                 )}
@@ -147,17 +141,14 @@ const InsuranceHome = (props) => {
                                                     </a>
                                                 </Link>
 
-
                                                 <div style={{ textAlign: "left" }}>
-                                                    <p className="blog-p">o โรคยอดฮิตคนออฟฟิต  </p>
-                                                    <p className="blog-p">o วงเงินรักษาพยาบาล OPD&IPD  </p>
-                                                    <p className="blog-p">o หมดห่วงไม่ต้องสำรองจ่าย  ปี </p>
+                                                    <span dangerouslySetInnerHTML={{ __html: e.details }} />
                                                 </div>
 
 
                                                 <div className="price">
-                                                    <h2><sup>฿</sup> 250 <sub> / เดือน</sub></h2>
-                                                    <h2 style={{ fontSize: 16, paddingTop: 5 }}><s>1,058</s> บาท <span style={{ color: "red", fontSize: 16 }}>-15%</span></h2>
+                                                    <h2><sup>฿</sup> {e.price} <sub> / {e.installment_name}</sub></h2>
+                                                    {/* <h2 style={{ fontSize: 16, paddingTop: 5 }}><s>1,058</s> บาท <span style={{ color: "red", fontSize: 16 }}>-15%</span></h2> */}
                                                 </div>
 
                                                 <div className="text-end">
