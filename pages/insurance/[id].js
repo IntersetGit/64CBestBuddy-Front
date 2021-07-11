@@ -5,6 +5,7 @@ import { message } from 'antd';
 import InsuranceProduct from '../../routes/insurance/product'
 import MainBannerHeader from '../../components/HomeThree/MainBannerHeader';
 import Footer from '../../components/_App/Footer';
+import Preloader from '../../components/_App/Preloader'
 import { GetByIdInsuranceService } from '../../service';
 
 export default () => {
@@ -53,7 +54,7 @@ export default () => {
 
                 <Footer />
             </>
-        ) : null
+        ) : <Preloader />
     )
 };
 

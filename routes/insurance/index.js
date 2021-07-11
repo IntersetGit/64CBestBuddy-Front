@@ -129,13 +129,13 @@ const InsuranceHome = (props) => {
                             <>
                                 <div className="col-lg-4 col-md-12" key={i}>
                                     <div className="single-blog" >
-                                        <Link href="/blog-details" >
+                                        <Link href={`/insurance/${e.id}`} >
                                             <a><img src={e.img} alt="Image" width={300} height={300} /></a>
                                         </Link>
 
                                         <div className="blog-content">
                                             <div style={{ paddingTop: 15 }}>
-                                                <Link href="/blog-details">
+                                                <Link href={`/insurance/${e.id}`}>
                                                     <a>
                                                         <h5>{e.name}</h5>
                                                     </a>
@@ -152,7 +152,9 @@ const InsuranceHome = (props) => {
                                                 </div>
 
                                                 <div className="text-end">
-                                                    <a className="default-btn" style={{ backgroundColor: "#ff9400" }}>ชื่อเลย</a>
+                                                    <Link href={`/insurance/${e.id}`} >
+                                                        <a className="default-btn" style={{ backgroundColor: "#ff9400" }}>ชื่อเลย</a>
+                                                    </Link>
                                                 </div>
 
 
