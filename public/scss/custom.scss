@@ -1,3 +1,5 @@
+$product-main-color: rgb(255, 148, 0);
+
 .footer-bottom-area {
     background-color: #000;
 }
@@ -33,4 +35,46 @@
         padding: 0;
         margin: 0;
     }
+}
+
+/*  */
+
+.product-cal-premium {
+    border: 3px solid $product-main-color;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 10px rgb(0 0 0 / 25%);
+    border-radius: 10px;
+    padding: 5px 0;
+
+    .grid-divider {
+        position: relative;
+        padding: 50px;
+
+        .col-padding {
+            padding: 0 15px;
+            text-align: center;
+        }
+    }
+}
+
+.ml-0,
+.mx-0 {
+    margin-left: 0 !important;
+}
+
+.mr-0,
+.mx-0 {
+    margin-right: 0 !important;
+}
+
+.btn-mode-payment-select {
+    color: white;
+    background-color: #f34c00;
+    width: 100%;
+}
+
+.btn-mode-payment {
+    color: white;
+    background-color: #bfbfbf;
+    width: 100%;
 }
