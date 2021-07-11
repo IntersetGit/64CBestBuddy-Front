@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react"
-import { DatePicker } from 'antd';
-import moment from 'moment';
-
+import { DatePicker, Radio } from 'antd';
 
 const ProductInsurance = ({ model }) => {
 
@@ -11,6 +9,10 @@ const ProductInsurance = ({ model }) => {
         }
     }, [model])
 
+    const [modelSearch, setModelSearch] = useState({
+        gender: 1,
+        age: 35,
+    })
 
     const onChangeDatePicker = (value) => {
         if (value) {
@@ -53,18 +55,22 @@ const ProductInsurance = ({ model }) => {
                                     <div className="row justify-content-center mt-3">
                                         <h4 className="text-center">เลือกเพศ</h4>
                                     </div>
-                                    <div className="row justify-content-center mt-2">
-                                        <div className="col-5 text-center">
-                                            <input id="icon-male" name="gender" type="radio" defaultValue="M" className="ng-untouched ng-pristine ng-valid" />
-                                            <label className="icon-cal icon-male" htmlFor="icon-male" />
-                                            <p className="display-age"> 35 ปี </p>
+                                    <Radio.Group onChange={(e) => setModelSearch({ ...modelSearch, gender: e.target.value })} value={modelSearch.gender}>
+                                        <div className="row justify-content-center mt-2">
+                                            <div className="col-5 text-center">
+
+                                                <img src={modelSearch.gender == 1 ? `/images/gender_active_1.png` : `/images/gender_1.png`} onClick={() => setModelSearch({ ...modelSearch, gender: 1 })} alt="เพศชาย" />
+                                                <br />
+                                                <Radio value={1} />
+                                                {modelSearch.gender == 1 ? <h3 className="display-age"> {modelSearch.age} ปี </h3> : null}
+                                            </div>
+                                            <div className="col-5 text-center">
+                                                <img src={modelSearch.gender == 2 ? `/images/gender_active_2.png` : `/images/gender_2.png`} onClick={() => setModelSearch({ ...modelSearch, gender: 2 })} alt="เพศหญิง" />
+                                                <Radio value={2} />
+                                                {modelSearch.gender == 2 ? <h3 className="display-age"> {modelSearch.age} ปี </h3> : null}
+                                            </div>
                                         </div>
-                                        <div className="col-5 text-center">
-                                            <input id="icon-female" name="gender" type="radio" defaultValue="F" className="ng-untouched ng-pristine ng-valid" />
-                                            <label className="icon-cal icon-female" htmlFor="icon-female" />
-                                            <p className="display-age"> 35 ปี </p>
-                                        </div>
-                                    </div>
+                                    </Radio.Group>
                                     <div className="row  justify-content-center mt-3">
                                         <div className="col-7 m-auto">
                                             <div className="form-group -animated -focus">
