@@ -20,7 +20,7 @@ const options = {
     ],
 };
 
-const MainBannerSlider = () => {
+const MainBannerSlider = ({ slider }) => {
     const [display, setDisplay] = React.useState(false);
 
     React.useEffect(() => {
@@ -32,11 +32,18 @@ const MainBannerSlider = () => {
                 className="hero-slider-wrap owl-carousel owl-theme"
                 {...options}
             >
-                <div className="slider-item" style={{ backgroundImage: "url(" + `../images/img1-1500x430.png` + ")" }} />
-                <div className="slider-item" style={{ backgroundImage: "url(" + `../images/img2-1500x430.png` + ")" }} />
-                <div className="slider-item" style={{ backgroundImage: "url(" + `../images/img3-1500x430.png` + ")" }} />
-                <div className="slider-item" style={{ backgroundImage: "url(" + `../images/img4-1500x430.png` + ")" }} />
-                <div className="slider-item" style={{ backgroundImage: "url(" + `../images/cigna/Job_16_03_WFH_1500x430px_01_0.jpg` + ")" }} />
+                {slider ? slider.length > 0 ?
+                     slider.map((e) => <div className="slider-item" style={{ backgroundImage: "url(" + `${e}` + ")" }} />) 
+                    : (
+                        <>
+                            <div className="slider-item" style={{ backgroundImage: "url(" + `../images/img1-1500x430.png` + ")" }} />
+                            <div className="slider-item" style={{ backgroundImage: "url(" + `../images/img2-1500x430.png` + ")" }} />
+                            <div className="slider-item" style={{ backgroundImage: "url(" + `../images/img3-1500x430.png` + ")" }} />
+                            <div className="slider-item" style={{ backgroundImage: "url(" + `../images/img4-1500x430.png` + ")" }} />
+                            <div className="slider-item" style={{ backgroundImage: "url(" + `../images/cigna/Job_16_03_WFH_1500x430px_01_0.jpg` + ")" }} />
+                        </>
+                    ) : null}
+
 
             </OwlCarousel> : ''
             }

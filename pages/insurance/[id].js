@@ -16,21 +16,18 @@ export default () => {
     const [model, setModel] = useState(initialStateModel);
 
     useEffect(() => {
-        if (id) {
-            GetByIdInsuranceData(id)
-        }
+        if (id) GetByIdInsuranceData(id)
     }, [id])
 
     const GetByIdInsuranceData = async (id) => {
         try {
             const { data } = await GetByIdInsuranceService(id)
-            // console.log('data :>> ', data);
-            if (!data.items.data) {
-                message.error('ไม่พบข้อมูลในระบบ!');
-            } else {
+            if (!data.items.data) message.error('ไม่พบข้อมูลในระบบ!');
+            else {
                 const _model = data.items
                 _model.data.img_cover = _model.data.img_cover ? JSON.parse(_model.data.img_cover) : null
                 _model.data.img_header = _model.data.img_header ? JSON.parse(_model.data.img_header) : null
+                _model.data.haed_highlight = _model.data.haed_highlight ? JSON.parse(_model.data.haed_highlight) : null
                 setHeadPage(_model.data.name)
                 setModel(_model)
             }
@@ -45,7 +42,6 @@ export default () => {
                 <Head>
                     <title>{headPage}</title>
                 </Head>
-
 
                 <MainBannerHeader src={`${process.env.NEXT_PUBLIC_SERVICE}/${model.data.img_header.path}`} alt="เพิ่มประกันออนไลน์" />
 
