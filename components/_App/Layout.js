@@ -5,7 +5,7 @@ import Preloader from './Preloader'
 import Navbar from '../../components/_App/Navbar';
 import { ConfigProvider } from 'antd';
 import "moment/locale/th";
-import locale from "antd/es/locale/th_TH";
+import locale from 'antd/lib/locale/th_TH';
 
 const Layout = ({ children }) => {
 
