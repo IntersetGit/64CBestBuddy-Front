@@ -17,6 +17,7 @@ const ProductInsurance = ({ model }) => {
         }
         getPriceInsuranceData(initialStateModelSearch);
         setModelSearch(initialStateModelSearch)
+        console.log(`model ------------------>`, model)
     }, [])
 
     const onChangeDatePicker = async (value) => {
@@ -158,8 +159,46 @@ const ProductInsurance = ({ model }) => {
                 <div className="footer-installment">
                     <div className="view-footer-installment">
                         <img src="/images/Icon-1620619806.png" style={{ height: '15px !important' }} />
-                        <span>ฺ<b> {model.data.count ?? 0} คนสนใจประกันนี้</b></span> 
+                        <span>ฺ<b> {model.data.count ?? 0} คนสนใจประกันนี้</b></span>
                     </div>
+                </div>
+            </div>
+
+
+            {/* table */}
+            <div className="container p-5">
+                <div className="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th className="text-center" width={"40%"}>ตารางความคุ้มครอง</th>
+                                {(model.table.head) ? model.table.head.map((e) => <th className="text-center" key={e.id}>{e.name}</th>) : null}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {(model.table.data) ? model.table.data.map(e => (
+                                <tr kry={e.id} width={"20%"}>
+                                    <td dangerouslySetInnerHTML={{ __html: e.details }} />
+                                    {e.match.map(x => <td className="text-center">{x.value}</td>)}
+                                </tr>
+                            )) : null}
+                            <tr width={"20%"}>
+                                <td />
+                                <td className="text-center">
+                                    <a className="btn btn-sm btn-danger" >เลือกแผนนี้</a>
+                                </td>
+                                <td className="text-center">
+                                    <a className="btn btn-sm btn-danger" >เลือกแผนนี้</a>
+                                </td>
+                                <td className="text-center">
+                                    <a className="btn btn-sm btn-danger" >เลือกแผนนี้</a>
+                                </td>
+                            </tr>
+                        </tbody>
+
+
+                    </table>
+
                 </div>
             </div>
 
