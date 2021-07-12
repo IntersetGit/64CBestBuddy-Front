@@ -42,10 +42,22 @@ export const GetImagesHeaderInsuranceService = async () => {
     })
 };
 
+export const GetPriceInsuranceService = async (data) => {
+    return await Axios({
+        method: "post",
+        url: `${process.env.NEXT_PUBLIC_SERVICE}/insurance/getPriceInsurance`,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
+        data
+    })
+};
+
 
 
 export default {
     AddInsuranceService,
     GetMasterInsuranceService,
     GetAllInsuranceService,
+    GetImagesHeaderInsuranceService,
+    GetPriceInsuranceService,
+    GetByIdInsuranceService,
 }

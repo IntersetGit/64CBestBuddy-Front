@@ -1,25 +1,77 @@
 import { useEffect, useState } from "react"
-import { DatePicker, Radio } from 'antd';
+import { DatePicker, Radio, Modal } from 'antd';
+import moment from 'moment'
+import { GetPriceInsuranceService } from "../../service";
 
 const ProductInsurance = ({ model }) => {
 
+    const [modelSearch, setModelSearch] = useState({})
+
     useEffect(() => {
-        if (model) {
-            console.log('model :>> ', model.data);
+        const initialStateModelSearch = {
+            gender: 1,
+            birthday: moment(calDateYear(model.data.age_start)),
+            age: model.data.age_start,
+            installment_id: "7c0244d2-eb1f-48c6-9820-1d690c891015",
+            insurance_id: model.data.id
         }
-    }, [model])
+        getPriceInsuranceData(initialStateModelSearch);
+        setModelSearch(initialStateModelSearch)
+    }, [])
 
-    const [modelSearch, setModelSearch] = useState({
-        gender: 1,
-        age: 35,
-    })
-
-    const onChangeDatePicker = (value) => {
+    const onChangeDatePicker = async (value) => {
         if (value) {
-            console.log('value :>> ', value);
+            const age = calAge(value._d)
+
+            if (age < model.data.age_start || age > model.data.age_end) {
+                Modal.warning({
+                    title: 'แผนประกันแนะนำ',
+                    content: `แผนประกันนี้คุ้มครองช่วงอายุแรกเข้า ${model.data.age_start} - ${model.data.age_end} ปี `,
+                });
+            } else {
+                const _model = { ...modelSearch, age, birthday: value };
+                setModelSearch(_model);
+                await getPriceInsuranceData(_model);
+            }
         }
     }
 
+    /* หาปี */
+    const calDateYear = (age) => {
+        const year = new Date().getFullYear() - age
+        return `${year}-01-01`
+    }
+
+    /* หาอายุ */
+    const calAge = (date) => {
+        return date ? moment().diff(date, 'years') : null;
+    }
+
+    /* เลือก Gender */
+    const onChangeGender = async (value) => {
+        // console.log(`value`, value)
+        const _model = { ...modelSearch, gender: value };
+        setModelSearch(_model);
+        await getPriceInsuranceData(_model);
+    }
+
+    /* เลือก งวดชำระเบี้ยประกันภัย */
+    const clickButtonInstallment = async (value) => {
+        // console.log(`value`, value)
+        const _model = { ...modelSearch, installment_id: value };
+        setModelSearch(_model);
+        await getPriceInsuranceData(_model);
+    }
+
+    /* ค้นหาราคา ประกัน */
+    const getPriceInsuranceData = async (search) => {
+        try {
+            const { data } = await GetPriceInsuranceService(search);
+            console.log(`data`, data)
+        } catch (error) {
+
+        }
+    }
 
     return model ? (
         <>
@@ -58,23 +110,22 @@ const ProductInsurance = ({ model }) => {
                                     <Radio.Group onChange={(e) => setModelSearch({ ...modelSearch, gender: e.target.value })} value={modelSearch.gender}>
                                         <div className="row justify-content-center mt-2">
                                             <div className="col-5 text-center">
-
-                                                <img className="img-gender" src={modelSearch.gender == 1 ? `/images/gender_active_1.png` : `/images/gender_1.png`} onClick={() => setModelSearch({ ...modelSearch, gender: 1 })} alt="เพศชาย" />
+                                                <img className="img-gender" src={modelSearch.gender == 1 ? `/images/gender_active_1.png` : `/images/gender_1.png`} onClick={() => onChangeGender(1)} alt="เพศชาย" />
                                                 <br />
                                                 <Radio value={1} style={{ display: "none" }} />
                                                 {modelSearch.gender == 1 ? <h3 className="display-age"> {modelSearch.age} ปี </h3> : null}
                                             </div>
                                             <div className="col-5 text-center">
-                                                <img className="img-gender" src={modelSearch.gender == 2 ? `/images/gender_active_2.png` : `/images/gender_2.png`} onClick={() => setModelSearch({ ...modelSearch, gender: 2 })} alt="เพศหญิง" />
+                                                <img className="img-gender" src={modelSearch.gender == 2 ? `/images/gender_active_2.png` : `/images/gender_2.png`} onClick={() => onChangeGender(2)} alt="เพศหญิง" />
                                                 <Radio value={2} style={{ display: "none" }} />
                                                 {modelSearch.gender == 2 ? <h3 className="display-age"> {modelSearch.age} ปี </h3> : null}
                                             </div>
                                         </div>
                                     </Radio.Group>
-                                    <div className="row  justify-content-center mt-3">
+                                    <div className="row justify-content-center mt-3">
                                         <div className="col-7 m-auto">
                                             <div className="form-group -animated -focus">
-                                                <DatePicker onChange={onChangeDatePicker} format="DD/MM/YYYY" placeholder="วัน เดือน ปี เกิด" style={{ width: "100%" }} />
+                                                <DatePicker onChange={onChangeDatePicker} format="DD/MM/YYYY" value={modelSearch.birthday} placeholder="วัน เดือน ปี เกิด" style={{ width: "100%" }} />
                                             </div>
                                         </div>
                                     </div>
@@ -87,23 +138,11 @@ const ProductInsurance = ({ model }) => {
                                         <h4 className="text-center">งวดชำระเบี้ยประกันภัย</h4>
                                     </div>
                                     <div className="row justify-content-center mt-1 pl-15-px">
-
-                                        <div className="col-6 col-md-6 p-2">
-                                            <button className="btn btn-lg btn-block  btn-mode-payment-select"> รายเดือน </button>
-                                        </div>
-
-                                        <div className="col-6 col-md-6 p-2">
-                                            <button className="btn btn-lg btn-block btn-mode-payment"> ราย 3 เดือน </button>
-                                        </div>
-
-                                        <div className="col-6 col-md-6 p-2">
-                                            <button className="btn btn-lg btn-block btn-mode-payment"> ราย 6 เดือน </button>
-                                        </div>
-
-                                        <div className="col-6 col-md-6 p-2">
-                                            <button className="btn btn-lg btn-block btn-mode-payment"> รายปี </button>
-                                        </div>
-
+                                        {model.master.installment ? model.master.installment.map(e =>
+                                            <div className="col-6 col-md-6 p-2" key={e.id}>
+                                                <button className={`btn btn-lg btn-block ${e.id == modelSearch.installment_id ? 'btn-mode-payment-select' : "btn-mode-payment"} `} onClick={() => clickButtonInstallment(e.id)} > {e.name} </button>
+                                            </div>
+                                        ) : null}
                                     </div>
                                     <div className="row justify-content-center pl-15-px">
                                         <div className="remark"> *กรณีชำระแบบรายเดือน งวดแรกทางบริษัททำการเก็บล่วงหน้า 2 เดือน
@@ -115,6 +154,12 @@ const ProductInsurance = ({ model }) => {
                     </div>
 
 
+                </div>
+                <div className="footer-installment">
+                    <div className="view-footer-installment">
+                        <img src="/images/Icon-1620619806.png" style={{ height: '15px !important' }} />
+                        <span>ฺ<b> {model.data.count ?? 0} คนสนใจประกันนี้</b></span> 
+                    </div>
                 </div>
             </div>
 

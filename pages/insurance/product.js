@@ -28,6 +28,8 @@ export default () => {
                 _model.data.img_cover = _model.data.img_cover ? JSON.parse(_model.data.img_cover) : null
                 _model.data.img_header = _model.data.img_header ? JSON.parse(_model.data.img_header) : null
                 _model.data.haed_highlight = _model.data.haed_highlight ? JSON.parse(_model.data.haed_highlight) : null
+                _model.data.age_start = _model.data.age_start ? parseInt(_model.data.age_start) : 18
+                _model.data.age_end = _model.data.age_end ? parseInt(_model.data.age_end) : 100
                 setHeadPage(_model.data.name)
                 setModel(_model)
             }

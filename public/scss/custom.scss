@@ -84,3 +84,28 @@ $product-main-color: rgb(255, 148, 0);
     cursor: pointer;
     width: 180px;
 }
+
+.remark {
+    color: #f34c00;
+}
+
+.footer-installment {
+    background-color: #f2f2f2;
+    text-align: center;
+
+    .view-footer-installment {
+        padding: 5px;
+
+        img {
+            width: 30px;
+            margin-bottom: 11px;
+            margin-top: 1px;
+            padding-top: 3px;
+        }
+
+        span {
+            color: #262566;
+            padding: 10px
+        }
+    }
+}
