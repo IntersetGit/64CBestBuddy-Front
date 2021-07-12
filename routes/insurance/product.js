@@ -59,14 +59,14 @@ const ProductInsurance = ({ model }) => {
                                         <div className="row justify-content-center mt-2">
                                             <div className="col-5 text-center">
 
-                                                <img src={modelSearch.gender == 1 ? `/images/gender_active_1.png` : `/images/gender_1.png`} onClick={() => setModelSearch({ ...modelSearch, gender: 1 })} alt="เพศชาย" />
+                                                <img className="img-gender" src={modelSearch.gender == 1 ? `/images/gender_active_1.png` : `/images/gender_1.png`} onClick={() => setModelSearch({ ...modelSearch, gender: 1 })} alt="เพศชาย" />
                                                 <br />
-                                                <Radio value={1} />
+                                                <Radio value={1} style={{ display: "none" }} />
                                                 {modelSearch.gender == 1 ? <h3 className="display-age"> {modelSearch.age} ปี </h3> : null}
                                             </div>
                                             <div className="col-5 text-center">
-                                                <img src={modelSearch.gender == 2 ? `/images/gender_active_2.png` : `/images/gender_2.png`} onClick={() => setModelSearch({ ...modelSearch, gender: 2 })} alt="เพศหญิง" />
-                                                <Radio value={2} />
+                                                <img className="img-gender" src={modelSearch.gender == 2 ? `/images/gender_active_2.png` : `/images/gender_2.png`} onClick={() => setModelSearch({ ...modelSearch, gender: 2 })} alt="เพศหญิง" />
+                                                <Radio value={2} style={{ display: "none" }} />
                                                 {modelSearch.gender == 2 ? <h3 className="display-age"> {modelSearch.age} ปี </h3> : null}
                                             </div>
                                         </div>
@@ -74,7 +74,7 @@ const ProductInsurance = ({ model }) => {
                                     <div className="row  justify-content-center mt-3">
                                         <div className="col-7 m-auto">
                                             <div className="form-group -animated -focus">
-                                                <DatePicker onChange={onChangeDatePicker} format="DD/MM/YYYY" placeholder="วัน เดือน ปี เกิด" style={{ width: 300 }} />
+                                                <DatePicker onChange={onChangeDatePicker} format="DD/MM/YYYY" placeholder="วัน เดือน ปี เกิด" style={{ width: "100%" }} />
                                             </div>
                                         </div>
                                     </div>
@@ -89,7 +89,7 @@ const ProductInsurance = ({ model }) => {
                                     <div className="row justify-content-center mt-1 pl-15-px">
 
                                         <div className="col-6 col-md-6 p-2">
-                                            <button className="btn btn-lg btn-block btn-mode-payment-select"> รายเดือน </button>
+                                            <button className="btn btn-lg btn-block  btn-mode-payment-select"> รายเดือน </button>
                                         </div>
 
                                         <div className="col-6 col-md-6 p-2">
