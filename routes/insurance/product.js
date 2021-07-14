@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { DatePicker, Radio, Modal, message } from 'antd';
+import { DatePicker, Radio, Modal, message, Button } from 'antd';
 import moment from 'moment'
 import { GetPriceInsuranceService } from "../../service";
 
@@ -197,12 +197,12 @@ const ProductInsurance = ({ model }) => {
                                 </tr>
                             )) : null}
                             <tr width={"20%"}>
-                            <td />
-                            {(priceModel) ? priceModel.map((e) =>
-                                <td className="text-center">
-                                    <a className="btn btn-sm btn-danger" onClick={() => selectInsurance(e)} >เลือกแผนนี้</a>
-                                </td>
-                            ) : null}
+                                <td />
+                                {(priceModel) ? priceModel.map((e) =>
+                                    <td className="text-center">
+                                        <button className="btn btn-sm btn-danger" onClick={() => selectInsurance(e)} disabled={!e.price || e.price == "-"} >เลือกแผนนี้</button>
+                                    </td>
+                                ) : null}
 
                             </tr>
                         </tbody>
@@ -210,8 +210,8 @@ const ProductInsurance = ({ model }) => {
 
                     </table>
 
+                </div>
             </div>
-        </div>
 
         </>
     ) : null
