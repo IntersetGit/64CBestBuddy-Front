@@ -127,46 +127,44 @@ const InsuranceHome = (props) => {
                         </div>
 
                         {liat.map((e, i) => (
-                            <>
-                                <div className="col-lg-4 col-md-12" key={i}>
-                                    <div className="single-blog" >
-                                        <Link href={`/insurance/product?id=${e.id}`} >
-                                            <a><img src={e.img} alt="Image" width={300} height={300} /></a>
-                                        </Link>
+                            <div className="col-lg-4 col-md-12" key={i}>
+                                <div className="single-blog" >
+                                    <Link href={`/insurance/product?id=${e.id}`} >
+                                        <a><img src={e.img} alt="Image" width={300} height={300} /></a>
+                                    </Link>
 
-                                        <div className="blog-content">
-                                            <div style={{ paddingTop: 15 }}>
-                                                <Link href={`/insurance/product?id=${e.id}`}>
-                                                    <a>
-                                                        <h5>{e.name}</h5>
-                                                    </a>
-                                                </Link>
+                                    <div className="blog-content">
+                                        <div style={{ paddingTop: 15 }}>
+                                            <Link href={`/insurance/product?id=${e.id}`}>
+                                                <a>
+                                                    <h5>{e.name}</h5>
+                                                </a>
+                                            </Link>
 
-                                                <div style={{ textAlign: "left" }}>
-                                                    <span dangerouslySetInnerHTML={{ __html: e.details }} />
-                                                </div>
-
-
-                                                <div className="price">
-                                                    <h2><sup>฿</sup> {e.price} <sub> / {e.installment_name}</sub></h2>
-                                                    {/* <h2 style={{ fontSize: 16, paddingTop: 5 }}><s>1,058</s> บาท <span style={{ color: "red", fontSize: 16 }}>-15%</span></h2> */}
-                                                </div>
-
-                                                <div className="text-end">
-                                                    <Link href={`/insurance/product?id=${e.id}`} >
-                                                        <a className="default-btn" style={{ backgroundColor: "#ff9400" }}>ชื่อเลย</a>
-                                                    </Link>
-                                                </div>
-
-
-
+                                            <div style={{ textAlign: "left" }}>
+                                                <span dangerouslySetInnerHTML={{ __html: e.details }} />
                                             </div>
+
+
+                                            <div className="price">
+                                                <h2><sup>฿</sup> {e.price} <sub> / {e.installment_name}</sub></h2>
+                                                {/* <h2 style={{ fontSize: 16, paddingTop: 5 }}><s>1,058</s> บาท <span style={{ color: "red", fontSize: 16 }}>-15%</span></h2> */}
+                                            </div>
+
+                                            <div className="text-end">
+                                                <Link href={`/insurance/product?id=${e.id}`} >
+                                                    <a className="default-btn" style={{ backgroundColor: "#ff9400" }}>ชื่อเลย</a>
+                                                </Link>
+                                            </div>
+
+
 
                                         </div>
 
                                     </div>
+
                                 </div>
-                            </>
+                            </div>
                         ))}
                     </div>
 

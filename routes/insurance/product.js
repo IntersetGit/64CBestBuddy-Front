@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { DatePicker, Radio, Modal } from 'antd';
+import { DatePicker, Radio, Modal, message } from 'antd';
 import moment from 'moment'
 import { GetPriceInsuranceService } from "../../service";
 
 const ProductInsurance = ({ model }) => {
 
     const [modelSearch, setModelSearch] = useState({})
+    const [priceModel, setPriceModel] = useState([])
 
     useEffect(() => {
         const initialStateModelSearch = {
@@ -68,7 +69,16 @@ const ProductInsurance = ({ model }) => {
     const getPriceInsuranceData = async (search) => {
         try {
             const { data } = await GetPriceInsuranceService(search);
-            console.log(`data`, data)
+            setPriceModel(data.items)
+        } catch (error) {
+            message.error('เรียกข้อมูลผิดพลาด!');
+        }
+    }
+
+    /* เลือกแผนประกัน */
+    const selectInsurance = (item) => {
+        try {
+            console.log('item :>> ', item);
         } catch (error) {
 
         }
@@ -172,7 +182,11 @@ const ProductInsurance = ({ model }) => {
                         <thead>
                             <tr>
                                 <th className="text-center" width={"40%"}>ตารางความคุ้มครอง</th>
-                                {(model.table.head) ? model.table.head.map((e) => <th className="text-center" key={e.id}>{e.name}</th>) : null}
+                                {(priceModel) ? priceModel.map((e) =>
+                                    <th className="text-center" key={e.id}>
+                                        {e.name} <br />
+                                        {(e.price).toLocaleString("en")}
+                                    </th>) : null}
                             </tr>
                         </thead>
                         <tbody>
@@ -183,24 +197,21 @@ const ProductInsurance = ({ model }) => {
                                 </tr>
                             )) : null}
                             <tr width={"20%"}>
-                                <td />
+                            <td />
+                            {(priceModel) ? priceModel.map((e) =>
                                 <td className="text-center">
-                                    <a className="btn btn-sm btn-danger" >เลือกแผนนี้</a>
+                                    <a className="btn btn-sm btn-danger" onClick={() => selectInsurance(e)} >เลือกแผนนี้</a>
                                 </td>
-                                <td className="text-center">
-                                    <a className="btn btn-sm btn-danger" >เลือกแผนนี้</a>
-                                </td>
-                                <td className="text-center">
-                                    <a className="btn btn-sm btn-danger" >เลือกแผนนี้</a>
-                                </td>
+                            ) : null}
+
                             </tr>
                         </tbody>
 
 
                     </table>
 
-                </div>
             </div>
+        </div>
 
         </>
     ) : null

@@ -64,22 +64,22 @@ const Footer = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="https://bestbuddy.diabetescru.com/" activeClassName="active">
+                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_1}`} activeClassName="active">
                                             <a li className="nav-link">บทความ</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="https://bestbuddy.diabetescru.com/">
+                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_2}`}>
                                             <a className="nav-link">โปรโมชั่น</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="https://bestbuddy.diabetescru.com/">
+                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_3}`}>
                                             <a className="nav-link">เกี่ยวกับเรา</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="https://bestbuddy.diabetescru.com/">
+                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_4}`}>
                                             <a className="nav-link">ติดต่อเรา</a>
                                         </Link>
                                     </li>

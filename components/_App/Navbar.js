@@ -74,19 +74,19 @@ const NavbarThree = () => {
                                             </li>
                                         </Link>
 
-                                        <Link href="https://bestbuddy.diabetescru.com/" activeClassName="active">
+                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_1}`} activeClassName="active">
                                             <li className="nav-item">
                                                 <a li className="nav-link">บทความ</a>
                                             </li>
                                         </Link>
 
-                                        <Link href="https://bestbuddy.diabetescru.com/">
+                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_2}`}>
                                             <li className="nav-item">
                                                 <a className="nav-link">โปรโมชั่น</a>
                                             </li>
                                         </Link>
 
-                                        <Link href="https://bestbuddy.diabetescru.com/">
+                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_3}`}>
                                             <li className="nav-item">
 
                                                 <a className="nav-link">เกี่ยวกับเรา</a>
@@ -94,7 +94,7 @@ const NavbarThree = () => {
                                             </li>
                                         </Link>
 
-                                        <Link href="https://bestbuddy.diabetescru.com/">
+                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_4}`}>
                                             <li className="nav-item">
                                                 <a className="nav-link">ติดต่อเรา</a>
                                             </li>
