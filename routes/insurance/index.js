@@ -94,6 +94,7 @@ const InsuranceHome = (props) => {
         <>
             <div className="blog-details-area ptb-100">
                 <div className="container">
+
                     <div className="section-title">
                         <h2>แผนประกันออนไลน์</h2>
                     </div>
@@ -167,9 +168,9 @@ const InsuranceHome = (props) => {
                                 </div>
                             </>
                         ))}
-
-
                     </div>
+
+
                 </div>
             </div>
 
