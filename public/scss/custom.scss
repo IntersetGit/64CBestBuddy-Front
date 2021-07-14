@@ -1,5 +1,10 @@
 $product-main-color: rgb(255, 148, 0);
 
+้html,
+body {
+    background-color: #f0f2f5;
+}
+
 .footer-bottom-area {
     background-color: #000;
 }
@@ -112,4 +117,46 @@ $product-main-color: rgb(255, 148, 0);
 
 td {
     vertical-align: middle
+}
+
+.main-nav {
+    @media only screen and (max-width: 1000px) {
+        #navbar-top {
+            animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+            transition: all .5s;
+            display: none;
+        }
+    }
+
+    .is-hide {
+        animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+        transition: all .5s;
+        display: none;
+    }
+}
+
+.hero-slider-area {
+    padding-top: 6.8%;
+}
+
+
+
+.navbar-nav {
+    .active {
+        background-color: #337ab7;
+    }
+}
+
+.main-nav nav .navbar-nav .nav-item {
+    position: relative;
+    padding: 7px 0;
+}
+
+.navbar-area .main-nav nav .navbar-nav .nav-item a {
+    font-size: 18px;
+}
+
+.img-header-item {
+    padding-top: 5%;
+    width: 100%;
 }
