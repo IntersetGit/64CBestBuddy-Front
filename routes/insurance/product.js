@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { DatePicker, Radio, Modal, message, Button } from 'antd';
+import { DatePicker, Radio, Modal, message, Checkbox } from 'antd';
 import moment from 'moment'
 import { GetPriceInsuranceService } from "../../service";
 
@@ -77,11 +77,19 @@ const ProductInsurance = ({ model }) => {
 
     /* เลือกแผนประกัน */
     const selectInsurance = (item) => {
-        try {
-            console.log('item :>> ', item);
-        } catch (error) {
+        console.log('item :>> ', item);
+        setVisibleSelect(true)
+    }
 
-        }
+    /* Modal Select Insurance */
+    const [visibleSelect, setVisibleSelect] = useState(false)
+
+    const handleOkSelect = () => {
+
+    }
+
+    const handleCancelSelect = () => {
+        setVisibleSelect(false)
     }
 
     return model ? (
@@ -212,6 +220,46 @@ const ProductInsurance = ({ model }) => {
 
                 </div>
             </div>
+
+            {/* Modal Select Insurance  */}
+
+            <Modal
+                maskClosable={false}
+                visible={visibleSelect}
+                title="ข้อตกลงและเงื่อนไข"
+                width={800}
+                onCancel={handleCancelSelect}
+                footer={(
+                    <div className="text-center">
+                        <button className="btn btn-md btn-orange" disabled={true} onClick={() => selectInsurance(handleOkSelect)}>ดำเนินการต่อ</button>
+                    </div>
+
+                )}
+            >
+                <div>
+                    <div className="simplebar-offset">
+                        <div className="simplebar-content" style={{ padding: '6.4px 12.8px' }}>{/**/}
+                            <p className="text-justify">ข้าพเจ้ามีความประสงค์ขอเอาประกันภัยกับบริษัทตามเงื่อนไขของกรมธรรม์ประกันภัยที่บริษัทได้ใช้สำหรับการประกันภัยนี้และข้าพเจ้าขอรับรองว่ารายละเอียดต่างๆ ที่ข้าพเจ้าแถลงข้างต้นนี้มีความถูกต้องและสมบูรณ์ ข้าพเจ้าตกลง ที่จะให้คำขอเอาประกันภัยนี้เป็นมูลฐานสัญญาประกันภัยระหว่างข้าพเจ้าและบริษัท</p>
+                            <p className="text-justify">ข้าพเจ้ายินยอมให้บริษัทฯ จัดเก็บ ใช้ และเปิดเผยข้อเท็จจริงเกี่ยวกับสุขภาพและข้อมูลของข้าพเจ้าต่อสำนักงานคณะกรรมการกำกับและส่งเสริมการประกอบธุรกิจประกันภัย เพื่อประโยชน์ในการกำกับดูแลธุรกิจประกันภัย</p>
+                            <p className="text-justify">ข้าพเจ้ายินยอมให้ บมจ. ซิกน่า ประกันภัย บจ. ซิกน่า โบรกเกอเรจ แอนด์ มาร์เก็ตติ้ง (ประเทศไทย) และบจ. ซิกน่า อินเตอร์เนชั่นแนล มาร์เก็ตติ้ง (ประเทศไทย) (รวมเรียกว่า “บริษัทฯ”) จัดเก็บ ใช้และวิเคราะห์ข้อมูลการเข้าทำประกันภัยที่ข้าพเจ้าได้ให้ไว้ผ่านช่องทางนี้ เพื่อวัตถุประสงค์ในการนำเสนอสิทธิประโยชน์ ผลิตภัณฑ์ประกันภัยอื่น หรือบริการต่างๆ รวมถึงแจ้งข่าวสารของบริษัทฯ</p>
+                            <p className="text-justify">*คำเตือน ของสำนักงานคณะกรรมการกำกับและส่งเสริมการประกอบธุรกิจประกันภัยให้ตอบคำถามข้างต้นตามความเป็นจริงทุกข้อ หากผู้เอาประกันภัยปกปิดข้อความจริง หรือแถลงข้อความอันเป็นเท็จจะมีผลให้สัญญานี้ตกเป็นโมฆียะ ซึ่งบริษัทมีสิทธิบอกล้างสัญญาประกันภัยได้ ตามประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 865</p>
+                        </div>
+                    </div>
+
+                    <div className="simplebar-condition p-3">
+                        <Checkbox>
+                            ข้าพเจ้ายอมรับเงื่อนไขและข้อตกลงข้างต้นทุกประการ
+                        </Checkbox>
+                        <hr />
+                        <Checkbox>
+                            ผู้ขอเอาประกันภัย (ในกรณีซื้อประกันนี้ให้ตัวเอง) / ผู้ชำระเบี้ยประกัน (ในกรณีซื้อประกันนี้ให้บิดามารดาหรือบิดามารดาของคู่สมรส) ประสงค์จะใช้สิทธิขอยกเว้นภาษีเงินได้ตามกฎหมายว่าด้วยภาษีอากร และยินยอมให้บริษัทส่งและเปิดเผยข้อมูลของผู้ขอเอาประกันภัยและผู้ชำระเบี้ยประกันภัย และข้อมูลเกี่ยวกับกรมธรรม์ประกันภัยนี้ต่อกรมสรรพากรตามหลักเกณฑ์และวิธีการที่กรมสรรพากรกำหนด
+                        </Checkbox>
+                    </div>
+
+
+                </div>
+
+            </Modal>
 
         </>
     ) : null
