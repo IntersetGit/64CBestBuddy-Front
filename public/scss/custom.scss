@@ -1,159 +1,176 @@
 $product-main-color: rgb(255, 148, 0);
 
-
 .footer-bottom-area {
-    background-color: #000;
+  background-color: #000;
 }
 
 .navbar-area .main-nav nav .navbar-nav .nav-item a {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .img-header-item {
-    padding-top: 87px;
-    width: 100%;
+  padding-top: 87px;
+  width: 100%;
 }
 
 .ant-message {
-    z-index: 999999999;
+  z-index: 999999999;
 }
 
 .product-highlight-container {
-    margin: 2em 0.2em;
+  margin: 2em 0.2em;
 }
 
 .product-highlight-icon {
-    width: 45%;
+  width: 45%;
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .text-container {
-
-    .sub-title {
-        padding: 0;
-        margin: 0;
-    }
+  .sub-title {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 /*  */
 
 .product-cal-premium {
-    border: 3px solid $product-main-color;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 10px rgb(0 0 0 / 25%);
-    border-radius: 10px;
-    padding: 5px 0;
+  border: 3px solid $product-main-color;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 10px rgb(0 0 0 / 25%);
+  border-radius: 10px;
+  padding: 5px 0;
 
-    .grid-divider {
-        position: relative;
-        padding: 50px;
+  .grid-divider {
+    position: relative;
+    padding: 50px;
 
-        .col-padding {
-            padding: 0 15px;
-            text-align: center;
-        }
+    .col-padding {
+      padding: 0 15px;
+      text-align: center;
     }
+  }
 }
 
 .ml-0,
 .mx-0 {
-    margin-left: 0 !important;
+  margin-left: 0 !important;
 }
 
 .mr-0,
 .mx-0 {
-    margin-right: 0 !important;
+  margin-right: 0 !important;
 }
 
 .btn-mode-payment-select {
-    color: white;
-    background-color: #f34c00;
-    width: 100%;
+  color: white;
+  background-color: #f34c00;
+  width: 100%;
 }
 
 .btn-mode-payment {
-    color: white;
-    background-color: #bfbfbf;
-    width: 100%;
+  color: white;
+  background-color: #bfbfbf;
+  width: 100%;
 }
 
-
 .img-gender {
-    cursor: pointer;
-    width: 180px;
+  cursor: pointer;
+  width: 180px;
 }
 
 .remark {
-    color: #f34c00;
+  color: #f34c00;
 }
 
 .footer-installment {
-    background-color: #f2f2f2;
-    text-align: center;
+  background-color: #f2f2f2;
+  text-align: center;
 
-    .view-footer-installment {
-        padding: 5px;
+  .view-footer-installment {
+    padding: 5px;
 
-        img {
-            width: 30px;
-            margin-bottom: 11px;
-            margin-top: 1px;
-            padding-top: 3px;
-        }
-
-        span {
-            color: #262566;
-            padding: 10px
-        }
+    img {
+      width: 30px;
+      margin-bottom: 11px;
+      margin-top: 1px;
+      padding-top: 3px;
     }
+
+    span {
+      color: #262566;
+      padding: 10px;
+    }
+  }
 }
 
-td , th {
-    vertical-align: middle
+td,
+th {
+  vertical-align: middle;
+  font-family: $thai-font-family;
+  p {
+    font-family: $thai-font-family;
+  }
 }
 
 .main-nav {
-    @media only screen and (max-width: 1000px) {
-        #navbar-top {
-            animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
-            transition: all .5s;
-            display: none;
-        }
+  @media only screen and (max-width: 1000px) {
+    #navbar-top {
+      animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+      transition: all 0.5s;
+      display: none;
     }
+  }
 
-    .is-hide {
-        animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
-        transition: all .5s;
-        display: none;
-    }
+  .is-hide {
+    animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+    transition: all 0.5s;
+    display: none;
+  }
 }
 
 .hero-slider-area {
-    padding-top: 6.8%;
+  padding-top: 6.8%;
 }
 
-
-
 .navbar-nav {
-    .active {
-        background-color: #337ab7;
-    }
+  .active {
+    background-color: #337ab7;
+  }
 }
 
 .main-nav nav .navbar-nav .nav-item {
-    position: relative;
-    padding: 7px 0;
+  position: relative;
+  padding: 7px 0;
 }
 
 .navbar-area .main-nav nav .navbar-nav .nav-item a {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .img-header-item {
-    padding-top: 5%;
-    width: 100%;
+  padding-top: 5%;
+  width: 100%;
 }
 
+.blog-content {
+  font-family: $thai-font-family;
+  .blog-p {
+    font-family: $thai-font-family;
+  }
+}
+
+.section-title,
+.post-wrap,
+.table,
+.remark,
+.product-highlight-container {
+  font-family: $thai-font-family;
+  .sub-title {
+    font-family: $thai-font-family;
+  }
+}

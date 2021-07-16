@@ -153,7 +153,7 @@ const InsuranceHome = (props) => {
 
                                             <div className="text-end">
                                                 <Link href={`/insurance/product?id=${e.id}`} >
-                                                    <a className="default-btn" style={{ backgroundColor: "#ff9400" }}>ชื่อเลย</a>
+                                                    <a className="default-btn" style={{ backgroundColor: "#ff9400" }}>ชื้อเลย</a>
                                                 </Link>
                                             </div>
 
