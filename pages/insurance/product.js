@@ -45,7 +45,7 @@ export default () => {
                     <title>{headPage}</title>
                 </Head>
 
-                <MainBannerHeader src={`${process.env.NEXT_PUBLIC_SERVICE}/${model.data.img_header.path}`} alt="เพิ่มประกันออนไลน์" />
+                <MainBannerHeader src={`${process.env.NEXT_PUBLIC_SERVICE}/${model.data.img_header.path}`} alt={headPage} />
 
                 {/* เนื้อหา */}
                 <InsuranceProduct model={model} />

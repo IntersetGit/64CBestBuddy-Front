@@ -3,6 +3,7 @@ import { DatePicker, Radio, Modal, message, Checkbox } from 'antd';
 import moment from 'moment'
 import { GetPriceInsuranceService } from "../../service";
 import { Encrypt } from '../../utils/SecretCode'
+import Router from 'next/router'
 
 const ProductInsurance = ({ model }) => {
 
@@ -19,7 +20,7 @@ const ProductInsurance = ({ model }) => {
         }
         getPriceInsuranceData(initialStateModelSearch);
         setModelSearch(initialStateModelSearch);
-        console.log(`model ------------------> `, model)
+        // console.log(`model ------------------> `, model)
     }, [])
 
     const onChangeDatePicker = async (value) => {
@@ -96,8 +97,8 @@ const ProductInsurance = ({ model }) => {
     }
 
     /* Modal Select Insurance */
-    const [checked, setChecked] = useState(false)
     const [visibleSelect, setVisibleSelect] = useState(false)
+    const [checked, setChecked] = useState(false)
     const [confirmApplicant, setConfirmApplicant] = useState(false)
     const [selectModel, setSelectModel] = useState({})
 
@@ -106,13 +107,23 @@ const ProductInsurance = ({ model }) => {
             const data = selectModel
             data.confirm_applicant = confirmApplicant
             setSelectModel({ ...selectModel, confirm_applicant: confirmApplicant })
-            const encode = Encrypt(data)
+            Router.push({
+                pathname: '/insurance/personal',
+                query: {
+                    code: Encrypt(data),
+                    step: 1
+                },
+            })
+            setSelectModel({})
+            handleCancelSelect()
         }
     }
 
     const handleCancelSelect = () => {
         setSelectModel({})
         setVisibleSelect(false)
+        setChecked(false)
+        setConfirmApplicant(false)
     }
 
     return model ? (
