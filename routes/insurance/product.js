@@ -186,7 +186,7 @@ const ProductInsurance = ({ model }) => {
             {/* table */}
             <div className="container p-5">
                 <div className="table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table className="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th className="text-center" width={"40%"}>ตารางความคุ้มครอง</th>
@@ -199,15 +199,15 @@ const ProductInsurance = ({ model }) => {
                         </thead>
                         <tbody>
                             {(model.table.data) ? model.table.data.map(e => (
-                                <tr kry={e.id} width={"20%"}>
+                                <tr key={e.id} width={"20%"}>
                                     <td dangerouslySetInnerHTML={{ __html: e.details }} />
-                                    {e.match.map(x => <td className="text-center">{x.value}</td>)}
+                                    {e.match.map((x, i) => <td className="text-center" key={i}>{x.value}</td>)}
                                 </tr>
                             )) : null}
                             <tr width={"20%"}>
                                 <td />
-                                {(priceModel) ? priceModel.map((e) =>
-                                    <td className="text-center">
+                                {(priceModel) ? priceModel.map((e , i) =>
+                                    <td className="text-center" key={i}>
                                         <button className="btn btn-sm btn-danger" onClick={() => selectInsurance(e)} disabled={!e.price || e.price == "-"} >เลือกแผนนี้</button>
                                     </td>
                                 ) : null}

@@ -466,7 +466,7 @@ const InsuranceManage = (props) => {
                                     {finishConfig ?
                                         (
                                             <>
-                                                <input class="file-upload__input" type="file" id="fileUpload" accept=".xlsx" style={{ display: "none" }} onChange={e => { changeUpload(e) }}></input>
+                                                <input className="file-upload__input" type="file" id="fileUpload" accept=".xlsx" style={{ display: "none" }} onChange={e => { changeUpload(e) }}></input>
                                                 <label className="btn btn-primary btn-sm" for="fileUpload" style={{ marginBottom: "0px" }}> อัพโหลดข้อมูล </label> &nbsp;&nbsp;
                                                 {nameFiles}
 
