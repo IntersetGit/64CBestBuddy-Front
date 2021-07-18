@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { DatePicker, Radio, Modal, message, Checkbox } from 'antd';
 import moment from 'moment'
 import { GetPriceInsuranceService } from "../../service";
+import { Encrypt } from '../../utils/SecretCode'
 
 const ProductInsurance = ({ model }) => {
 
@@ -13,12 +14,12 @@ const ProductInsurance = ({ model }) => {
             gender: 1,
             birthday: moment(calDateYear(model.data.age_start)),
             age: model.data.age_start,
-            installment_id: "7c0244d2-eb1f-48c6-9820-1d690c891015",
+            installment_id: (model.master.installment.length > 0 && model.master.installment) ? model.master.installment[0].id : "7c0244d2-eb1f-48c6-9820-1d690c891015",
             insurance_id: model.data.id
         }
         getPriceInsuranceData(initialStateModelSearch);
-        setModelSearch(initialStateModelSearch)
-        console.log(`model ------------------>`, model)
+        setModelSearch(initialStateModelSearch);
+        console.log(`model ------------------> `, model)
     }, [])
 
     const onChangeDatePicker = async (value) => {
@@ -77,18 +78,40 @@ const ProductInsurance = ({ model }) => {
 
     /* เลือกแผนประกัน */
     const selectInsurance = (item) => {
-        console.log('item :>> ', item);
-        setVisibleSelect(true)
+        if (model.table.data.length > 0) {
+            const index = model.table.data[0].match.findIndex(e => e.mas_plan_id == item.id)
+            const match_id = model.table.data[0].match[index].id
+            setSelectModel({
+                id: item.insurance_id, //รหัสประกัน
+                mas_plan_id: item.id, //รหัสแผนประกัน แผน S
+                match_id, // รหัสราคาความคุ้มครอง
+                mas_installment_id: modelSearch.installment_id, //รหัสรายเดือน
+                mas_age_range_id: item.price.mas_age_range_id, //รหัสช่วงอายุ
+                confirm_applicant: null,
+                birthday: modelSearch.installment_id,
+                age: modelSearch.installment_id
+            })
+            setVisibleSelect(true)
+        }
     }
 
     /* Modal Select Insurance */
+    const [checked, setChecked] = useState(false)
     const [visibleSelect, setVisibleSelect] = useState(false)
+    const [confirmApplicant, setConfirmApplicant] = useState(false)
+    const [selectModel, setSelectModel] = useState({})
 
     const handleOkSelect = () => {
-
+        if (checked) {
+            const data = selectModel
+            data.confirm_applicant = confirmApplicant
+            setSelectModel({ ...selectModel, confirm_applicant: confirmApplicant })
+            const encode = Encrypt(data)
+        }
     }
 
     const handleCancelSelect = () => {
+        setSelectModel({})
         setVisibleSelect(false)
     }
 
@@ -177,7 +200,7 @@ const ProductInsurance = ({ model }) => {
                 <div className="footer-installment">
                     <div className="view-footer-installment">
                         <img src="/images/Icon-1620619806.png" style={{ height: '15px !important' }} />
-                        <span>ฺ<b> {model.data.count ?? 0} คนสนใจประกันนี้</b></span>
+                        <span><b> {model.data.count ?? 0} คนสนใจประกันนี้</b></span>
                     </div>
                 </div>
             </div>
@@ -193,7 +216,7 @@ const ProductInsurance = ({ model }) => {
                                 {(priceModel) ? priceModel.map((e) =>
                                     <th className="text-center" key={e.id}>
                                         {e.name} <br />
-                                        {(e.price).toLocaleString("en")}
+                                        {(e.price.price).toLocaleString("en")}
                                     </th>) : null}
                             </tr>
                         </thead>
@@ -206,9 +229,9 @@ const ProductInsurance = ({ model }) => {
                             )) : null}
                             <tr width={"20%"}>
                                 <td />
-                                {(priceModel) ? priceModel.map((e , i) =>
+                                {(priceModel) ? priceModel.map((e, i) =>
                                     <td className="text-center" key={i}>
-                                        <button className="btn btn-sm btn-danger" onClick={() => selectInsurance(e)} disabled={!e.price || e.price == "-"} >เลือกแผนนี้</button>
+                                        <button className="btn btn-sm btn-danger" onClick={() => selectInsurance(e)} disabled={!e.price.price || e.price.price == "-"} >เลือกแผนนี้</button>
                                     </td>
                                 ) : null}
 
@@ -231,9 +254,8 @@ const ProductInsurance = ({ model }) => {
                 onCancel={handleCancelSelect}
                 footer={(
                     <div className="text-center">
-                        <button className="btn btn-md btn-orange" disabled={true} onClick={() => selectInsurance(handleOkSelect)}>ดำเนินการต่อ</button>
+                        <button className="btn btn-md btn-orange" disabled={!checked} onClick={() => handleOkSelect()}>ดำเนินการต่อ</button>
                     </div>
-
                 )}
             >
                 <div>
@@ -247,16 +269,14 @@ const ProductInsurance = ({ model }) => {
                     </div>
 
                     <div className="simplebar-condition p-3">
-                        <Checkbox>
+                        <Checkbox checked={checked} onChange={(e) => setChecked(e.target.checked)}>
                             ข้าพเจ้ายอมรับเงื่อนไขและข้อตกลงข้างต้นทุกประการ
                         </Checkbox>
                         <hr />
-                        <Checkbox>
+                        <Checkbox checked={confirmApplicant} onChange={(e) => setConfirmApplicant(e.target.checked)}>
                             ผู้ขอเอาประกันภัย (ในกรณีซื้อประกันนี้ให้ตัวเอง) / ผู้ชำระเบี้ยประกัน (ในกรณีซื้อประกันนี้ให้บิดามารดาหรือบิดามารดาของคู่สมรส) ประสงค์จะใช้สิทธิขอยกเว้นภาษีเงินได้ตามกฎหมายว่าด้วยภาษีอากร และยินยอมให้บริษัทส่งและเปิดเผยข้อมูลของผู้ขอเอาประกันภัยและผู้ชำระเบี้ยประกันภัย และข้อมูลเกี่ยวกับกรมธรรม์ประกันภัยนี้ต่อกรมสรรพากรตามหลักเกณฑ์และวิธีการที่กรมสรรพากรกำหนด
                         </Checkbox>
                     </div>
-
-
                 </div>
 
             </Modal>
