@@ -134,13 +134,16 @@ th {
 }
 
 .hero-slider-area {
-  padding-top: 6.8%;
+  padding-top: 7.1%;
 }
 
 .navbar-nav {
   .active {
     background-color: #337ab7;
   }
+}
+.nav-item:hover {
+  background-color: #337ab7;
 }
 
 .main-nav nav .navbar-nav .nav-item {
@@ -150,6 +153,10 @@ th {
 
 .navbar-area .main-nav nav .navbar-nav .nav-item a {
   font-size: 18px;
+}
+
+.navbar-area.is-sticky .main-nav nav .navbar-nav .nav-item a:hover {
+  color: #ffffff;
 }
 
 .img-header-item {
@@ -210,4 +217,8 @@ th {
   }
 }
 
-
+.header-area-three .top-header-area {
+  background-color: rgb(255 255 255);
+  padding: 7px;
+  margin: 0;
+}
