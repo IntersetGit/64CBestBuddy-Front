@@ -44,7 +44,7 @@ const NavbarThree = () => {
                                 <div className="row align-items-center" style={{ padding: "0 0 0 67px" }}>
                                     <div className="col-md-4">
                                         <div className="header-content-left">
-                                            <Link href="/">
+                                            <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}`}>
                                                 <a onClick={toggleNavbar} className="navbar-brand">
                                                     <img src="/images/logo-bestbuddy.png" alt="logo" style={{ width: "50%", padding: 0, margin: 0 }} />
                                                 </a>
