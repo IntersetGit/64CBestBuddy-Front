@@ -70,7 +70,7 @@ const NavbarThree = () => {
                             </div>
                         </div>
 
-                        <nav className="navbar navbar-expand-lg navbar-light" style={{ padding: 0, margin: 0, backgroundColor: "#31abfc !important" }}>
+                        <nav className="navbar navbar-expand-lg navbar-light" style={{ padding: 0, margin: 0, backgroundColor: "#1b36dc !important" }}>
                             <div className="container">
                                 <button
                                     onClick={toggleNavbar}

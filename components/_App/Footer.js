@@ -6,97 +6,68 @@ const Footer = () => {
 
     return (
         <>
-            <footer className="footer-top-area pt-100 pb-70">
-                <div className="container">
+            <footer className="footer">
+                <div className="container p-4">
                     <div className="row">
-                        <div className="col-lg-4 col-md-6">
-                            <div className="single-widget">
-                                <Link href="/">
-                                    <a>
-                                        <img src="/images/logo2.png" alt="Image" />
-                                    </a>
-                                </Link>
 
-                                <p>บัดดี้กรุ๊ป ภายใต้การรวมตัวของบริษัท บัดดี้ ดี โบรคเกอร์ จำกัด และ บริษัท เดอะ เบสท์ บัดดี้ 19 จำกัด นายหน้าประกันชีวิตและวินาศภัยนิติบุคคล.</p>
-
-                               
+                        <div className="col-md-8">
+                            <div className="row">
+                                <div className="col-3 text-center"  >
+                                    <img src="/images/logo2.png" alt="Image" />
+                                </div>
+                                <div className="col-9">
+                                    บริษัท เดอะ เบสท์ บัดดี้ 19 จำกัด <br />
+                                    288,288/1 อาคารบัดดี้ ดี โบรคเกอร์<br />
+                                    ซอยรุ่งเรือง แขวงสามเสนนอก เขตห้วยขวาง กรุงเทพฯ 10310
+                                </div>
                             </div>
                         </div>
 
-                        <div className="col-lg-4 col-md-6">
-                            <div className="single-widget contact">
-                                <h3>ติดต่อเรา</h3>
-
-                                <ul>
-                                    <li>
-                                        <i className="flaticon-call"></i>
-                                        <span>Hotline:</span>
-                                        <a href="tel:02 276 2245-47">
-                                            Phone: 02 276 2245-47
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <i className="flaticon-email"></i>
-                                        <span>Email:</span>
-                                        <a href="mailto:hello@flexa.com">
-                                            admin@buddybroker.co.th
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <i className="flaticon-maps-and-flags"></i>
-                                        <span>บริษัท เดอะ เบสท์ บัดดี้ 19 จำกัด</span>
-                                        เลขที่ 288,288/1 อาคารบัดดี้ ดี โบรคเกอร์ ซอยรุ่งเรือง แขวงสามเสนนอก เขตห้วยขวาง กรุงเทพมหานคร 10310
-                                    </li>
-                                </ul>
-                            </div>
+                        <div className="col-md-4">
+                            โทร : <span style={{ color: "#00ccff" }}>02 276 2245-47</span><br />
+                            โทรสาร : <span style={{ color: "#00ccff" }}>02 276 2248</span> <br />
+                            Email : <span style={{ color: "#00ccff" }}>admin@buddybroker.co.th</span>
                         </div>
 
-                        <div className="col-lg-4 col-md-6">
-                            <div className="single-widget">
-                                <h3>บริการด้านประกันภัย</h3>
-
-                                <ul>
-                                    <li>
-                                        <Link href="/" activeClassName="active">
-                                            <a className="nav-link">ซื้อแผนประกัน</a>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_1}`} activeClassName="active">
-                                            <a li className="nav-link">บทความ</a>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_2}`}>
-                                            <a className="nav-link">โปรโมชั่น</a>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_3}`}>
-                                            <a className="nav-link">เกี่ยวกับเรา</a>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href={`${process.env.NEXT_PUBLIC_MENU_4}`}>
-                                            <a className="nav-link">ติดต่อเรา</a>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </footer>
 
-            <div className="footer-bottom-area footer-bottom-electronics-area">
+            <footer className="footer-bottom">
                 <div className="container">
-                    <div className="copy-right">
-                        <p>Copyright &copy;{currentYear} Buddy D Broker Co., Ltd</p>
+                    <div className="row">
+
+                        <div className="col-md-6">
+                            <div className="row">
+                                <div className="col-3 text-center"  >
+                                    <img src="/images/สำนักงาน-คปภ.jpg" alt="Image" />
+                                </div>
+                                <div className="col-9">
+                                    <p style={{ paddingTop: 5 }}>
+                                        บริษัท เดอะ เบสท์ บัดดี้ 19 จำกัด<br />
+                                        ใบอนุญาตนายหน้าประกันวินาศภัย เลขที่ ว00018/2558
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-md-6">
+                            <div className="row">
+                                <div className="col-3 text-center"  >
+                                    <img src="/images/สำนักงาน-คปภ.jpg" alt="Image" />
+                                </div>
+                                <div className="col-9">
+                                    <p style={{ paddingTop: 5 }}>
+                                        บริษัท บัดดี้ ดี โบรคเกอร์ จำกัด<br />
+                                        ใบอนุญาตนายหน้าประกันชีวิต เลขที่ ช00005/2552
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
+            </footer>
         </>
     );
 }
