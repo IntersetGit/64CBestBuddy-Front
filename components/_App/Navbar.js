@@ -65,9 +65,11 @@ const NavbarThree = () => {
                                                 <img src="/images/mail-icon.png" alt="logo" style={{ width: "21%", padding: 5, margin: 0 }} />
                                                 <span><b>Email:</b> admin@buddydbroker.co.th</span>
                                             </li>
-                                            
+
                                             <li>
-                                                <Button type="dashed"><UserOutlined /> เข้าสู่ระบบ</Button>
+                                                <Link href={`${process.env.NEXT_PUBLIC_URL_ADMIN}`} >
+                                                    <Button type="dashed"><UserOutlined /> เข้าสู่ระบบ</Button>
+                                                </Link>
                                             </li>
 
                                         </ul>
