@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import Link from '../../utils/ActiveLink';
+import { Button } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 const NavbarThree = () => {
     const [menu, setMenu] = useState(true)
@@ -62,6 +64,10 @@ const NavbarThree = () => {
                                             <li>
                                                 <img src="/images/mail-icon.png" alt="logo" style={{ width: "21%", padding: 5, margin: 0 }} />
                                                 <span><b>Email:</b> admin@buddydbroker.co.th</span>
+                                            </li>
+                                            
+                                            <li>
+                                                <Button type="dashed"><UserOutlined /> เข้าสู่ระบบ</Button>
                                             </li>
 
                                         </ul>
@@ -179,7 +185,7 @@ const NavbarThree = () => {
                                             </Link>
 
                                             <ul className="dropdown-menu">
-                                                
+
                                                 <li className="nav-item">
                                                     <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}/contact/`} >
                                                         <a onClick={toggleNavbar} className="nav-link">ติดต่อเรา</a>
