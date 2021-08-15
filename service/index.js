@@ -17,6 +17,24 @@ export const AddInsuranceService = async (data) => {
     })
 };
 
+export const GetMasterAllDataService = async ({ search = null }) => {
+    let url = `${process.env.NEXT_PUBLIC_SERVICE}/masterData/GetMasterAllData?`
+    if (search) url += `&search=${search}`
+    return await Axios({
+        method: "get",
+        url,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
+    })
+};
+
+export const GetMasterInsuranceCategoryService = async () => {
+    return await Axios({
+        method: "get",
+        url: `${process.env.NEXT_PUBLIC_SERVICE}/masterData/GetMasterInsuranceCategory`,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
+    })
+};
+
 export const GetAllInsuranceService = async (data) => {
     return await Axios({
         method: "post",
