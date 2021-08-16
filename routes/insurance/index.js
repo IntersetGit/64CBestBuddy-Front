@@ -9,7 +9,8 @@ const InsuranceHome = (props) => {
 
     const initModelSearch = {
         mas_insurance_type_id: null,
-        order_by: "suggest"
+        order_by: "suggest",
+        insurance_category_id: "2bf5864d-68f6-4cb6-b14d-7999ca213306", //falcon
     }
     const [modelSearch, setModelSearch] = useState(initModelSearch)
 
@@ -30,7 +31,7 @@ const InsuranceHome = (props) => {
     /* Init */
     const onInit = async () => {
         try {
-            const _res = await GetMasterInsuranceService()
+            const _res = await GetMasterInsuranceService("2bf5864d-68f6-4cb6-b14d-7999ca213306")
             setMasterdata({
                 ...masterdata,
                 Type: _res.data.items.Type,
@@ -50,6 +51,7 @@ const InsuranceHome = (props) => {
         const mas_insurance_type_id = item ? item.id : null
         setModelSearch({ ...modelSearch, mas_insurance_type_id })
         await searchInsurance({
+            ...modelSearch,
             mas_insurance_type_id,
             order_by: modelSearch.order_by
         })
@@ -153,8 +155,8 @@ const InsuranceHome = (props) => {
 
 
                                             <div className="price">
-                                                <h2><sup>฿</sup> {e.price} <sub> / {e.installment_name}</sub></h2>
-                                                {/* <h2 style={{ fontSize: 16, paddingTop: 5 }}><s>1,058</s> บาท <span style={{ color: "red", fontSize: 16 }}>-15%</span></h2> */}
+                                                <h2><sup>฿</sup> {e.price.toLocaleString()} <sub> / {e.installment_name}</sub></h2>
+                                                <h2 style={{ fontSize: 16, paddingTop: 5 }}><s>1,058</s> บาท <span style={{ color: "red", fontSize: 16 }}>-15%</span></h2>
                                             </div>
 
                                             <div className="text-end">

@@ -1,9 +1,12 @@
 import Axios from 'axios';
 
-export const GetMasterInsuranceService = async () => {
+export const GetMasterInsuranceService = async (insurance_category_id) => {
+    let url = `${process.env.NEXT_PUBLIC_SERVICE}/masterData/GetMasterInsurance?`
+    if (insurance_category_id) url += `&insurance_category_id=${insurance_category_id}`
+
     return await Axios({
         method: "get",
-        url: `${process.env.NEXT_PUBLIC_SERVICE}/masterData/GetMasterInsurance`,
+        url,
         config: { headers: { "Content-Type": "multipart/form-data" } },
     })
 };
