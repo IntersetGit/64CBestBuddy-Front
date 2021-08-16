@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { message, Select } from 'antd';
+import { message, Select, Modal, Form, Input, Checkbox } from 'antd';
 import Link from 'next/link';
-import { GetAllInsuranceService, GetMasterInsuranceService } from '../../service';
+import { GetAllInsuranceService, GetMasterAllDataService, GetMasterInsuranceService } from '../../service';
+import Router from 'next/router'
 
 const { Option } = Select;
 
@@ -14,6 +15,7 @@ const InsuranceHome = (props) => {
     }
     const [modelSearch, setModelSearch] = useState(initModelSearch)
 
+    const [master, setMaster] = useState({})
     const [liat, setliat] = useState([]);
     const [masterdata, setMasterdata] = useState({
         Type: {
@@ -69,9 +71,9 @@ const InsuranceHome = (props) => {
     /* ค้นหาประกัน */
     const searchInsurance = async (item) => {
         try {
-            console.log('search :>> ', item);
+            // console.log('search :>> ', item);
             const { data } = await GetAllInsuranceService(item);
-            console.log('data :>> ', data.items);
+            // console.log('data :>> ', data.items);
             const _data = data.items.map(e => {
                 e.img_cover = e.img_cover ? (JSON.parse(e.img_cover)).path : null;
                 return {
@@ -80,7 +82,9 @@ const InsuranceHome = (props) => {
                     details: e.details,
                     installment_name: e.installment_name,
                     price: e.price,
-                    img: e.img_cover ? process.env.NEXT_PUBLIC_SERVICE + e.img_cover : "/images/no-img.png"
+                    img: e.img_cover ? process.env.NEXT_PUBLIC_SERVICE + e.img_cover : "/images/no-img.png",
+                    category_id: e.category_id,
+                    category_name: e.category_name,
                 }
             });
             setliat(_data)
@@ -90,6 +94,46 @@ const InsuranceHome = (props) => {
         }
     }
 
+
+    const selectInsurance = async (item) => {
+        try {
+            const { data } = await GetMasterAllDataService({ search: item.category_name });
+            setMaster(data.items)
+            setVisibleSelect(true)
+        } catch (error) {
+            message.error('เรียกข้อมูลผิดพลาด!');
+        }
+    }
+
+    /* Modal Select Insurance */
+    const [visibleSelect, setVisibleSelect] = useState(false)
+    const [checked, setChecked] = useState(false)
+    const [form] = Form.useForm();
+
+
+    const handleCancelSelect = () => {
+        form.resetFields()
+        setVisibleSelect(false)
+    }
+
+    const onFinish = (value) => {
+        try {
+            console.log('value :>> ', value);
+
+
+
+            Router.push({
+                pathname: '/insurance/product',
+                query: { id: null }
+            })
+        } catch (error) {
+            message.error('มีบางอย่างผิดพลาดผิดพลาด!');
+        }
+    }
+
+    const onFinishFailed = (error) => {
+        message.error('กรอกข้อมูลให้ครบถ้วน!');
+    }
 
 
     return (
@@ -160,16 +204,13 @@ const InsuranceHome = (props) => {
                                             </div>
 
                                             <div className="text-end">
-                                                <Link href={{
+                                                {/* <Link href={{
                                                     pathname: '/insurance/product',
                                                     query: { id: e.id },
-                                                }} >
-                                                    <a className="default-btn" style={{ backgroundColor: "#ff9400" }}>ชื้อเลย</a>
-                                                </Link>
+                                                }} > */}
+                                                <a className="default-btn" style={{ backgroundColor: "#ff9400" }} onClick={() => selectInsurance(e)}>ชื้อเลย</a>
+                                                {/* </Link> */}
                                             </div>
-
-
-
                                         </div>
 
                                     </div>
@@ -181,6 +222,66 @@ const InsuranceHome = (props) => {
 
 
                 </div>
+
+
+                {/* Modal Select Insurance */}
+                <Modal
+                    maskClosable={false}
+                    visible={visibleSelect}
+                    title="รายละเอียดผู้เอาประกันภัย"
+                    onCancel={handleCancelSelect}
+                    footer={(
+                        <div className="text-center">
+                            <button className="btn btn-md btn-orange" disabled={!checked} onClick={() => form.submit()}>ดำเนินการต่อ</button>
+                        </div>
+                    )}
+                >
+                    <Form
+                        form={form}
+                        name="basic"
+                        labelCol={{ span: 5 }}
+                        wrapperCol={{ span: 16 }}
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                    >
+                        <Form.Item label="คำนำหน้า" name="prefix_id" rules={[{ required: true, message: 'กรุณาเลือกคำนำหน้าของคุณ!' }]}>
+                            <Select
+                                showSearch
+                                optionFilterProp="children"
+                                filterOption={(input, option) =>
+                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
+                            >
+                                {master.GetAllPrefix ? master.GetAllPrefix.map(e => <Option value={e.id} key={e.id}>{e.name}</Option>) : null}
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item label="ชื่อ" name="first_name" rules={[{ required: true, message: 'กรุณากรอกชื่อจริงของคุณ!' }]}>
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item label="นามสกุล" name="last_name" rules={[{ required: true, message: 'กรุณากรอกนามสกุลของคุณ!' }]}>
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item label="โทรศัพท์มือ" name="mobile_phone" rules={[{ required: true, message: 'กรุณากรอกโทรศัพท์มือของคุณ!' }]}>
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item label="อีเมล" name="email" rules={[{ type: "email", required: true, message: 'กรุณากรอกอีเมลของคุณ!' }]}>
+                            <Input />
+                        </Form.Item>
+
+                        <div style={{ padding: 20 }}>
+                            <Checkbox checked={checked} onChange={(e) => setChecked(e.target.checked)}>
+                                ข้าพเจ้ายอมรับให้บริษัทฯ เก็บรวบรวม ใช้ข้อมูลส่วนบุคคลที่ให้ไว้ข้างต้น สำหลับแจ้งข้อมูลข่าวสาร แนะนำผลิตภัณฑ์และบริการ กิจกรรมส่งเสริมการขาย รวมถึงข้มูลทางการตลาด
+                                ตลอดจนข้อมูลอื่นๆ ที่เกี่ยวกับบริษัทฯ
+                            </Checkbox>
+                        </div>
+
+                    </Form>
+                </Modal>
             </div>
 
             <style dangerouslySetInnerHTML={{
