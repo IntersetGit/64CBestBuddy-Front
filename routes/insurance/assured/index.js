@@ -7,16 +7,16 @@ const { Option } = Select
 /* ผู้เอาประกันภัย */
 const Assured = ({ title, formData, page, category, master, model, address }) => {
 
-    console.log('master :>> ', master);
+    // console.log('master :>> ', master);
     console.log('address :>> ', address);
 
     const [form] = Form.useForm();
     const [dateStart, setDateStart] = useState(null)
     const [dateEnd, setDateEnd] = useState(null)
 
-    const [provinceList, setProvinceList] = useState([])
-    const [districtList, setDistrictList] = useState([])
-    const [subDistrict, setSubDistrict] = useState([])
+    const [provinceList, setProvinceList] = useState([]);
+    const [districtList, setDistrictList] = useState([]);
+    const [subdistrictList, setSubdistrictList] = useState([]);
 
     useEffect(() => {
         if (formData) {
@@ -28,7 +28,7 @@ const Assured = ({ title, formData, page, category, master, model, address }) =>
         if (address) {
             setProvinceList(address.GetAllProvince)
             setDistrictList(address.GetAllDistrict)
-            setSubDistrict(address.GetAllSubDistrict)
+            setSubdistrictList(address.GetAllSubDistrict)
         }
     }, [address])
 
@@ -99,11 +99,43 @@ const Assured = ({ title, formData, page, category, master, model, address }) =>
         form.setFieldsValue({ ...form.getFieldValue(), occupation_risk_class: risk_class_falcon })
     }
 
-    /*  */
+    /* setDateStartEnd */
     const setDateStartEnd = (value) => {
         setDateStart(moment(value).format('DD/MM/YYYY'))
         setDateEnd(moment(value).add(1, 'years').format('DD/MM/YYYY'))
     }
+
+
+    /* changeSelectAddress จังหวัด อำเภอ ตำบล */
+
+    const changeSelectAddress = async (id, type) => {
+        // console.log('id :>> ', id, type);
+        const district = address.GetAllDistrict, subdistrict = address.GetAllSubDistrict
+        const data = form.getFieldsValue()
+        if (type === "prov") {
+            await setDistrictList(district.filter(e => e.provicne_id === id))
+            await setSubdistrictList(subdistrict.filter(e => e.provicne_id === id))
+            form.setFieldsValue({ ...data, district_id: null, sub_district_id: null })
+
+        } else if (type === "dist") {
+
+            await setSubdistrictList(subdistrict.filter(e => e.district_id === id))
+            form.setFieldsValue({ ...data, sub_district_id: null, provicne_id: await ChangeSelectDist(id), })
+
+        } else if (type === "subdist") {
+
+            const index = subdistrictList.findIndex(e => e.id == id);
+            if (index !== -1) {
+                form.setFieldsValue({ ...data, district_id: subdistrictList[index].district_id, province_id: await ChangeSelectDist(subdistrictList[index].district_id), postal_code: subdistrictList[index].postal_code })
+            }
+        }
+    }
+
+    const ChangeSelectDist = async (id) => {
+        const filterIndex = districtList.filter(e => e.id == id);
+        return filterIndex.length > 0 ? filterIndex[0].provicne_id : null
+    }
+
 
     return (
         <>
@@ -310,7 +342,7 @@ const Assured = ({ title, formData, page, category, master, model, address }) =>
                                                         filterOption={(input, option) =>
                                                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                                         }
-                                                        onChange={selectOccupation}
+                                                        onChange={(e) => { changeSelectAddress(e, "prov") }}
                                                     >
                                                         {provinceList ? provinceList.map(e => <Option value={e.id} key={e.id}>{e.provicne_name_th}</Option>) : null}
                                                     </Select>
@@ -324,7 +356,7 @@ const Assured = ({ title, formData, page, category, master, model, address }) =>
                                                         filterOption={(input, option) =>
                                                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                                         }
-                                                        onChange={selectOccupation}
+                                                        onChange={(e) => { changeSelectAddress(e, "dist") }}
                                                     >
                                                         {districtList ? districtList.map(e => <Option value={e.id} key={e.id}>{e.district_name_th}</Option>) : null}
                                                     </Select>
@@ -338,9 +370,9 @@ const Assured = ({ title, formData, page, category, master, model, address }) =>
                                                         filterOption={(input, option) =>
                                                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                                         }
-                                                        onChange={selectOccupation}
+                                                        onChange={(e) => { changeSelectAddress(e, "subdist") }}
                                                     >
-                                                        {subDistrict ? subDistrict.map(e => <Option value={e.id} key={e.id}>{e.sub_district_name_th}</Option>) : null}
+                                                        {subdistrictList ? subdistrictList.map(e => <Option value={e.id} key={e.id}>{e.sub_district_name_th}</Option>) : null}
                                                     </Select>
                                                 </Form.Item>
                                             </Col>
