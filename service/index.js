@@ -30,6 +30,15 @@ export const GetMasterAllDataService = async ({ search = null }) => {
     })
 };
 
+export const MangeInsuranceOrderService = async (data) => {
+    return await Axios({
+        method: "post",
+        url: `${process.env.NEXT_PUBLIC_SERVICE}/insurance/mangeInsuranceOrder`,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
+        data
+    })
+};
+
 export const GetMasterInsuranceCategoryService = async () => {
     return await Axios({
         method: "get",

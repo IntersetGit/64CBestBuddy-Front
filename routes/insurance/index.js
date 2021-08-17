@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { message, Select, Modal, Form, Input, Checkbox } from 'antd';
+import { message, Select, Modal, Form, Input, Checkbox, Button } from 'antd';
 import Link from 'next/link';
-import { GetAllInsuranceService, GetMasterAllDataService, GetMasterInsuranceService } from '../../service';
+import { GetAllInsuranceService, GetMasterAllDataService, GetMasterInsuranceService, MangeInsuranceOrderService } from '../../service';
 import Router from 'next/router'
+import moment from 'moment';
+import { Decrypt, Encrypt } from '../../utils/SecretCode';
 
 const { Option } = Select;
 
@@ -100,6 +102,8 @@ const InsuranceHome = (props) => {
             const { data } = await GetMasterAllDataService({ search: item.category_name });
             setMaster(data.items)
             setVisibleSelect(true)
+            setInsuranceId(item.id)
+            setCategoryName(item.category_name)
         } catch (error) {
             message.error('เรียกข้อมูลผิดพลาด!');
         }
@@ -108,25 +112,49 @@ const InsuranceHome = (props) => {
     /* Modal Select Insurance */
     const [visibleSelect, setVisibleSelect] = useState(false)
     const [checked, setChecked] = useState(false)
+    const [insuranceId, setInsuranceId] = useState(null)
+    const [categoryName, setCategoryName] = useState(null)
     const [form] = Form.useForm();
+    const [loadingForm, setLoadingForm] = useState(false)
 
 
     const handleCancelSelect = () => {
         form.resetFields()
         setVisibleSelect(false)
+        setLoadingForm(false)
+        setChecked(false)
+        setInsuranceId(null)
+        setCategoryName(null)
     }
 
-    const onFinish = (value) => {
+    const onFinish = async (value) => {
         try {
-            console.log('value :>> ', value);
+            // console.log('value :>> ', value);
+            setLoadingForm(true)
+            const _model = {
+                id: null,
+                insurance_id: insuranceId,
+                protection_date_start: moment(new Date()).format("YYYY-MM-DD"),
+                protection_date_end: moment(new Date()).add(1, 'years').format("YYYY-MM-DD"),
+                prefix_id: value.prefix_id,
+                first_name: value.first_name,
+                last_name: value.last_name,
+                mobile_phone: value.mobile_phone,
+                email: value.email,
+                category_name: categoryName,
+            }
+            // console.log('_model :>> ', _model);
 
-
-
+            const token = Encrypt(_model)
+            const { data } = await MangeInsuranceOrderService({ token });
+            // console.log('data :>> ', data);
+            setLoadingForm(false)
             Router.push({
                 pathname: '/insurance/product',
-                query: { id: null }
+                query: { id: data.items }
             })
         } catch (error) {
+            setLoadingForm(false)
             message.error('มีบางอย่างผิดพลาดผิดพลาด!');
         }
     }
@@ -232,7 +260,7 @@ const InsuranceHome = (props) => {
                     onCancel={handleCancelSelect}
                     footer={(
                         <div className="text-center">
-                            <button className="btn btn-md btn-orange" disabled={!checked} onClick={() => form.submit()}>ดำเนินการต่อ</button>
+                            <Button className="btn btn-md btn-orange" disabled={!checked} onClick={() => form.submit()} loading={loadingForm}>ดำเนินการต่อ</Button>
                         </div>
                     )}
                 >
@@ -262,7 +290,7 @@ const InsuranceHome = (props) => {
                         </Form.Item>
 
                         <Form.Item label="นามสกุล" name="last_name" rules={[{ required: true, message: 'กรุณากรอกนามสกุลของคุณ!' }]}>
-                            <Input />
+                            <Input l={loadingForm} />
                         </Form.Item>
 
                         <Form.Item label="โทรศัพท์มือ" name="mobile_phone" rules={[{ required: true, message: 'กรุณากรอกโทรศัพท์มือของคุณ!' }]}>
