@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import Router,{ useRouter } from 'next/router'
 import Head from 'next/head'
 import { message, Steps } from 'antd';
 
@@ -57,7 +57,7 @@ export default () => {
                 bmi: "", //BMI
             }
 
-            
+
             setFormData(item)
         }
     }
@@ -86,6 +86,7 @@ export default () => {
             }
         } catch (error) {
             message.error('เรียกข้อมูลผิดพลาด!');
+            Router.push({ pathname: '/' })
         }
     }
 
@@ -98,7 +99,7 @@ export default () => {
         { title: 'เสร็จสิ้น' },
     ];
 
-    
+
     return (
         model.data ? (
             <>
