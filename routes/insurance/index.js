@@ -141,6 +141,7 @@ const InsuranceHome = (props) => {
                 last_name: value.last_name,
                 mobile_phone: value.mobile_phone,
                 email: value.email,
+                type_card_number_id: 1,
                 category_name: categoryName,
             }
             // console.log('_model :>> ', _model);
@@ -275,7 +276,7 @@ const InsuranceHome = (props) => {
                         </Form.Item>
 
                         <Form.Item label="นามสกุล" name="last_name" rules={[{ required: true, message: 'กรุณากรอกนามสกุลของคุณ!' }]}>
-                            <Input l={loadingForm} />
+                            <Input />
                         </Form.Item>
 
                         <Form.Item label="โทรศัพท์มือ" name="mobile_phone" rules={[{ required: true, message: 'กรุณากรอกโทรศัพท์มือของคุณ!' }]}>

@@ -30,6 +30,16 @@ export const GetMasterAllDataService = async ({ search = null }) => {
     })
 };
 
+export const GetMasterAddressService = async ({ search = null }) => {
+    let url = `${process.env.NEXT_PUBLIC_SERVICE}/masterData/GetMasterAddress?`
+    if (search) url += `&search=${search}`
+    return await Axios({
+        method: "get",
+        url,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
+    })
+};
+
 export const MangeInsuranceOrderService = async (data) => {
     return await Axios({
         method: "post",
@@ -90,4 +100,5 @@ export default {
     GetImagesHeaderInsuranceService,
     GetPriceInsuranceService,
     GetByIdInsuranceService,
+    GetMasterAddressService,
 }

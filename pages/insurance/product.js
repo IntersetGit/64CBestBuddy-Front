@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import Router,{ useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import Head from 'next/head'
 import { message, Steps } from 'antd';
 
 import MainBannerHeader from '../../components/HomeThree/MainBannerHeader';
 import Footer from '../../components/_App/Footer';
 import Preloader from '../../components/_App/Preloader'
-import { GetByIdInsuranceService, GetMasterAllDataService, GetMasterInsuranceCategoryService } from '../../service';
+import { GetByIdInsuranceService, GetMasterAddressService, GetMasterAllDataService } from '../../service';
 
 const { Step } = Steps;
 
@@ -24,6 +24,7 @@ export default () => {
     const [pageSteps, setPageSteps] = useState(1)
     const [category, setCategory] = useState(null)
     const [master, setMaster] = useState({})
+    const [masterAddress, setMasterAddress] = useState({})
     const [formData, setFormData] = useState({})
 
     useEffect(() => {
@@ -33,28 +34,40 @@ export default () => {
     useEffect(() => {
         const __page = Number(page) - 1
         setPageSteps(__page)
-        setFormDataPage(__page)
     }, [page])
 
 
-    const setFormDataPage = (_page) => {
-        if (_page == 0) {
+    const setFormDataPage = (_page, form) => {
+        if (_page == 1) {
             const item = {
-                protection_date_start: moment(new Date()), //วันที่เริ่มคุ้มครอง
-                protection_date_end: moment(new Date()).add(1, 'years'), //วันสิ้นสุดความคุ้มครอง
-                prefix_id: "", //คำนำหน้า
-                first_name: "", //ชื่อ
-                last_name: "", //นามสกุล
-                mobile_phone: "", //โทรศัพท์มือ
-                phone: "", // เบอร์โทรศัพท์
-                email: "", //อีเมล
-                birthday: "", //วันเดือนปีเกิด (ค.ศ.)
-                age: "", //อายุ
-                occupation_id: "", //อาชีพ
-                occupation_risk_class: "", //ขั้นอาชีพ
-                height: "", //ส่วนสูง
-                weight: "", //น้ำหนัก
-                bmi: "", //BMI
+                protection_date_start: moment(new Date(form.protection_date_start)), //วันที่เริ่มคุ้มครอง
+                protection_date_end: moment(new Date(form.protection_date_end)), //วันสิ้นสุดความคุ้มครอง
+                prefix_id: form.prefix_id, //คำนำหน้า
+                first_name: form.first_name, //ชื่อ
+                last_name: form.last_name, //นามสกุล
+                type_card_number_id: form.type_card_number_id, //ประเภทบัตร
+                card_number: form.card_number, //เลขที่บัตร
+                gender_id: form.gender_id, //เพศ
+                mobile_phone: form.mobile_phone, //โทรศัพท์มือ
+                phone: form.phone, // เบอร์โทรศัพท์
+                email: form.email, //อีเมล
+                birthday: form.birthday, //วันเดือนปีเกิด (ค.ศ.)
+                age: form.age, //อายุ
+                height: form.height, //ส่วนสูง
+                weight: form.weight, //น้ำหนัก
+                bmi: form.bmi, //BMI
+                occupation_id: form.occupation_id, //อาชีพ
+                occupation_risk_class: form.occupation_risk_class, //ขั้นอาชีพ
+                card_number: form.card_number, //เลขที่บัตร
+                house_no: form.house_no, //บ้านเลขที่
+                village_no: form.village_no, //หมู่
+                lane: form.lane, //ซอย
+                village: form.village, //หมู่บ้าน
+                road: form.road, //ถนน
+                province_id: form.province_id, //จังหวัด
+                district_id: form.district_id, //อำเภอ
+                sub_district_id: form.sub_district_id, //ตำบล
+                postal_code: form.postal_code, //รหัสไปรษณีย์
             }
 
 
@@ -75,13 +88,21 @@ export default () => {
                 _model.data.age_end = _model.data.age_end ? parseInt(_model.data.age_end) : 100
                 setHeadPage(_model.data.name)
                 setModel(_model)
-                // console.log('_model :>> ', _model);
+                console.log('_model :>> ', _model);
                 setCategory(_model.category_name)
 
                 /* Get Master */
                 const res = await GetMasterAllDataService({ search: _model.data.category_name });
                 // console.log('res :>> ', res.data.items);
                 setMaster(res.data.items)
+
+                /* Get Master Address */
+                const _res = await GetMasterAddressService({ search: _model.data.category_name });
+                // console.log('_res :>> ', _res.data.items);
+                setMasterAddress(_res.data.items)
+
+
+                setFormDataPage(page, _model.form)
 
             }
         } catch (error) {
@@ -117,7 +138,7 @@ export default () => {
                     </Steps>
                     <div className="pt-4">
                         {/* ผู้เอาประกันภัย */}
-                        {page == 1 ? <AssuredProduct model={model} title={steps[pageSteps].title} category={category} master={master} formData={formData} /> :
+                        {page == 1 ? <AssuredProduct model={model} title={steps[pageSteps].title} category={category} master={master} formData={formData} address={masterAddress} /> :
                             <InsuranceProduct model={model} />}
                     </div>
                 </div>
