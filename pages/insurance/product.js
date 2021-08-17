@@ -21,7 +21,7 @@ export default () => {
     const initialStateModel = {}
     const [headPage, setHeadPage] = useState(null);
     const [model, setModel] = useState(initialStateModel);
-    const [pageSteps, setPageSteps] = useState(1)
+    const [pageSteps, setPageSteps] = useState(0)
     const [category, setCategory] = useState(null)
     const [master, setMaster] = useState({})
     const [masterAddress, setMasterAddress] = useState({})
@@ -51,7 +51,7 @@ export default () => {
                 mobile_phone: form.mobile_phone, //โทรศัพท์มือ
                 phone: form.phone, // เบอร์โทรศัพท์
                 email: form.email, //อีเมล
-                birthday: form.birthday, //วันเดือนปีเกิด (ค.ศ.)
+                birthday: form.birthday ? moment(new Date(form.birthday)) : null, //วันเดือนปีเกิด (ค.ศ.)
                 age: form.age, //อายุ
                 height: form.height, //ส่วนสูง
                 weight: form.weight, //น้ำหนัก
@@ -115,10 +115,11 @@ export default () => {
     const steps = [
         { title: 'ผู้เอาประกันภัย' },
         { title: 'แผนประกันภัย' },
-        { title: 'รายละเอียด' },
+        { title: 'ข้อมูลผู้รับผลประโยชน์' },
         { title: 'ยืนยัน' },
         { title: 'เสร็จสิ้น' },
     ];
+
 
 
     return (
@@ -138,7 +139,7 @@ export default () => {
                     </Steps>
                     <div className="pt-4">
                         {/* ผู้เอาประกันภัย */}
-                        {page == 1 ? <AssuredProduct model={model} title={steps[pageSteps].title} category={category} master={master} formData={formData} address={masterAddress} /> :
+                        {page == 1 ? <AssuredProduct model={model} page={pageSteps} title={steps[pageSteps].title} category={category} master={master} formData={formData} address={masterAddress} /> :
                             <InsuranceProduct model={model} />}
                     </div>
                 </div>

@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Row, Col, Card, Form, Modal, Input, DatePicker, Select, InputNumber } from 'antd';
+import { Row, Col, Card, Form, Modal, Input, DatePicker, Select, Button, message } from 'antd';
+import { DoubleRightOutlined, DoubleLeftOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import Router from 'next/router'
+import { MangeInsuranceOrderService } from '../../../service';
+import { Encrypt } from '../../../utils/SecretCode';
 
 const { Option } = Select
 
@@ -8,7 +12,7 @@ const { Option } = Select
 const Assured = ({ title, formData, page, category, master, model, address }) => {
 
     // console.log('master :>> ', master);
-    console.log('address :>> ', address);
+    // console.log('address :>> ', address);
 
     const [form] = Form.useForm();
     const [dateStart, setDateStart] = useState(null)
@@ -137,6 +141,92 @@ const Assured = ({ title, formData, page, category, master, model, address }) =>
     }
 
 
+
+    /* Page Back Page */
+    const nextPage = () => {
+        form.submit()
+    }
+
+    const backPage = () => {
+
+    }
+
+    /* form*/
+    const [loadingForm, setLoadingForm] = useState(false)
+    const onFinish = async (value) => {
+        try {
+            console.log('value :>> ', value);
+            if (page == 0) {
+                if (value.protection_date_start._d < new Date) {
+                    console.log('Erroe :>> ');
+                    Modal.warning({
+                        title: 'ขออภัยค่ะ...',
+                        content: `วันที่เริ่มคุ้มครองไม่ถูกต้อง`,
+                    });
+                    form.setFieldsValue({ ...value, protection_date_start: null, protection_date_end: null })
+                } else {
+                    await FinishPage0(value)
+                }
+            }
+        } catch (error) {
+            setLoadingForm(false)
+            message.error('มีบางอย่างผิดพลาดผิดพลาด!');
+        }
+    }
+
+    const onFinishFailed = (error) => {
+        message.error('กรอกข้อมูลให้ครบถ้วน!');
+    }
+
+    const FinishPage0 = async (value) => {
+        setLoadingForm(true)
+        const _model = {
+            id: model.form.id,
+            protection_date_start: moment(new Date(value.protection_date_start)).format("YYYY-MM-DD"), //วันที่เริ่มคุ้มครอง
+            protection_date_end: moment(new Date(value.protection_date_end)).format("YYYY-MM-DD"), //วันสิ้นสุดความคุ้มครอง
+            prefix_id: value.prefix_id, //คำนำหน้า
+            first_name: value.first_name, //ชื่อ
+            last_name: value.last_name, //นามสกุล
+            type_card_number_id: value.type_card_number_id, //ประเภทบัตร
+            card_number: value.card_number, //เลขที่บัตร
+            gender_id: value.gender_id, //เพศ
+            mobile_phone: value.mobile_phone, //โทรศัพท์มือ
+            phone: value.phone, // เบอร์โทรศัพท์
+            email: value.email, //อีเมล
+            birthday: value.birthday, //วันเดือนปีเกิด (ค.ศ.)
+            age: value.age, //อายุ
+            height: value.height, //ส่วนสูง
+            weight: value.weight, //น้ำหนัก
+            bmi: value.bmi, //BMI
+            occupation_id: value.occupation_id, //อาชีพ
+            occupation_risk_class: value.occupation_risk_class, //ขั้นอาชีพ
+            card_number: value.card_number, //เลขที่บัตร
+            house_no: value.house_no, //บ้านเลขที่
+            village_no: value.village_no, //หมู่
+            lane: value.lane, //ซอย
+            village: value.village, //หมู่บ้าน
+            road: value.road, //ถนน
+            province_id: value.province_id, //จังหวัด
+            district_id: value.district_id, //อำเภอ
+            sub_district_id: value.sub_district_id, //ตำบล
+            postal_code: value.postal_code, //รหัสไปรษณีย์
+            category_name: model.data.category_name, //รcategory_name
+        }
+        console.log('_model :>> ', _model);
+
+        const token = Encrypt(_model)
+        const { data } = await MangeInsuranceOrderService({ token });
+        // console.log('data :>> ', data);
+        setLoadingForm(false)
+        Router.push({
+            pathname: '/insurance/product',
+            query: { 
+                id: model.form.id, 
+                page: 2 
+            }
+        })
+    }
+
     return (
         <>
             <h2>{title}</h2>
@@ -145,6 +235,8 @@ const Assured = ({ title, formData, page, category, master, model, address }) =>
                     <Form
                         form={form}
                         layout="vertical"
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
                     >
                         <Row gutter={[24, 24]}>
                             <Col span={24} order={2}>
@@ -404,7 +496,7 @@ const Assured = ({ title, formData, page, category, master, model, address }) =>
                             <Card title={"ผลิตภัณฑ์โดยสรุป"} type="inner">
                                 <p>
                                     <b>ผลิตภัณฑ์</b> <br />
-                                    iPerfect
+                                    {model.data.name}
                                 </p>
 
                                 <p>
@@ -416,6 +508,23 @@ const Assured = ({ title, formData, page, category, master, model, address }) =>
                     </Row>
                 </Col>
             </Row>
+
+            <div className="pt-4">
+                <Row>
+                    <Col span={24} sm={{ span: 24, order: 2 }} lg={{ span: 18, order: 1 }} order={1}>
+                        <Row>
+                            <Col span={12} order={1} style={{ textAlign: "start" }}>
+                                {page == 0 ? null : <Button shape="round"><DoubleLeftOutlined onClick={backPage} /> <span>ก่อนหน้า</span> </Button>}
+                            </Col>
+                            <Col span={12} order={2} style={{ textAlign: "end" }}>
+                                {page == 2 ? null : <Button type="primary" shape="round" onClick={nextPage}><span>ถัดไป</span> <DoubleRightOutlined /></Button>}
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col span={24} sm={{ span: 24, order: 1 }} lg={{ span: 6, order: 2 }} order={2} />
+                </Row>
+
+            </div>
 
             <style jsx global>
                 {`
