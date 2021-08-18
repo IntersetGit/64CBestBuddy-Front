@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Router, { useRouter } from 'next/router'
 import Head from 'next/head'
-import { message, Steps } from 'antd';
+import { message, Steps, Row, Col, Card } from 'antd';
 
 import MainBannerHeader from '../../components/HomeThree/MainBannerHeader';
 import Footer from '../../components/_App/Footer';
@@ -26,6 +26,9 @@ export default () => {
     const [master, setMaster] = useState({})
     const [masterAddress, setMasterAddress] = useState({})
     const [formData, setFormData] = useState({})
+
+    const [dateStart, setDateStart] = useState(null)
+    const [dateEnd, setDateEnd] = useState(null)
 
     useEffect(() => {
         if (id) GetByIdInsuranceData(id)
@@ -132,15 +135,51 @@ export default () => {
                 <MainBannerHeader src={`${process.env.NEXT_PUBLIC_SERVICE}/${model.data.img_header.path}`} alt={headPage} />
 
                 <div className="container-fluid p-5">
+
                     <Steps current={pageSteps}>
                         {steps.map(item => (
                             <Step key={item.title} title={item.title} />
                         ))}
                     </Steps>
+
                     <div className="pt-4">
-                        {/* ผู้เอาประกันภัย */}
-                        {page == 1 ? <AssuredProduct model={model} page={pageSteps} title={steps[pageSteps].title} category={category} master={master} formData={formData} address={masterAddress} /> :
-                            <InsuranceProduct model={model} />}
+
+                        <h2>{steps[pageSteps].title}</h2>
+
+                        <Row gutter={[24, 24]}>
+
+                            <Col span={24} sm={{ span: 24, order: 2 }} lg={{ span: 18, order: 1 }} order={2}>
+                                {/* ผู้เอาประกันภัย */}
+                                {page == 1 ? <AssuredProduct model={model} page={pageSteps} category={category} master={master} formData={formData} address={masterAddress} setDateStart={setDateStart} setDateEnd={setDateEnd}  /> :
+                                    <InsuranceProduct model={model} />}
+                            </Col>
+
+                            <Col span={24} sm={{ span: 24, order: 1 }} lg={{ span: 6, order: 2 }} order={1}>
+                                <Row gutter={[24, 24]}>
+                                    <Col span={24} order={2}>
+                                        <Card title={"สรุปใบเสนอราคา"} type="inner">
+                                            <p>
+                                                <b>วันที่สร้างรายการ</b> <br />
+                                                {moment(model.form.created_date).format("DD/MM/YYYY")}
+                                            </p>
+                                        </Card>
+                                    </Col>
+                                    <Col span={24} order={2}>
+                                        <Card title={"ผลิตภัณฑ์โดยสรุป"} type="inner">
+                                            <p>
+                                                <b>ผลิตภัณฑ์</b> <br />
+                                                {model.data.name}
+                                            </p>
+
+                                            <p>
+                                                <b>ระยะเวลาประกันภัย</b> <br />
+                                                {dateStart} -  {dateEnd}
+                                            </p>
+                                        </Card>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
                     </div>
                 </div>
 
