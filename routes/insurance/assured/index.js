@@ -5,6 +5,7 @@ import moment from 'moment';
 import Router from 'next/router'
 import { MangeInsuranceOrderService } from '../../../service';
 import { Encrypt } from '../../../utils/SecretCode';
+import { DiffDateMoment } from '../../../utils/DiffDate';
 
 const { Option } = Select
 
@@ -155,10 +156,11 @@ const Assured = ({ title, formData, page, category, master, model, address }) =>
     const [loadingForm, setLoadingForm] = useState(false)
     const onFinish = async (value) => {
         try {
-            console.log('value :>> ', value);
+            // console.log('value :>> ', value);
             if (page == 0) {
-                if (value.protection_date_start._d < new Date) {
-                    console.log('Erroe :>> ');
+                const _diffDate = DiffDateMoment(new Date(), value.protection_date_start._d)
+                if (_diffDate < 0) {
+                    // console.log('Erroe :>> ');
                     Modal.warning({
                         title: 'ขออภัยค่ะ...',
                         content: `วันที่เริ่มคุ้มครองไม่ถูกต้อง`,
@@ -220,9 +222,9 @@ const Assured = ({ title, formData, page, category, master, model, address }) =>
         setLoadingForm(false)
         Router.push({
             pathname: '/insurance/product',
-            query: { 
-                id: model.form.id, 
-                page: 2 
+            query: {
+                id: model.form.id,
+                page: 2
             }
         })
     }
