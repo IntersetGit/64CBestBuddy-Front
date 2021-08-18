@@ -11,13 +11,13 @@ import { GetByIdInsuranceService, GetMasterAddressService, GetMasterAllDataServi
 const { Step } = Steps;
 
 /* page */
-import InsuranceProduct from '../../routes/insurance/product'
+import PlanProduct from '../../routes/insurance/plan'
 import AssuredProduct from '../../routes/insurance/assured'
 import moment from 'moment';
 
 export default () => {
     const router = useRouter()
-    const { id, page = 1 } = router.query
+    const { id, page } = router.query
     const initialStateModel = {}
     const [headPage, setHeadPage] = useState(null);
     const [model, setModel] = useState(initialStateModel);
@@ -31,12 +31,13 @@ export default () => {
     const [dateEnd, setDateEnd] = useState(null)
 
     useEffect(() => {
-        if (id) GetByIdInsuranceData(id)
+        if (id && !page) GetByIdInsuranceData(id)
     }, [id])
 
     useEffect(() => {
-        const __page = Number(page) - 1
+        const __page = Number(page ?? 1) - 1
         setPageSteps(__page)
+        if (id) GetByIdInsuranceData(id)
     }, [page])
 
 
@@ -105,7 +106,7 @@ export default () => {
                 setMasterAddress(_res.data.items)
 
 
-                setFormDataPage(page, _model.form)
+                setFormDataPage(page ?? 1, _model.form)
 
             }
         } catch (error) {
@@ -150,8 +151,8 @@ export default () => {
 
                             <Col span={24} sm={{ span: 24, order: 2 }} lg={{ span: 18, order: 1 }} order={2}>
                                 {/* ผู้เอาประกันภัย */}
-                                {page == 1 ? <AssuredProduct model={model} page={pageSteps} category={category} master={master} formData={formData} address={masterAddress} setDateStart={setDateStart} setDateEnd={setDateEnd}  /> :
-                                    <InsuranceProduct model={model} />}
+                                {pageSteps == 0 ? <AssuredProduct model={model} page={pageSteps} category={category} master={master} formData={formData} address={masterAddress} setDateStart={setDateStart} setDateEnd={setDateEnd} /> :
+                                    pageSteps == 1 ? <PlanProduct model={model} /> : null}
                             </Col>
 
                             <Col span={24} sm={{ span: 24, order: 1 }} lg={{ span: 6, order: 2 }} order={1}>
