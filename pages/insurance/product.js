@@ -17,7 +17,7 @@ import moment from 'moment';
 
 export default () => {
     const router = useRouter()
-    const { id, page } = router.query
+    const { id, page = 1 } = router.query
     const initialStateModel = {}
     const [headPage, setHeadPage] = useState(null);
     const [model, setModel] = useState(initialStateModel);
@@ -31,15 +31,12 @@ export default () => {
     const [dateEnd, setDateEnd] = useState(null)
 
     useEffect(() => {
-        if (id && !page) GetByIdInsuranceData(id)
-    }, [id])
-
-    useEffect(() => {
-        const __page = Number(page ?? 1) - 1
-        setPageSteps(__page)
         if (id) GetByIdInsuranceData(id)
-    }, [page])
 
+        const __page = Number(page) - 1
+        setPageSteps(__page)
+
+    }, [id, page])
 
     const setFormDataPage = (_page, form) => {
         if (_page == 1) {
@@ -106,7 +103,7 @@ export default () => {
                 setMasterAddress(_res.data.items)
 
 
-                setFormDataPage(page ?? 1, _model.form)
+                setFormDataPage(page, _model.form)
 
             }
         } catch (error) {
@@ -151,8 +148,8 @@ export default () => {
 
                             <Col span={24} sm={{ span: 24, order: 2 }} lg={{ span: 18, order: 1 }} order={2}>
                                 {/* ผู้เอาประกันภัย */}
-                                {pageSteps == 0 ? <AssuredProduct model={model} page={pageSteps} category={category} master={master} formData={formData} address={masterAddress} setDateStart={setDateStart} setDateEnd={setDateEnd} /> :
-                                    pageSteps == 1 ? <PlanProduct model={model} /> : null}
+                                {page == 1 ? <AssuredProduct model={model} page={pageSteps} category={category} master={master} formData={formData} address={masterAddress} setDateStart={setDateStart} setDateEnd={setDateEnd} /> :
+                                    page == 2 ? <PlanProduct model={model} /> : null}
                             </Col>
 
                             <Col span={24} sm={{ span: 24, order: 1 }} lg={{ span: 6, order: 2 }} order={1}>

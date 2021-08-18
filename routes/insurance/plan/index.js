@@ -10,22 +10,24 @@ import { Encrypt } from '../../../utils/SecretCode'
 
 const PlanInsurance = ({ model }) => {
 
-  console.log('model :>> ', model);
+  // console.log('model :>> ', model);
 
   const [modelSearch, setModelSearch] = useState({})
   const [priceModel, setPriceModel] = useState([])
 
   useEffect(() => {
-    const initialStateModelSearch = {
-      gender: model.form.gender_id,
-      age: model.form.age,
-      installment_id: (model.master.installment.length > 0 && model.master.installment) ? model.master.installment[0].id : "7c0244d2-eb1f-48c6-9820-1d690c891015",
-      insurance_id: model.data.id
+    if (model.form.gender_id && model.form.age) {
+      const initialStateModelSearch = {
+        gender: model.form.gender_id,
+        age: model.form.age,
+        installment_id: (model.master.installment.length > 0 && model.master.installment) ? model.master.installment[0].id : "7c0244d2-eb1f-48c6-9820-1d690c891015",
+        insurance_id: model.data.id
+      }
+      getPriceInsuranceData(initialStateModelSearch);
+      setModelSearch(initialStateModelSearch);
+      // console.log(`model ------------------> `, model)
     }
-    getPriceInsuranceData(initialStateModelSearch);
-    setModelSearch(initialStateModelSearch);
-    // console.log(`model ------------------> `, model)
-  }, [])
+  }, [model.form.gender_id, model.form.age])
 
 
   /* เลือก งวดชำระเบี้ยประกันภัย */
