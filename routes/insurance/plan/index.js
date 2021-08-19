@@ -3,7 +3,7 @@ import Router from 'next/router'
 import { Radio, message, Card, Row, Col, Button } from 'antd';
 import { DoubleLeftOutlined } from '@ant-design/icons';
 import moment from 'moment'
-import { GetPriceInsuranceService } from "../../../service";
+import { GetPriceInsuranceService, MangeInsuranceOrderService } from "../../../service";
 import { Encrypt } from '../../../utils/SecretCode'
 
 
@@ -49,21 +49,28 @@ const PlanInsurance = ({ model }) => {
   }
 
   /* เลือกแผนประกัน */
-  const selectInsurance = (item) => {
-    if (model.table.data.length > 0) {
-      const index = model.table.data[0].match.findIndex(e => e.mas_plan_id == item.id)
-      const match_id = model.table.data[0].match[index].id
-      setSelectModel({
-        id: item.insurance_id, //รหัสประกัน
-        mas_plan_id: item.id, //รหัสแผนประกัน แผน S
-        match_id, // รหัสราคาความคุ้มครอง
-        mas_installment_id: modelSearch.installment_id, //รหัสรายเดือน
-        mas_age_range_id: item.price.mas_age_range_id, //รหัสช่วงอายุ
-        confirm_applicant: null,
-        birthday: modelSearch.installment_id,
-        age: modelSearch.installment_id
+  const selectInsurance = async (item) => {
+    try {
+      // console.log('item :>> ', item);
+      const _model = {
+        id: model.form.id,
+        category_name: model.data.category_name,
+        insurance_plan_id: item.id,
+      }
+      // console.log('_model :>> ', _model);
+      const token = Encrypt(_model)
+      await MangeInsuranceOrderService({ token });
+
+      Router.push({
+        pathname: '/insurance/product',
+        query: {
+          id: model.form.id,
+          page: 3
+        }
       })
-      setVisibleSelect(true)
+
+    } catch (error) {
+      message.error('มีบางอย่างผิดพลาดผิดพลาด!');
     }
   }
 
@@ -88,7 +95,7 @@ const PlanInsurance = ({ model }) => {
                 <div className="col-sm-12 col-md-6">
                   <div className="col-padding">
                     <div className="row justify-content-center mt-3">
-                      <h4 className="text-center">เลือกเพศ</h4>
+                      <h4 className="text-center">{modelSearch.gender == 1 ? "เพศชาย" : modelSearch.gender == 2 ? "เพศหญิง" : null}</h4>
                     </div>
 
 
