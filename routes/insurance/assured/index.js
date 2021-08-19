@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Row, Col, Card, Form, Modal, Input, DatePicker, Select, Button, message } from 'antd';
-import { DoubleRightOutlined, DoubleLeftOutlined } from '@ant-design/icons';
+import { Row, Col, Card, Form, Modal, Input, DatePicker, Select, Button, message, Radio, Checkbox } from 'antd';
+import { DoubleRightOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import Router from 'next/router'
 import { MangeInsuranceOrderService } from '../../../service';
@@ -146,9 +146,6 @@ const Assured = ({ formData, page, category, master, model, address, setDateStar
         form.submit()
     }
 
-    const backPage = () => {
-
-    }
 
     /* form*/
     const [loadingForm, setLoadingForm] = useState(false)
@@ -212,20 +209,79 @@ const Assured = ({ formData, page, category, master, model, address, setDateStar
             postal_code: value.postal_code, //รหัสไปรษณีย์
             category_name: model.data.category_name, //รcategory_name
         }
-        console.log('_model :>> ', _model);
+        // console.log('_model :>> ', _model);
 
         const token = Encrypt(_model)
-        const { data } = await MangeInsuranceOrderService({ token });
-        // console.log('data :>> ', data);
+        await MangeInsuranceOrderService(
+            { token });
         setLoadingForm(false)
-        Router.push({
-            pathname: '/insurance/product',
-            query: {
-                id: model.form.id,
-                page: 2
-            }
-        })
+        // console.log('model :>> ', model);
+        if (model.form.status == "1") {
+            setvisibleQuestion(true)
+        } else {
+            Router.push({
+                pathname: '/insurance/product',
+                query: {
+                    id: model.form.id,
+                    page: 2
+                }
+            })
+        }
     }
+
+    /* Modal */
+    const [checked, setChecked] = useState(false)
+    const [visibleQuestion, setvisibleQuestion] = useState(false)
+    const [formQuestion] = Form.useForm();
+
+    const handleCancelQuestion = () => {
+        setvisibleQuestion(false)
+    }
+
+    const onFinishQuestion = async (value) => {
+        try {
+            // console.log('value :>> ', value);
+            if (value.question1 === true &&
+                value.question2 === true &&
+                value.question3 === true &&
+                value.question4 === true &&
+                value.question5 === true &&
+                value.question6 === true) {
+                setLoadingForm(true)
+                const _model = {
+                    id: model.form.id,
+                    category_name: model.data.category_name,
+                    status: "2",
+                }
+
+                const token = Encrypt(_model)
+                await MangeInsuranceOrderService({ token });
+                setLoadingForm(false)
+
+                Router.push({
+                    pathname: '/insurance/product',
+                    query: {
+                        id: model.form.id,
+                        page: 2
+                    }
+                })
+            } else {
+               
+                Modal.warning({
+                    title: 'ขออภัยค่ะ...',
+                    content: `ข้อมูลของท่านไม่ผ่านเกณฑ์การพิจารณารับประกันภัย`,
+                });
+            }
+
+        } catch (error) {
+            message.error('มีบางอย่างผิดพลาดผิดพลาด!');
+        }
+    }
+
+    const onFinishFailedQuestion = (error) => {
+        message.error('กรอกข้อมูลให้ครบถ้วน!');
+    }
+
 
     return (
         <>
@@ -482,14 +538,95 @@ const Assured = ({ formData, page, category, master, model, address, setDateStar
 
             <div className="pt-4">
                 <Row>
-                    <Col span={12} order={1} style={{ textAlign: "start" }}>
-                        {page == 0 ? null : <Button shape="round"><DoubleLeftOutlined onClick={backPage} /> <span>ก่อนหน้า</span> </Button>}
-                    </Col>
+                    <Col span={12} order={1} style={{ textAlign: "start" }} />
                     <Col span={12} order={2} style={{ textAlign: "end" }}>
-                        {page == 2 ? null : <Button type="primary" shape="round" onClick={nextPage}><span>ถัดไป</span> <DoubleRightOutlined /></Button>}
+                        <Button type="primary" shape="round" onClick={nextPage}><span>ถัดไป</span> <DoubleRightOutlined /></Button>
                     </Col>
                 </Row>
             </div>
+
+
+
+            {/* Modal ตำถามสุขภาพ */}
+            <Modal
+
+                maskClosable={false}
+                visible={visibleQuestion}
+                title="คำถามสุขภาพ"
+                onCancel={handleCancelQuestion}
+                width={800}
+                footer={(
+                    <div className="text-center">
+                        <Button className="btn btn-md btn-orange" disabled={!checked} onClick={() => formQuestion.submit()} loading={loadingForm}>ดำเนินการต่อ</Button>
+                    </div>
+                )}
+            >
+                <Form
+                    form={formQuestion}
+                    layout="vertical"
+                    onFinish={onFinishQuestion}
+                    onFinishFailed={onFinishFailedQuestion}
+                >
+
+                    <Form.Item label="1. ท่านเคยมีประกันภัยสุขภาพ ประกันภัยโรคร้ายแรง ประกันชีวิต หรือประกันภัยอุบัติเหตุ กับบริษัท ฟอลคอนประกันภัย จำกัด (มหาชน) หรือบริษัทประกันภัยอื่นหรือไม่"
+                        name="question1" rules={[{ required: true, message: 'กรุณาเลือกคำถามสุขภาพ !' }]}>
+                        <Radio.Group>
+                            <Radio value={true}>ไม่เคย</Radio>
+                            <Radio value={2}>ถูกปฏิเสธรับประกัน</Radio>
+                            <Radio value={3}>มี ถูกเพิ่มเบี้ยประกันภัย</Radio>
+                            <Radio value={4}>มี รับประกันปกติ</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+
+                    <Form.Item label="2. ท่านเคยเป็นโรค หรือ กำลังรักษา หรือ ได้รับการวินิจฉัย ว่าเป็นโรคดังต่อไปนี้ หรือไม่ โรคมะเร็ง ,โรคหลอดเลือดสมอง(Stroke),ความผิดปกติทางสมอง,สมองเสื่อม,โรคพาร์กินสัน,โรคหัวใจและหลอดเลือดหัวใจ,โรคปอดอุดกั้นเรื้อรัง,โรคถุงลมโป่งพอง, โรคไตเรื้อรังหรือไตวาย,โรคตับหรือม้ามโต,โรคตับแข็ง,โรคพิษสุราเรื้อรัง,โรคเอดส์หรือมีเลือดบวกต่อไวรัส HIV,โรคเลือด และโรคเอสแอลอี (SLE) อัมพฤกษ์ อัมพาต,ทุพพลภาพ,พิการ,โรคจิตประสาท และเคยใช้สารเสพติด "
+                        name="question2" rules={[{ required: true, message: 'กรุณาเลือกคำถามสุขภาพ !' }]}>
+                        <Radio.Group>
+                            <Radio value={false}>ใช่</Radio>
+                            <Radio value={true}>ไม่ใช่</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+
+                    <Form.Item label="3. ท่านเคยเป็น หรือ กำลังรักษา หรือ ได้รับการวินิจฉัย ว่าเป็นโรคความดันโลหิตสูง, โรคเบาหวาน,ไทรอยด์,คอพอก, เนื้องอกหรือถุงน้ำที่ไม่ใช่มะเร็ง,โรคกระเพาะ,โรคกรดไหลย้อน, ปวดศีรษะ ไมเกรน,โรคเก๊าท์,ริดสีดวงทวาร, เส้นเลือดขอดที่ขา,ต้อเนื้อต้อกระจก, ไส้เลื่อน ,นิ่วทุกชนิด,ใส่วัสดุดามกระดูกที่แขน ขา หรือที่อื่นๆ หรือไม่"
+                        name="question3" rules={[{ required: true, message: 'กรุณาเลือกคำถามสุขภาพ !' }]}>
+                        <Radio.Group>
+                            <Radio value={false}>ใช่</Radio>
+                            <Radio value={true}>ไม่ใช่</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+
+                    <Form.Item label="4. โรคอื่นๆ หรือโรคประจำตัว หรือโรคเรื้อรังอื่นๆ นอกเหนือจากที่กล่าวมาข้างต้น ข้อที่ 3.1, 3.2, 3.3 "
+                        name="question4" rules={[{ required: true, message: 'กรุณาเลือกคำถามสุขภาพ !' }]}>
+                        <Radio.Group>
+                            <Radio value={false}>ใช่</Radio>
+                            <Radio value={true}>ไม่ใช่</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+
+                    <Form.Item label="5. ท่านเคยสูบหรือเสพบุหรี หรือใช้สารเสพติดอื่นหรือไม่ "
+                        name="question5" rules={[{ required: true, message: 'กรุณาเลือกคำถามสุขภาพ !' }]}>
+                        <Radio.Group>
+                            <Radio value={false}>ใช่</Radio>
+                            <Radio value={true}>ไม่ใช่</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+
+                    <Form.Item label="6. ปัจจุบันท่านดื่ม สุราหรือของมึนเมาหรือไม่ "
+                        name="question6" rules={[{ required: true, message: 'กรุณาเลือกคำถามสุขภาพ !' }]}>
+                        <Radio.Group>
+                            <Radio value={false}>ใช่</Radio>
+                            <Radio value={true}>ไม่ใช่</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+
+
+                    <Checkbox checked={checked} onChange={(e) => setChecked(e.target.checked)}>
+                        ข้าพเจ้าขอรับรองว่าคำแถลงตามรายการข้างบนเป็นความจริงและให้ถือเป็นส่วนหนึ่งของสัญญาระหว่างข้าพเจ้ากับบริษัท
+                    </Checkbox>
+
+
+                </Form>
+            </Modal>
+
 
             <style jsx global>
                 {`
