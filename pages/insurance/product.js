@@ -11,6 +11,7 @@ import { GetByIdInsuranceService, GetMasterAddressService, GetMasterAllDataServi
 const { Step } = Steps;
 
 /* page */
+import Beneficiary from '../../routes/insurance/beneficiary'
 import PlanProduct from '../../routes/insurance/plan'
 import AssuredProduct from '../../routes/insurance/assured'
 import moment from 'moment';
@@ -152,7 +153,8 @@ export default () => {
                             <Col span={24} sm={{ span: 24, order: 2 }} lg={{ span: 18, order: 1 }} order={2}>
                                 {/* ผู้เอาประกันภัย */}
                                 {page == 1 ? <AssuredProduct model={model} page={pageSteps} category={category} master={master} formData={formData} address={masterAddress} setDateStart={setDateStart} setDateEnd={setDateEnd} /> :
-                                    page == 2 ? <PlanProduct model={model} /> : null}
+                                    page == 2 ? <PlanProduct model={model} /> :
+                                        page == 3 ? <Beneficiary model={model} master={master} /> : null}
                             </Col>
 
                             <Col span={24} sm={{ span: 24, order: 1 }} lg={{ span: 6, order: 2 }} order={1}>
@@ -178,18 +180,22 @@ export default () => {
                                             </p>
                                         </Card>
                                     </Col>
-                                    <Col span={24} order={2}>
-                                        <Card title={"จำนวนเงินทั้งหมด"} type="inner">
-                                            <p>
-                                                <b>แผนประกันภัย</b> <br />
-                                                แผน 1
-                                            </p>
 
-                                            <p>
-                                                <b>฿ 3,470.00</b>
-                                            </p>
-                                        </Card>
-                                    </Col>
+                                    {model.form && (model.form.price || model.form.installment_name) ? (
+                                        <Col span={24} order={2}>
+                                            <Card title={"จำนวนเงินทั้งหมด"} type="inner">
+                                                <p>
+                                                    <b>แผนประกันภัย</b> <br />
+                                                    {model.form.installment_name}
+                                                </p>
+
+                                                <p>
+                                                    <b>฿ {(model.form.price).toLocaleString()}</b>
+                                                </p>
+                                            </Card>
+                                        </Col>
+                                    ) : null}
+
                                 </Row>
                             </Col>
                         </Row>
