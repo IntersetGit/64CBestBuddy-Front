@@ -13,7 +13,7 @@ const Footer = () => {
                         <div className="col-md-8">
                             <div className="row">
                                 <div className="col-3 text-center"  >
-                                    <img src="/images/logo2.png" alt="Image" />
+                                <img src="/images/logo2.png" alt="Image" width="45%"/>
                                 </div>
                                 <div className="col-9">
                                     บริษัท เดอะ เบสท์ บัดดี้ 19 จำกัด <br />

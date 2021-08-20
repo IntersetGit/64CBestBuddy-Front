@@ -48,7 +48,7 @@ const NavbarThree = () => {
                                         <div className="header-content-left">
                                             <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}`}>
                                                 <a onClick={toggleNavbar} className="navbar-brand">
-                                                    <img src="/images/logo-bestbuddy.png" alt="logo" style={{ width: "50%", padding: 0, margin: 0 }} />
+                                                <img src="/images/logo-bestbuddy.png" alt="logo" style={{ width: "20%", padding: 0, margin: 0 }} />
                                                 </a>
                                             </Link>
                                         </div>
@@ -113,33 +113,33 @@ const NavbarThree = () => {
 
                                             <ul className="dropdown-menu">
                                                 <li className="nav-item">
-                                                    <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}`} >
-                                                        <a onClick={toggleNavbar} className="nav-link">ประกันโรคร้ายแรง</a>
+                                                    <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}/ประกันสุขภาพ/`} >
+                                                        <a onClick={toggleNavbar} className="nav-link">ประกันสุขภาพ</a>
                                                     </Link>
                                                 </li>
 
                                                 <li className="nav-item">
-                                                    <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}`} >
+                                                    <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}/ประกันอุบัติเหตุ/`} >
+                                                        <a onClick={toggleNavbar} className="nav-link">ประกันอุบัติเหตุ</a>
+                                                    </Link>
+                                                </li>
+
+                                                <li className="nav-item">
+                                                    <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}/ประกันมะเร็ง/`} >
                                                         <a onClick={toggleNavbar} className="nav-link">ประกันมะเร็ง</a>
                                                     </Link>
                                                 </li>
 
                                                 <li className="nav-item">
-                                                    <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}`} >
-                                                        <a onClick={toggleNavbar} className="nav-link">ประกันชีวิต</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}`} >
-                                                        <a onClick={toggleNavbar} className="nav-link">ประกันรถยนต์</a>
+                                                    <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}/ประกันโรค/`} >
+                                                        <a onClick={toggleNavbar} className="nav-link">ประกันโรคร้ายแรง</a>
                                                     </Link>
                                                 </li>
                                             </ul>
                                         </li>
 
                                         <li className="nav-item">
-                                            <Link href="/about" >
+                                            <Link href="#" >
                                                 <a onClick={toggleNavbar} className="nav-link">โปรโมชั่น</a>
                                             </Link>
                                         </li>
@@ -159,7 +159,7 @@ const NavbarThree = () => {
                                                 </li>
 
                                                 <li className="nav-item">
-                                                    <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}`} >
+                                                    <Link href={`${process.env.NEXT_PUBLIC_WORDPRESS}/blognew/`} >
                                                         <a onClick={toggleNavbar} className="nav-link">กิจกรรมบริษัท</a>
                                                     </Link>
                                                 </li>
