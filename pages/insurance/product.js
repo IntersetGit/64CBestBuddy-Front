@@ -74,6 +74,9 @@ export default () => {
 
             setFormData(item)
         }
+
+        setDateStart(moment(form.protection_date_start).format('DD/MM/YYYY'))
+        setDateEnd(moment(form.protection_date_end).format('DD/MM/YYYY'))
     }
 
     const GetByIdInsuranceData = async (id) => {
@@ -172,6 +175,18 @@ export default () => {
                                             <p>
                                                 <b>ระยะเวลาประกันภัย</b> <br />
                                                 {dateStart} -  {dateEnd}
+                                            </p>
+                                        </Card>
+                                    </Col>
+                                    <Col span={24} order={2}>
+                                        <Card title={"จำนวนเงินทั้งหมด"} type="inner">
+                                            <p>
+                                                <b>แผนประกันภัย</b> <br />
+                                                แผน 1
+                                            </p>
+
+                                            <p>
+                                                <b>฿ 3,470.00</b>
                                             </p>
                                         </Card>
                                     </Col>

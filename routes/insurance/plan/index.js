@@ -51,11 +51,11 @@ const PlanInsurance = ({ model }) => {
   /* เลือกแผนประกัน */
   const selectInsurance = async (item) => {
     try {
-      // console.log('item :>> ', item);
+      console.log('item :>> ', item);
       const _model = {
         id: model.form.id,
         category_name: model.data.category_name,
-        insurance_plan_id: item.id,
+        insurance_price_id: item.price.id,
       }
       // console.log('_model :>> ', _model);
       const token = Encrypt(_model)
