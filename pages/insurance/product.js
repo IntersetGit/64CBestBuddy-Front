@@ -14,6 +14,7 @@ const { Step } = Steps;
 import Beneficiary from '../../routes/insurance/beneficiary'
 import PlanProduct from '../../routes/insurance/plan'
 import AssuredProduct from '../../routes/insurance/assured'
+import ConfirmProduct from '../../routes/insurance/confirm'
 import moment from 'moment';
 
 export default () => {
@@ -154,17 +155,27 @@ export default () => {
                                 {/* ผู้เอาประกันภัย */}
                                 {page == 1 ? <AssuredProduct model={model} page={pageSteps} category={category} master={master} formData={formData} address={masterAddress} setDateStart={setDateStart} setDateEnd={setDateEnd} /> :
                                     page == 2 ? <PlanProduct model={model} /> :
-                                        page == 3 ? <Beneficiary model={model} master={master} address={masterAddress} /> : null}
+                                        page == 3 ? <Beneficiary model={model} master={master} address={masterAddress} /> :
+                                            page == 4 ? <ConfirmProduct model={model} /> : null}
                             </Col>
 
                             <Col span={24} sm={{ span: 24, order: 1 }} lg={{ span: 6, order: 2 }} order={1}>
                                 <Row gutter={[24, 24]}>
                                     <Col span={24} order={2}>
                                         <Card title={"สรุปใบเสนอราคา"} type="inner">
+
+                                            {model.form.insurance_code ? (
+                                                <p>
+                                                    <b>เลขที่ใบเสนอราคา</b> <br />
+                                                    {model.form.insurance_code}
+                                                </p>
+                                            ) : null}
+
                                             <p>
                                                 <b>วันที่สร้างรายการ</b> <br />
                                                 {moment(model.form.created_date).format("DD/MM/YYYY")}
                                             </p>
+
                                         </Card>
                                     </Col>
                                     <Col span={24} order={2}>
