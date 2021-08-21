@@ -44,6 +44,7 @@ const Beneficiary = ({ model, master, address }) => {
                     province_id_insured: model.form.province_id_insured,
                     district_id_insured: model.form.district_id_insured,
                     sub_district_id_insured: model.form.sub_district_id_insured,
+                    postal_code_insured: model.form.postal_code_insured,
                 })
             }
         }
@@ -179,6 +180,7 @@ const Beneficiary = ({ model, master, address }) => {
                 province_id_insured: model.form.province_id_insured,
                 district_id_insured: model.form.district_id_insured,
                 sub_district_id_insured: model.form.sub_district_id_insured,
+                postal_code_insured: model.form.postal_code_insured,
             })
         }
         setInsuredStatus(value)
