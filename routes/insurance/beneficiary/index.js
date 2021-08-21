@@ -15,6 +15,8 @@ const Beneficiary = ({ model, master, address }) => {
 
     const [beneficiaryStatus, setBeneficiaryStatus] = useState(1)
     const [insuredStatus, setInsuredStatus] = useState(1)
+    const [statusTax, setStatusTax] = useState(null)
+    const [condition, setCondition] = useState(false)
 
     const [beneficiary, setBeneficiary] = useState([])
 
@@ -23,6 +25,8 @@ const Beneficiary = ({ model, master, address }) => {
             setBeneficiary(model.form.beneficiary)
             setBeneficiaryStatus(Number(model.form.beneficiary_status))
             setInsuredStatus(Number(model.form.insured_status))
+            setStatusTax(Number(model.form.status_tax))
+            setCondition(model.form.status_tax ? true : false)
 
             if (model.form.insured_status == 2) {
                 formInsured.setFieldsValue({
@@ -188,39 +192,61 @@ const Beneficiary = ({ model, master, address }) => {
 
     const onFinishInsured = async (value) => {
         try {
-            console.log('value :>> ', value);
-
-            const _model = {
-                id: model.form.id,
-
-                insured_status: insuredStatus,
-                prefix_id_insured: insuredStatus == 1 ? null : value.prefix_id_insured,
-                first_name_insured: insuredStatus == 1 ? null : value.first_name_insured,
-                last_name_insured: insuredStatus == 1 ? null : value.last_name_insured,
-                type_card_number_id_insured: insuredStatus == 1 ? null : value.type_card_number_id_insured,
-                card_number_insured: insuredStatus == 1 ? null : value.card_number_insured,
-                gender_id_insured: insuredStatus == 1 ? null : value.gender_id_insured,
-                mobile_phone_insured: insuredStatus == 1 ? null : value.mobile_phone_insured,
-                phone_insured: insuredStatus == 1 ? null : value.phone_insured,
-                email_insured: insuredStatus == 1 ? null : value.email_insured,
-                beneficiary_id_insured: insuredStatus == 1 ? null : value.beneficiary_id_insured,
-                house_no_insured: insuredStatus == 1 ? null : value.house_no_insured,
-                village_no_insured: insuredStatus == 1 ? null : value.village_no_insured,
-                lane_insured: insuredStatus == 1 ? null : value.lane_insured,
-                village_insured: insuredStatus == 1 ? null : value.village_insured,
-                road_insured: insuredStatus == 1 ? null : value.road_insured,
-                province_id_insured: insuredStatus == 1 ? null : value.province_id_insured,
-                district_id_insured: insuredStatus == 1 ? null : value.district_id_insured,
-                sub_district_id_insured: insuredStatus == 1 ? null : value.sub_district_id_insured,
-
-                beneficiary_status: beneficiaryStatus,
-                insurance_beneficiary: beneficiaryStatus == 1 ? [] : beneficiary,
-                page: 3,
-                category_name: model.data.category_name,
+            // console.log('value :>> ', value);
+            let err = false
+            if (insuredStatus == 2) {
+                beneficiary.forEach(e => {
+                    if (!(e.prefix_id && e.first_name && e.last_name && e.beneficiary_id)) {
+                        err = true
+                    }
+                });
             }
-            console.log('_model :>> ', _model);
-            const token = Encrypt(_model)
-            await MangeInsuranceOrderService({ token });
+
+            if (err) {
+                message.error('กรอกข้อมูลให้ครบถ้วน!');
+            } else {
+                const _model = {
+                    id: model.form.id,
+
+                    insured_status: insuredStatus,
+                    prefix_id_insured: insuredStatus == 1 ? null : value.prefix_id_insured,
+                    first_name_insured: insuredStatus == 1 ? null : value.first_name_insured,
+                    last_name_insured: insuredStatus == 1 ? null : value.last_name_insured,
+                    type_card_number_id_insured: insuredStatus == 1 ? null : value.type_card_number_id_insured,
+                    card_number_insured: insuredStatus == 1 ? null : value.card_number_insured,
+                    gender_id_insured: insuredStatus == 1 ? null : value.gender_id_insured,
+                    mobile_phone_insured: insuredStatus == 1 ? null : value.mobile_phone_insured,
+                    phone_insured: insuredStatus == 1 ? null : value.phone_insured,
+                    email_insured: insuredStatus == 1 ? null : value.email_insured,
+                    beneficiary_id_insured: insuredStatus == 1 ? null : value.beneficiary_id_insured,
+                    house_no_insured: insuredStatus == 1 ? null : value.house_no_insured,
+                    village_no_insured: insuredStatus == 1 ? null : value.village_no_insured,
+                    lane_insured: insuredStatus == 1 ? null : value.lane_insured,
+                    village_insured: insuredStatus == 1 ? null : value.village_insured,
+                    road_insured: insuredStatus == 1 ? null : value.road_insured,
+                    province_id_insured: insuredStatus == 1 ? null : value.province_id_insured,
+                    district_id_insured: insuredStatus == 1 ? null : value.district_id_insured,
+                    sub_district_id_insured: insuredStatus == 1 ? null : value.sub_district_id_insured,
+
+                    beneficiary_status: beneficiaryStatus,
+                    insurance_beneficiary: beneficiaryStatus == 1 ? [] : beneficiary,
+                    page: 3,
+                    category_name: model.data.category_name,
+                    status_tax: statusTax,
+                }
+                // console.log('_model :>> ', _model);
+                const token = Encrypt(_model)
+                await MangeInsuranceOrderService({ token });
+
+                Router.push({
+                    pathname: '/insurance/product',
+                    query: {
+                        id: model.form.id,
+                        page: 4
+                    }
+                })
+            }
+
         } catch (error) {
             message.error('มีบางอย่างผิดพลาดผิดพลาด!');
         }
@@ -312,7 +338,7 @@ const Beneficiary = ({ model, master, address }) => {
 
                                         <Row gutter={[24, 24]}>
                                             <Col span={24} sm={{ span: 24 }} lg={{ span: 12 }}>
-                                                <label className="label-form">คำนำหน้า</label> <br />
+                                                <label className="label-form"><span className="text-red">*</span> คำนำหน้า</label> <br />
                                                 <Select
                                                     showSearch
                                                     optionFilterProp="children"
@@ -327,18 +353,18 @@ const Beneficiary = ({ model, master, address }) => {
                                                 </Select>
                                             </Col>
                                             <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
-                                                <label className="label-form">ชื่อ</label> <br />
+                                                <label className="label-form"><span className="text-red">*</span> ชื่อ</label> <br />
                                                 <Input value={e.first_name} onChange={(x) => changeBeneficiaryValue(x.target.value, i, "first_name")} />
                                             </Col>
                                             <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
-                                                <label className="label-form">นามสกุล</label> <br />
+                                                <label className="label-form"><span className="text-red">*</span> นามสกุล</label> <br />
                                                 <Input value={e.last_name} onChange={(x) => changeBeneficiaryValue(x.target.value, i, "last_name")} />
                                             </Col>
                                         </Row>
 
                                         <Row gutter={[24, 24]}>
                                             <Col span={24} sm={{ span: 24 }} lg={{ span: 12 }}>
-                                                <label className="label-form">ความสัมพันธ์กับผู้เอาประกันภัย</label> <br />
+                                                <label className="label-form"><span className="text-red">*</span> ความสัมพันธ์กับผู้เอาประกันภัย</label> <br />
                                                 <Select
                                                     showSearch
                                                     optionFilterProp="children"
@@ -353,7 +379,7 @@ const Beneficiary = ({ model, master, address }) => {
                                                 </Select>
                                             </Col>
                                             <Col span={24} sm={{ span: 24 }} lg={{ span: 12 }}>
-                                                <label className="label-form">อัตราส่วน</label> <br />
+                                                <label className="label-form"><span className="text-red">*</span> อัตราส่วน</label> <br />
                                                 <Input type="number" value={e.ratio} suffix="%" disabled={(i != 0) || (beneficiary.length === 1)} onChange={(x) => changeBeneficiaryValue(x.target.value, i, "ratio")} />
                                             </Col>
                                         </Row>
@@ -605,8 +631,8 @@ const Beneficiary = ({ model, master, address }) => {
 
             <div className="pt-4">
                 <p>ผู้ขอเอาประกันภัยประสงค์จะใช้สิทธิขอยกเว้นภาษีเงินได้ตามกฎหมายว่าด้วยภาษีอากรหรือไม่</p>
-                <Radio.Group>
-                    <Space direction="vertical">
+                <Radio.Group onChange={(e) => setStatusTax(e.target.value)} value={statusTax}>
+                    <Space direction="vertical" >
                         <Radio value={1}>ไม่มีความประสงค์</Radio>
                         <Radio value={2}>
                             มีความประสงค์ และยินยอมให้บริษัทประกันวินาศภัยส่งและเปิดเผยข้อมูลเกี่ยวกับเบี้ยประกันภัยต่อกรมสรรพากร
@@ -616,7 +642,7 @@ const Beneficiary = ({ model, master, address }) => {
                     </Space>
                 </Radio.Group>
 
-                <Checkbox className="pt-3">ยอมรับข้อตกลงและเงื่อนไข</Checkbox>
+                <Checkbox checked={condition} onChange={(e) => setCondition(e.target.checked)} className="pt-3">ยอมรับข้อตกลงและเงื่อนไข</Checkbox>
             </div>
 
             <div className="pt-4">
@@ -625,7 +651,7 @@ const Beneficiary = ({ model, master, address }) => {
                         <Button shape="round" onClick={backPage}><DoubleLeftOutlined /> <span>ก่อนหน้า</span> </Button>
                     </Col>
                     <Col span={12} order={2} style={{ textAlign: "end" }}>
-                        <Button type="primary" shape="round" onClick={nextPage}><span>ถัดไป</span> <DoubleRightOutlined /></Button>
+                        <Button type="primary" shape="round" onClick={nextPage} disabled={!condition || !statusTax}><span>ถัดไป</span> <DoubleRightOutlined /></Button>
                     </Col>
                 </Row>
             </div>
