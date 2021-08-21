@@ -212,8 +212,7 @@ const Assured = ({ formData, page, category, master, model, address, setDateStar
         // console.log('_model :>> ', _model);
 
         const token = Encrypt(_model)
-        await MangeInsuranceOrderService(
-            { token });
+        await MangeInsuranceOrderService({ token });
         setLoadingForm(false)
         // console.log('model :>> ', model);
         if (model.form.status == "1") {
@@ -266,7 +265,7 @@ const Assured = ({ formData, page, category, master, model, address, setDateStar
                     }
                 })
             } else {
-               
+
                 Modal.warning({
                     title: 'ขออภัยค่ะ...',
                     content: `ข้อมูลของท่านไม่ผ่านเกณฑ์การพิจารณารับประกันภัย`,

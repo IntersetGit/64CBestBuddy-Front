@@ -154,7 +154,7 @@ export default () => {
                                 {/* ผู้เอาประกันภัย */}
                                 {page == 1 ? <AssuredProduct model={model} page={pageSteps} category={category} master={master} formData={formData} address={masterAddress} setDateStart={setDateStart} setDateEnd={setDateEnd} /> :
                                     page == 2 ? <PlanProduct model={model} /> :
-                                        page == 3 ? <Beneficiary model={model} master={master} /> : null}
+                                        page == 3 ? <Beneficiary model={model} master={master} address={masterAddress} /> : null}
                             </Col>
 
                             <Col span={24} sm={{ span: 24, order: 1 }} lg={{ span: 6, order: 2 }} order={1}>

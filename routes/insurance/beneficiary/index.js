@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
-import { Collapse, Radio, Space, Checkbox, Row, Col, Button, Form, Select, Input } from 'antd';
+import { Collapse, Radio, Space, Checkbox, Row, Col, Button, Form, Select, Input, message } from 'antd';
 import { DoubleRightOutlined, DoubleLeftOutlined, DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { Encrypt } from '../../../utils/SecretCode';
+import { MangeInsuranceOrderService } from '../../../service';
 
 const { Panel } = Collapse;
 const { Option } = Select
 
-const Beneficiary = ({ model, master }) => {
+const Beneficiary = ({ model, master, address }) => {
 
     // console.log('model :>> ', model);
     // console.log('master :>> ', master);
@@ -21,11 +23,34 @@ const Beneficiary = ({ model, master }) => {
             setBeneficiary(model.form.beneficiary)
             setBeneficiaryStatus(Number(model.form.beneficiary_status))
             setInsuredStatus(Number(model.form.insured_status))
+
+            if (model.form.insured_status == 2) {
+                formInsured.setFieldsValue({
+                    prefix_id_insured: model.form.prefix_id_insured,
+                    first_name_insured: model.form.first_name_insured,
+                    last_name_insured: model.form.last_name_insured,
+                    type_card_number_id_insured: model.form.type_card_number_id_insured,
+                    card_number_insured: model.form.card_number_insured,
+                    gender_id_insured: model.form.gender_id_insured,
+                    mobile_phone_insured: model.form.mobile_phone_insured,
+                    phone_insured: model.form.phone_insured,
+                    email_insured: model.form.email_insured,
+                    beneficiary_id_insured: model.form.beneficiary_id_insured,
+                    house_no_insured: model.form.house_no_insured,
+                    village_no_insured: model.form.village_no_insured,
+                    lane_insured: model.form.lane_insured,
+                    village_insured: model.form.village_insured,
+                    road_insured: model.form.road_insured,
+                    province_id_insured: model.form.province_id_insured,
+                    district_id_insured: model.form.district_id_insured,
+                    sub_district_id_insured: model.form.sub_district_id_insured,
+                })
+            }
         }
     }, [model.form])
 
     /* ข้อมูลผู้รับผลประโยชน์ */
-    
+
     const initialBeneficiary = {
         prefix_id: null,
         first_name: null,
@@ -35,7 +60,7 @@ const Beneficiary = ({ model, master }) => {
     }
 
     const beneficiaryRadio = (value) => {
-        console.log('value :>> ', value);
+        // console.log('value :>> ', value);
         if (value == 1) {
             setBeneficiary(model.form.beneficiary)
         } else if (value == 2) {
@@ -108,13 +133,141 @@ const Beneficiary = ({ model, master }) => {
         setBeneficiary(_beneficiary)
     }
 
+
+
     /* ผู้ถือกรมธรรม์ */
+
+    const [provinceList, setProvinceList] = useState([]);
+    const [districtList, setDistrictList] = useState([]);
+    const [subdistrictList, setSubdistrictList] = useState([]);
+
+
+    useEffect(() => {
+        if (address) {
+            setProvinceList(address.GetAllProvince)
+            setDistrictList(address.GetAllDistrict)
+            setSubdistrictList(address.GetAllSubDistrict)
+        }
+    }, [address])
+
+
+    const [formInsured] = Form.useForm();
+
+
     const insuredRadio = (value) => {
+        // console.log('value :>> ', value);
+        if (value == 1) {
+            formInsured.resetFields()
+        } else {
+            // console.log('model.form.prefix_id_insured :>> ', model.form);
+            formInsured.setFieldsValue({
+                prefix_id_insured: model.form.prefix_id_insured,
+                first_name_insured: model.form.first_name_insured,
+                last_name_insured: model.form.last_name_insured,
+                type_card_number_id_insured: model.form.type_card_number_id_insured,
+                card_number_insured: model.form.card_number_insured,
+                gender_id_insured: model.form.gender_id_insured,
+                mobile_phone_insured: model.form.mobile_phone_insured,
+                phone_insured: model.form.phone_insured,
+                email_insured: model.form.email_insured,
+                beneficiary_id_insured: model.form.beneficiary_id_insured,
+                house_no_insured: model.form.house_no_insured,
+                village_no_insured: model.form.village_no_insured,
+                lane_insured: model.form.lane_insured,
+                village_insured: model.form.village_insured,
+                road_insured: model.form.road_insured,
+                province_id_insured: model.form.province_id_insured,
+                district_id_insured: model.form.district_id_insured,
+                sub_district_id_insured: model.form.sub_district_id_insured,
+            })
+        }
         setInsuredStatus(value)
     }
 
-    const nextPage = () => {
+    const onFinishInsured = async (value) => {
+        try {
+            console.log('value :>> ', value);
 
+            const _model = {
+                id: model.form.id,
+
+                insured_status: insuredStatus,
+                prefix_id_insured: insuredStatus == 1 ? null : value.prefix_id_insured,
+                first_name_insured: insuredStatus == 1 ? null : value.first_name_insured,
+                last_name_insured: insuredStatus == 1 ? null : value.last_name_insured,
+                type_card_number_id_insured: insuredStatus == 1 ? null : value.type_card_number_id_insured,
+                card_number_insured: insuredStatus == 1 ? null : value.card_number_insured,
+                gender_id_insured: insuredStatus == 1 ? null : value.gender_id_insured,
+                mobile_phone_insured: insuredStatus == 1 ? null : value.mobile_phone_insured,
+                phone_insured: insuredStatus == 1 ? null : value.phone_insured,
+                email_insured: insuredStatus == 1 ? null : value.email_insured,
+                beneficiary_id_insured: insuredStatus == 1 ? null : value.beneficiary_id_insured,
+                house_no_insured: insuredStatus == 1 ? null : value.house_no_insured,
+                village_no_insured: insuredStatus == 1 ? null : value.village_no_insured,
+                lane_insured: insuredStatus == 1 ? null : value.lane_insured,
+                village_insured: insuredStatus == 1 ? null : value.village_insured,
+                road_insured: insuredStatus == 1 ? null : value.road_insured,
+                province_id_insured: insuredStatus == 1 ? null : value.province_id_insured,
+                district_id_insured: insuredStatus == 1 ? null : value.district_id_insured,
+                sub_district_id_insured: insuredStatus == 1 ? null : value.sub_district_id_insured,
+
+                beneficiary_status: beneficiaryStatus,
+                insurance_beneficiary: beneficiaryStatus == 1 ? [] : beneficiary,
+                page: 3,
+                category_name: model.data.category_name,
+            }
+            console.log('_model :>> ', _model);
+            const token = Encrypt(_model)
+            await MangeInsuranceOrderService({ token });
+        } catch (error) {
+            message.error('มีบางอย่างผิดพลาดผิดพลาด!');
+        }
+    }
+
+    const onFinishFailedInsured = (error) => {
+        //    console.log('object :>> ', error);
+        message.error('กรอกข้อมูลให้ครบถ้วน!');
+    }
+
+
+    /* changeSelectAddress จังหวัด อำเภอ ตำบล */
+
+    const changeSelectAddress = async (id, type) => {
+        // console.log('id :>> ', id, type);
+        const district = address.GetAllDistrict, subdistrict = address.GetAllSubDistrict
+        const data = formInsured.getFieldsValue()
+        if (type === "prov") {
+            await setDistrictList(district.filter(e => e.provicne_id === id))
+            await setSubdistrictList(subdistrict.filter(e => e.provicne_id === id))
+            formInsured.setFieldsValue({ ...data, district_id_insured: null, sub_district_id_insured: null })
+
+        } else if (type === "dist") {
+
+            await setSubdistrictList(subdistrict.filter(e => e.district_id === id))
+            formInsured.setFieldsValue({ ...data, sub_district_id_insured: null, provicne_id_insured: await ChangeSelectDist(id), })
+
+        } else if (type === "subdist") {
+
+            const index = subdistrictList.findIndex(e => e.id == id);
+            if (index !== -1) {
+                formInsured.setFieldsValue({ ...data, district_id_insured: subdistrictList[index].district_id, province_id_insured: await ChangeSelectDist(subdistrictList[index].district_id), postal_code_insured: subdistrictList[index].postal_code })
+            }
+        }
+    }
+
+    const ChangeSelectDist = async (id) => {
+        const filterIndex = districtList.filter(e => e.id == id);
+        return filterIndex.length > 0 ? filterIndex[0].provicne_id : null
+    }
+
+
+    /*  */
+    const nextPage = () => {
+        if (insuredStatus == 1) {
+            onFinishInsured({})
+        } else {
+            formInsured.submit()
+        }
     }
 
     const backPage = () => {
@@ -194,7 +347,7 @@ const Beneficiary = ({ model, master }) => {
                                                     style={{ width: "100%" }}
                                                     onChange={(x) => changeBeneficiaryValue(x, i, "beneficiary_id")}
                                                 >
-                                                    {master.GetAllBeneficiaryRelationship ? master.GetAllBeneficiaryRelationship.map(e => <Option value={e.id} key={e.id}>{e.name}</Option>) : null}
+                                                    {master.GetAllBeneficiaryRelationship ? master.GetAllBeneficiaryRelationship.map(x => <Option value={x.id} key={x.id}>{x.name}</Option>) : null}
                                                 </Select>
                                             </Col>
                                             <Col span={24} sm={{ span: 24 }} lg={{ span: 12 }}>
@@ -224,7 +377,208 @@ const Beneficiary = ({ model, master }) => {
                             </Radio.Group>
                         </>
                     } showArrow={false} key={2}>
-                        <p>sdsd</p>
+                        <div className="p-4">
+                            <Form
+                                form={formInsured}
+                                layout="vertical"
+                                onFinish={onFinishInsured}
+                                onFinishFailed={onFinishFailedInsured}
+                            >
+                                <Row gutter={[24, 24]}>
+
+
+                                    <Row gutter={[24, 0]}>
+
+                                        <>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 12 }}>
+                                                <Form.Item label="คำนำหน้า" name="prefix_id_insured" rules={[{ required: true, message: 'กรุณาเลือกคำนำหน้า!' }]}>
+                                                    <Select
+                                                        showSearch
+                                                        optionFilterProp="children"
+                                                        filterOption={(input, option) =>
+                                                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                                        }
+                                                    >
+                                                        {master.GetAllPrefix ? master.GetAllPrefix.map(e => <Option value={e.id} key={e.id}>{e.name}</Option>) : null}
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
+                                                <Form.Item label="ชื่อ" name="first_name_insured" rules={[{ required: true, message: 'กรุณากรอกชื่อ!' }]}>
+                                                    <Input />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
+                                                <Form.Item label="นามสกุล" name="last_name_insured" rules={[{ required: true, message: 'กรุณากรอกนามสกุล!' }]}>
+                                                    <Input />
+                                                </Form.Item>
+                                            </Col>
+                                        </>
+
+                                        <>
+
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
+                                                <Form.Item label="ประเภทบัตร" name="type_card_number_id_insured" >
+                                                    <Select
+                                                        showSearch
+                                                        optionFilterProp="children"
+                                                        filterOption={(input, option) =>
+                                                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                                        }
+                                                    >
+                                                        {master.GetAllTypeCardNumber ? master.GetAllTypeCardNumber.map(e => <Option value={e.id} key={e.id}>{e.name}</Option>) : null}
+                                                    </Select>
+
+                                                </Form.Item>
+                                            </Col>
+
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
+                                                <Form.Item label="เลขที่บัตร" name="card_number_insured" rules={[{ required: true, message: 'กรุณาเลือกเลขที่บัตร!' }]}>
+                                                    <Input />
+                                                </Form.Item>
+                                            </Col>
+
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 12 }}>
+                                                <Form.Item label="เพศ" name="gender_id_insured" rules={[{ required: true, message: 'กรุณาเลือกเพศ!' }]}>
+
+                                                    <Select
+                                                        showSearch
+                                                        optionFilterProp="children"
+                                                        filterOption={(input, option) =>
+                                                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                                        }
+                                                    >
+                                                        {master.GetAllGender ? master.GetAllGender.map(e => <Option value={e.id} key={e.id}>{e.name}</Option>) : null}
+                                                    </Select>
+
+                                                </Form.Item>
+                                            </Col>
+
+                                        </>
+
+                                        <>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
+                                                <Form.Item label="โทรศัพท์มือ" name="mobile_phone_insured" rules={[{ required: true, message: 'กรุณากรอกโทรศัพท์มือ!' }]}>
+                                                    <Input />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
+                                                <Form.Item label="เบอร์โทรศัพท์" name="phone_insured">
+                                                    <Input />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 12 }}>
+                                                <Form.Item label="อีเมล" name="email_insured" rules={[{ type: "email", required: true, message: 'กรุณากรอกอีเมลของคุณ!' }]}>
+                                                    <Input />
+                                                </Form.Item>
+                                            </Col>
+                                        </>
+
+
+                                        <>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 12 }}>
+                                                <Form.Item label="ความสัมพันธ์กับผู้เอาประกันภัย" name="beneficiary_id_insured">
+                                                    <Select
+                                                        showSearch
+                                                        optionFilterProp="children"
+                                                        filterOption={(input, option) =>
+                                                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                                        }
+                                                        style={{ width: "100%" }}
+                                                    >
+                                                        {master.GetAllBeneficiaryRelationship ? master.GetAllBeneficiaryRelationship.map(e => <Option value={e.id} key={e.id}>{e.name}</Option>) : null}
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 12 }} />
+                                        </>
+
+
+
+
+                                        <>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 4 }}>
+                                                <Form.Item label="บ้านเลขที่" name="house_no_insured" rules={[{ required: true, message: 'กรุณากรอกบ้านเลขที่!' }]}>
+                                                    <Input />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 5 }}>
+                                                <Form.Item label="หมู่" name="village_no_insured">
+                                                    <Input />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 5 }}>
+                                                <Form.Item label="ซอย" name="lane_insured">
+                                                    <Input />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 5 }}>
+                                                <Form.Item label="หมู่บ้าน" name="village_insured">
+                                                    <Input />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 5 }}>
+                                                <Form.Item label="ถนน" name="road_insured">
+                                                    <Input />
+                                                </Form.Item>
+                                            </Col>
+                                        </>
+
+                                        <>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
+                                                <Form.Item label="จังหวัด" name="province_id_insured" rules={[{ required: true, message: 'กรุณาเลือกจังหวัด!' }]}>
+                                                    <Select
+                                                        showSearch
+                                                        optionFilterProp="children"
+                                                        filterOption={(input, option) =>
+                                                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                                        }
+                                                        onChange={(e) => { changeSelectAddress(e, "prov") }}
+                                                    >
+                                                        {provinceList ? provinceList.map(e => <Option value={e.id} key={e.id}>{e.provicne_name_th}</Option>) : null}
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
+                                                <Form.Item label="อำเภอ" name="district_id_insured" rules={[{ required: true, message: 'กรุณาเลือกบ้านเลขที่!' }]}>
+                                                    <Select
+                                                        showSearch
+                                                        optionFilterProp="children"
+                                                        filterOption={(input, option) =>
+                                                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                                        }
+                                                        onChange={(e) => { changeSelectAddress(e, "dist") }}
+                                                    >
+                                                        {districtList ? districtList.map(e => <Option value={e.id} key={e.id}>{e.district_name_th}</Option>) : null}
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
+                                                <Form.Item label="ตำบล" name="sub_district_id_insured" rules={[{ required: true, message: 'กรุณาเลือกบ้านเลขที่!' }]}>
+                                                    <Select
+                                                        showSearch
+                                                        optionFilterProp="children"
+                                                        filterOption={(input, option) =>
+                                                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                                        }
+                                                        onChange={(e) => { changeSelectAddress(e, "subdist") }}
+                                                    >
+                                                        {subdistrictList ? subdistrictList.map(e => <Option value={e.id} key={e.id}>{e.sub_district_name_th}</Option>) : null}
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24} sm={{ span: 24 }} lg={{ span: 6 }}>
+                                                <Form.Item label="รหัสไปรษณีย์" name="postal_code_insured">
+                                                    <Input disabled />
+                                                </Form.Item>
+                                            </Col>
+                                        </>
+
+                                    </Row>
+
+                                </Row>
+                            </Form>
+                        </div>
                     </Panel>
                 </Collapse>
             </div>
