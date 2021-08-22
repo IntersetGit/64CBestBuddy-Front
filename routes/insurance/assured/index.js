@@ -593,7 +593,7 @@ const Assured = ({ formData, page, category, master, model, address, setDateStar
                         </Radio.Group>
                     </Form.Item>
 
-                    <Form.Item label="4. โรคอื่นๆ หรือโรคประจำตัว หรือโรคเรื้อรังอื่นๆ นอกเหนือจากที่กล่าวมาข้างต้น ข้อที่ 3.1, 3.2, 3.3 "
+                    <Form.Item label="4. โรคอื่นๆ หรือโรคประจำตัว หรือโรคเรื้อรังอื่นๆ นอกเหนือจากที่กล่าวมาข้างต้น "
                         name="question4" rules={[{ required: true, message: 'กรุณาเลือกคำถามสุขภาพ !' }]}>
                         <Radio.Group>
                             <Radio value={false}>ใช่</Radio>
