@@ -17,6 +17,7 @@ const Beneficiary = ({ model, master, address }) => {
     const [insuredStatus, setInsuredStatus] = useState(1)
     const [statusTax, setStatusTax] = useState(null)
     const [condition, setCondition] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const [beneficiary, setBeneficiary] = useState([])
 
@@ -193,6 +194,7 @@ const Beneficiary = ({ model, master, address }) => {
     const onFinishInsured = async (value) => {
         try {
             // console.log('value :>> ', value);
+            setLoading(true)
             let err = false
             if (insuredStatus == 2) {
                 beneficiary.forEach(e => {
@@ -204,6 +206,7 @@ const Beneficiary = ({ model, master, address }) => {
 
             if (err) {
                 message.error('กรอกข้อมูลให้ครบถ้วน!');
+                setLoading(false)
             } else {
                 const _model = {
                     id: model.form.id,
@@ -235,9 +238,10 @@ const Beneficiary = ({ model, master, address }) => {
                     status_tax: statusTax,
                 }
                 // console.log('_model :>> ', _model);
+              
                 const token = Encrypt(_model)
                 await MangeInsuranceOrderService({ token });
-
+                setLoading(false)
                 Router.push({
                     pathname: '/insurance/product',
                     query: {
@@ -249,6 +253,7 @@ const Beneficiary = ({ model, master, address }) => {
 
         } catch (error) {
             message.error('มีบางอย่างผิดพลาดผิดพลาด!');
+            setLoading(false)
         }
     }
 
@@ -651,7 +656,7 @@ const Beneficiary = ({ model, master, address }) => {
                         <Button shape="round" onClick={backPage}><DoubleLeftOutlined /> <span>ก่อนหน้า</span> </Button>
                     </Col>
                     <Col span={12} order={2} style={{ textAlign: "end" }}>
-                        <Button type="primary" shape="round" onClick={nextPage} disabled={!condition || !statusTax}><span>ถัดไป</span> <DoubleRightOutlined /></Button>
+                        <Button type="primary" shape="round" onClick={nextPage} disabled={!condition || !statusTax} loading={loading}><span>ถัดไป</span> <DoubleRightOutlined /></Button>
                     </Col>
                 </Row>
             </div>

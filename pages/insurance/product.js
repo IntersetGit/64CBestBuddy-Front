@@ -94,7 +94,7 @@ export default () => {
                 _model.data.age_end = _model.data.age_end ? parseInt(_model.data.age_end) : 100
                 setHeadPage(_model.data.name)
                 setModel(_model)
-                console.log('_model :>> ', _model);
+                // console.log('_model :>> ', _model);
                 setCategory(_model.category_name)
 
                 /* Get Master */
@@ -192,12 +192,12 @@ export default () => {
                                         </Card>
                                     </Col>
 
-                                    {model.form && (model.form.price || model.form.installment_name) ? (
+                                    {model.form && (model.form.price || model.form.insurance_plan_name) ? (
                                         <Col span={24} order={2}>
                                             <Card title={"จำนวนเงินทั้งหมด"} type="inner">
                                                 <p>
                                                     <b>แผนประกันภัย</b> <br />
-                                                    {model.form.installment_name}
+                                                    {model.form.insurance_plan_name}
                                                 </p>
 
                                                 <p>
