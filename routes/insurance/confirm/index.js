@@ -16,7 +16,7 @@ const Confirm = ({ model }) => {
 
     useEffect(() => {
 
-        console.log('model :>> ', model);
+        // console.log('model :>> ', model);
         if (model.table) {
             const index = model.table.head.findIndex(e => e.id === model.form.insurance_plan_id)
             if (index != -1) model.table.data.forEach(e => e.match = [e.match[index]]);
