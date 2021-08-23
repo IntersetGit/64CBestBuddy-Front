@@ -86,8 +86,12 @@ const Confirm = ({ model }) => {
             const title = `
                 <p>Dear ${model.form.email}
                 <br />
-                <p>ท่านกำลังเข้าสู่การยืนยันความปลอดภัยของการสั่งซื้อประกันออนไลน์.
-                Verification code: <span stype="color: #ee5109; font-size: 30px;">${getOtp.otp} (Ref. ${getOtp.ref})</span></p>
+                <p>ท่านกำลังเข้าสู่การยืนยันความปลอดภัยของท่านก่อนการชำระค่าเบี้ยประกันภัย ของ บริษัท เดอะ เบสท์ บัดดี้ 19 จำกัด <br />
+                ด้านล่างคือ รหัสอ้างอิง: ${getOtp.ref} รหัส OTP: 
+                <br />
+                <b><span stype="color: #ee5109; font-size: 30px;">${getOtp.otp}</span></b></p>
+                <br />
+                หากนี่ไม่ใช่อีเมลของท่าน กรุณาเพิกเฉยอีเมลนี้ และโปรดอย่าตอบกลับ
               `
             setSetLoadingVerificat(true)
 
@@ -118,7 +122,7 @@ const Confirm = ({ model }) => {
         await setSetModalVerificat(false)
         setnum(timeSent);
         setSetLoadingVerificat(false)
-        setOtp(null);
+        setOtp({ otp: null, ref: null });
         setOtpME("");
     }
 
@@ -397,7 +401,7 @@ const Confirm = ({ model }) => {
             </div>
 
             {/* OTP */}
-            <Modal centered width={350} style={{ textAlign: 'center' }} title={`กรุณากรอกเลข OTP ที่ส่งไปยัง ${model.form.email}`} visible={setModalVerificat} onCancel={cancelVerificat} footer={null}>
+            <Modal maskClosable={false} centered width={350} style={{ textAlign: 'center' }} title={`กรุณากรอกเลข OTP ที่ส่งไปยัง ${model.form.email}`} visible={setModalVerificat} onCancel={cancelVerificat} footer={null}>
                 <h3>Ref. {otp.ref}</h3>
                 <Input value={otpMe} onChange={(e) => setOtpME(e.target.value)} maxLength={6} />
                 {loadingVerificat ? <p> <SyncOutlined spin={loadingVerificat} />   กรุณาลองใหม่อีกครั้งใน {num} วินาที </p> : <p><a onClick={() => VerificationSendEmail({ text: model.form.email })}>ขอรหัส OTP อีกครั้ง</a></p>}
