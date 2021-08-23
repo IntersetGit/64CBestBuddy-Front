@@ -6,6 +6,7 @@ import moment from 'moment';
 import { GenerateOTP } from '../../../utils/GenerateOTP';
 import { SendEmail } from '../../../utils/SendEmail';
 import { FalconApiConfirmService } from '../../../service';
+import { Encrypt } from '../../../utils/SecretCode';
 
 const { Panel } = Collapse;
 
@@ -78,7 +79,7 @@ const Confirm = ({ model }) => {
     const VerificationSendEmail = async () => {
         try {
 
-
+            setLoading(true)
             const getOtp = GenerateOTP(6)
             setOtp(getOtp)
 
@@ -97,14 +98,17 @@ const Confirm = ({ model }) => {
                 setSetModalVerificat(true)
                 setSetLoadingVerificat(false)
                 enterLoading()
+                setLoading(false)
             } else {
                 setSetLoadingVerificat(false)
+                setLoading(false)
                 message.error('ระบบมีบางอย่างผิดพลาด กรุณาติดต่อผู้ดูแลระบบ');
             }
 
 
         } catch (error) {
             setSetLoadingVerificat(false)
+            setLoading(false)
             message.error('ระบบมีบางอย่างผิดพลาด กรุณาติดต่อผู้ดูแลระบบ');
         }
     }
@@ -125,7 +129,12 @@ const Confirm = ({ model }) => {
             } else {
                 setLoading(true)
 
-                const { data } = await FalconApiConfirmService(model.form.id)
+                const token = Encrypt({
+                    urlOfPaySuccess: `${process.env.NEXT_PUBLIC_CLIENT}/insurance/product/?id=b888a453-8e3d-475c-ab1a-e12974d7719d&page=5`,
+                    urlOfPayFailure: `${process.env.NEXT_PUBLIC_CLIENT}/insurance/product/?id=b888a453-8e3d-475c-ab1a-e12974d7719d&page=4`,
+                })
+
+                const { data } = await FalconApiConfirmService(model.form.id, { token })
 
                 console.log('data :>> ', data);
 
@@ -137,6 +146,7 @@ const Confirm = ({ model }) => {
                     setOtpME("");
                     setSetModalVerificat(false)
                     setLoading(false)
+                    Router.push(data.items.paymentRedirectURL)
                 }, 1000);
             }
         } catch (error) {
@@ -381,7 +391,7 @@ const Confirm = ({ model }) => {
                         <Button shape="round" onClick={backPage}><DoubleLeftOutlined /> <span>ก่อนหน้า</span> </Button>
                     </Col>
                     <Col span={12} order={2} style={{ textAlign: "end" }}>
-                        <Button type="primary" shape="round" onClick={nextPage} ><span>ถัดไป</span> <DoubleRightOutlined /></Button>
+                        <Button type="primary" shape="round" onClick={nextPage} loading={loading}><span>ถัดไป</span> <DoubleRightOutlined /></Button>
                     </Col>
                 </Row>
             </div>
@@ -392,7 +402,7 @@ const Confirm = ({ model }) => {
                 <Input value={otpMe} onChange={(e) => setOtpME(e.target.value)} maxLength={6} />
                 {loadingVerificat ? <p> <SyncOutlined spin={loadingVerificat} />   กรุณาลองใหม่อีกครั้งใน {num} วินาที </p> : <p><a onClick={() => VerificationSendEmail({ text: model.form.email })}>ขอรหัส OTP อีกครั้ง</a></p>}
 
-                <Button style={{ width: '100%' }} onClick={onFinishVerificat} disabled={otpMe.length != 6}>ยืนยัน OTP</Button>
+                <Button style={{ width: '100%' }} onClick={onFinishVerificat} disabled={otpMe.length != 6} loading={loading}>ยืนยัน OTP</Button>
             </Modal>
 
             <style jsx global>
