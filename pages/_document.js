@@ -6,6 +6,7 @@ class MyDocument extends Document {
             <Html lang="th">
                 <Head>
                     <link rel="icon" type="image/png" href="/images/favicon.png"></link>
+                    <script src="https://smtpjs.com/v3/smtp.js"></script>
                 </Head>
                 <body>
                     <Main />

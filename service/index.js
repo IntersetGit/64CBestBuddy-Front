@@ -91,6 +91,14 @@ export const GetPriceInsuranceService = async (data) => {
     })
 };
 
+export const FalconApiConfirmService = async (id) => {
+    return await Axios({
+        method: "get",
+        url: `${process.env.NEXT_PUBLIC_SERVICE}/falcon/confirm/${id}`,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
+    })
+};
+
 
 
 export default {
