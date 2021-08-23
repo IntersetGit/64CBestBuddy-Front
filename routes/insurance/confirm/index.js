@@ -81,7 +81,7 @@ const Confirm = ({ model }) => {
 
             setLoading(true)
             const getOtp = GenerateOTP(6)
-            console.log('getOtp :>> ', getOtp);
+            // console.log('getOtp :>> ', getOtp);
             setOtp(getOtp)
 
             const title = `
