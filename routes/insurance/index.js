@@ -218,8 +218,8 @@ const InsuranceHome = (props) => {
 
 
                                             <div className="price">
-                                                <h2><sup>฿</sup> {e.price.toLocaleString()} <sub> / {e.installment_name}</sub></h2>
-                                                <h2 style={{ fontSize: 16, paddingTop: 5 }}><s>1,058</s> บาท <span style={{ color: "red", fontSize: 16 }}>-15%</span></h2>
+                                                <h2><sup>฿</sup> {e.price ? e.price.toLocaleString() : "-"} <sub> / {e.installment_name}</sub></h2>
+                                                {/* <h2 style={{ fontSize: 16, paddingTop: 5 }}><s>1,058</s> บาท <span style={{ color: "red", fontSize: 16 }}>-15%</span></h2> */}
                                             </div>
 
                                             <div className="text-end">

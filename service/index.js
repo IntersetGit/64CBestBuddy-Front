@@ -74,10 +74,13 @@ export const GetByIdInsuranceService = async (id) => {
     })
 };
 
-export const GetImagesHeaderInsuranceService = async () => {
+export const GetImagesHeaderInsuranceService = async (insurance_category_id) => {
+    let url = `${process.env.NEXT_PUBLIC_SERVICE}/insurance/getImagesHeaderInsurance?`
+    if (insurance_category_id) url += `&insurance_category_id=${insurance_category_id}`
+
     return await Axios({
         method: "get",
-        url: `${process.env.NEXT_PUBLIC_SERVICE}/insurance/getImagesHeaderInsurance`,
+        url,
         config: { headers: { "Content-Type": "multipart/form-data" } },
     })
 };
@@ -91,7 +94,7 @@ export const GetPriceInsuranceService = async (data) => {
     })
 };
 
-export const FalconApiConfirmService = async (id , data) => {
+export const FalconApiConfirmService = async (id, data) => {
     return await Axios({
         method: "post",
         url: `${process.env.NEXT_PUBLIC_SERVICE}/falcon/confirm/${id}`,

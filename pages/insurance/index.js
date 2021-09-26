@@ -15,7 +15,7 @@ export default () => {
 
     const GetImagesHeaderInsuranceData = async () => {
         try {
-            const { data } = await GetImagesHeaderInsuranceService()
+            const { data } = await GetImagesHeaderInsuranceService("2bf5864d-68f6-4cb6-b14d-7999ca213306")
             setSliderList(data.items)
         } catch (error) {
             message.error('เรียกข้อมูลผิดพลาด!');
