@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Form, Input, Button, Checkbox } from 'antd';
-import { SendEmail } from '../utils/SendEmail'
+import { Form, Input, Button } from 'antd';
+import Head from 'next/head'
 
 function demo() {
 
@@ -49,6 +49,9 @@ function demo() {
 
     return (
         <div className="blog-details-area ptb-100">
+            <Head>
+                <title>ทดสอบส่ง Mail</title>
+            </Head>
             <div className="container">
                 <div className="section-title">
                     <h2>ทดสอบส่ง Mail</h2>
