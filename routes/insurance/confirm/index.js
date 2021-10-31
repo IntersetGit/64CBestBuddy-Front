@@ -97,7 +97,7 @@ const Confirm = ({ model }) => {
             setSetLoadingVerificat(true)
 
 
-            const _res = await SendEmail(model.form.email, "[K-iDrone] Verification", title)
+            const _res = await SendEmail(model.form.email, "ยืนยันความปลอดภัย", title)
             // console.log('_res :>> ', _res);
             if (_res == "OK") {
                 setSetModalVerificat(true)
