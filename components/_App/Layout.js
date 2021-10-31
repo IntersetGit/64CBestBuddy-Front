@@ -2,6 +2,10 @@ import React from 'react'
 import Head from "next/head"
 import GoTop from './GoTop'
 import Preloader from './Preloader'
+import Navbar from '../../components/_App/Navbar';
+import { ConfigProvider } from 'antd';
+import "moment/locale/th";
+import locale from 'antd/lib/locale/th_TH';
 
 const Layout = ({ children }) => {
 
@@ -12,23 +16,18 @@ const Layout = ({ children }) => {
         setTimeout(() => setLoader(false), 1000);
     }, [])
 
-    return(
-        <>
+    return (
+        <ConfigProvider locale={locale}>
             <Head>
-                <title>The Best BUDDY 19</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="The Best BUDDY 19" />
-                <meta name="og:title" property="og:title" content="The Best BUDDY 19"></meta>
-                <meta name="twitter:card" content="The Best BUDDY 19"></meta>
-                <link rel="canonical" href="https://flexa-react.envytheme.com/"></link>
             </Head>
-
+            <Navbar />
             {children}
 
             {loader ? <Preloader /> : null}
-        
+
             <GoTop scrollStepInPx="100" delayInMs="10.50" />
-        </>
+        </ConfigProvider>
     );
 }
 
